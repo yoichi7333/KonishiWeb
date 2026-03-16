@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>診療案内 | こにしクリニック</title>
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Montserrat:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+
+    
+</head>
+<body>
+
+<header class="glass-header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">医療法人こにしクリニック</a>
+        
+        <button class="menu-toggle" aria-label="メニューを開く">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="index.html#about"><span class="en">About</span>当院について</a></li>
+                <li><a href="infertility.html"><span class="en">Infertility</span>不妊治療</a></li>
+                <li><a href="gynecology.html"><span class="en">Gynecology</span>婦人科</a></li>
+                <li><a href="news.html"><span class="en">News</span>お知らせ</a></li>
+                <li><a href="consultation.html"><span class="en">Consultation</span>診療案内</a></li>
+                <li><a href="access.html"><span class="en">Access</span>アクセス</a></li>
+                <li class="reserve-btn"><a href="#">WEB予約</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="page-header">
+        <h1 class="page-title"><span class="en">Consultation</span>診療案内</h1>
+    </div>
+
+    <section class="section" style="padding-top: 40px; padding-bottom: 60px;">
+        <div class="container">
+            <h2 class="section-title">外来診療時間・担当医表</h2>
+            
+            <div class="schedule-wrap">
+                <table class="medical-table">
+                    <thead>
+                        <tr>
+                            <th>診療時間</th>
+                            <th>診察室</th>
+                            <th>月</th>
+                            <th>火</th>
+                            <th>水</th>
+                            <th>木</th>
+                            <th>金</th>
+                            <th>土</th>
+                            <th>日</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2">午前<br>8:30〜12:00</td>
+                            <td>診察1</td>
+                            <td>*代診</td>
+                            <td>院長</td>
+                            <td>院長</td>
+                            <td class="closed">休診</td>
+                            <td>院長</td>
+                            <td>院長</td>
+                            <td class="closed">休診</td>
+                        </tr>
+                        <tr>
+                            <td>診察2<br><span style="font-size:0.8em">(9:00〜)</span></td>
+                            <td>ー</td>
+                            <td>木村</td>
+                            <td>木村</td>
+                            <td>木村</td>
+                            <td>*木村</td>
+                            <td>*木村</td>
+                            <td class="closed">休診</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">午後<br>15:00〜18:00</td>
+                            <td>診察1</td>
+                            <td>院長</td>
+                            <td>院長</td>
+                            <td>院長</td>
+                            <td>院長</td>
+                            <td>*代診</td>
+                            <td>院長*<br><span style="font-size:0.8em">(17:00迄)</span></td>
+                            <td class="closed">休診</td>
+                        </tr>
+                        <tr>
+                            <td>診察2<br><span style="font-size:0.8em">(〜17:00)</span></td>
+                            <td>木村</td>
+                            <td>木村</td>
+                            <td>木村</td>
+                            <td>木村</td>
+                            <td>ー</td>
+                            <td>ー</td>
+                            <td class="closed">休診</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="notes-list">
+                <li>＊月曜日の1診は8:30〜9:30までは院長が担当し、10:00からは代診医師が担当します。</li>
+                <li>＊第1、第3、第5土曜日午前の2診は木村医師が担当します。第2、第4土曜日は1診のみとなります。</li>
+                <li>＊土曜日午後の1診は院長または代診医となり、診療時間は17:00までとなります。</li>
+                <li>・土曜日の受付時間は16:30までとなります。</li>
+                <li>・不妊治療は院長のみが行っています。</li>
+                <li>・第二、第四土曜日は初診（不妊治療、里帰り等）の受付はしておりません。</li>
+                <li>・助産師外来は毎日対応しております。ご希望の方は事前にご連絡いただきご予約ください。</li>
+                <li>・ママの産後1ヶ月健診は随時受け付けております。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section" style="background-color: var(--bg-light); padding: 80px 0;">
+        <div class="container">
+            <h2 class="section-title">ご予約について</h2>
+            <p style="text-align: center; color: var(--sub-text); margin-bottom: 40px;">
+                当クリニックは、予約の患者様を優先して診療いたします。<br>初診の方もWebからご予約が可能です。
+            </p>
+
+            <div class="reservation-cards">
+                <div class="res-card">
+                    <h3>お電話でのご予約</h3>
+                    <p style="font-size: 0.9rem; color: var(--sub-text);">【受付時間】8:30〜12:00 / 15:00〜16:30</p>
+                    <div class="tel-number">0897-33-1135</div>
+                    <p style="font-size: 0.85rem; color: var(--sub-text);">分娩・緊急の場合は時間外でもまずはお電話にてご連絡ください。</p>
+                </div>
+                <div class="res-card">
+                    <h3>Webからのご予約</h3>
+                    <p style="font-size: 0.9rem; color: var(--sub-text);">スマートフォン・パソコンからいつでもご予約可能です。</p>
+                    <a href="#" class="btn-web">Web予約システムへ</a>
+                    <p style="font-size: 0.85rem; color: var(--sub-text); margin-top: 15px;">※ご予約にはメールアドレスの登録が必要です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="padding: 80px 0 40px;">
+        <div class="container">
+            <h2 class="section-title">医師紹介</h2>
+            
+            <div class="doctor-box">
+                <div>
+                    <img src="./image/113.jpg" alt="小西 秀樹" class="doc-img">
+                </div>
+                <div class="doc-info">
+                    <p class="doc-role">理事長・院長</p>
+                    <h3 class="doc-name">小西 秀樹 <span style="font-size:1rem; color:#888; margin-left:10px; font-family:var(--font-sans);">Hideki Konishi</span></h3>
+                    <p class="doc-specialty">専門領域：産科・不妊治療（体外受精・顕微授精などの高度生殖医療）</p>
+                    <p style="font-size: 0.85rem; color: var(--sub-text);">日本産科婦人科学会専門医 / 日本生殖医学会所属 / 日本受精着床学会所属 / 日本産科麻酔学会所属</p>
+                    <div class="doc-history">
+                        平成6年 関西医科大学卒業<br>
+                        平成6年 岡山大学医学部産科婦人科学教室<br>
+                        平成16年 医学博士号取得<br>
+                        平成16年 医療法人こにしクリニック勤務
+                    </div>
+                </div>
+            </div>
+
+            <div class="doctor-box">
+                <div>
+                    <img src="./image/118.jpg" alt="木村 慶子" class="doc-img">
+                </div>
+                <div class="doc-info">
+                    <p class="doc-role">医師</p>
+                    <h3 class="doc-name">木村 慶子 <span style="font-size:1rem; color:#888; margin-left:10px; font-family:var(--font-sans);">Keiko Kimura</span></h3>
+                    <p class="doc-specialty">専門領域：産科・女性外来（生理痛、更年期、性感染症 など）</p>
+                    <p style="font-size: 0.85rem; color: var(--sub-text);">日本産科婦人科学会専門医 / 日本性感染症学会認定医 / 日本周産期・新生児医学会所属 / 日本産科麻酔学会所属</p>
+                    <div class="doc-history">
+                        平成18年 愛媛大学医学部卒業<br>
+                        平成20年 愛媛労災病院産婦人科勤務<br>
+                        平成21年 宮崎大学医学部付属病院産婦人科勤務<br>
+                        平成27年 こにしクリニック産婦人科勤務
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="padding: 40px 0 80px;">
+        <div class="container">
+            <h2 class="section-title">スタッフ紹介</h2>
+            
+            <div class="staff-grid">
+                <div class="staff-box">
+                    <h4>看護スタッフ <span style="font-size:0.8rem; font-weight:normal;">(助産師5名)</span></h4>
+                    <p>妊婦様、患者様が安心して出産や治療に専念できるよう常に心がけております。お困りのことがありましたらいつでも声をおかけください。</p>
+                </div>
+                <div class="staff-box">
+                    <h4>臨床検査技師・胚培養士 <span style="font-size:0.8rem; font-weight:normal;">(2名)</span></h4>
+                    <p>一般検査、不妊治療（胚の培養、凍結、融解、顕微授精）などを行っています。検査結果など専門用語でわかりにくい場合はいつでもご質問ください。</p>
+                </div>
+                <div class="staff-box">
+                    <h4>補助看護師 <span style="font-size:0.8rem; font-weight:normal;">(4名)</span></h4>
+                    <p>入院中の患者様の身の回りのお世話をさせていただいています。快適な入院生活を送っていただけるようサポートいたします。</p>
+                </div>
+                <div class="staff-box">
+                    <h4>医療事務・システム管理 <span style="font-size:0.8rem; font-weight:normal;">(3名/1名)</span></h4>
+                    <p>初めての方でも安心して受診できるクリニックづくりを心がけております。ご相談やご質問など、お気軽にお声をおかけください。</p>
+                </div>
+            </div>
+
+            <details class="facility-details">
+                <summary class="facility-summary">▶︎ 施設基準 / 診療報酬改定について</summary>
+                <div class="facility-content">
+                    <h5>医療情報取得加算・医療DX推進体制整備加算について</h5>
+                    <p>当クリニックはオンライン資格確認を行う体制を有しており、医療DXを通じて質の高い医療を提供できるよう取り組んでおります。正確な情報を取得・活用するため、マイナ保険証の利用にご協力をお願いします。</p>
+                    
+                    <h5>一般名処方加算について</h5>
+                    <p>後発医薬品のある医薬品について、特定の医薬品名を指定するのではなく、薬剤の成分をもとにした一般名で処方を行う場合があります。特定の医薬品が不足した場合でも、患者様に必要な医薬品が提供しやすくなります。</p>
+                    
+                    <h5>明細書発行体制等加算について</h5>
+                    <p>医療の透明化や患者様への情報提供を積極的に推進していく観点から、領収書の発行の際に個別の診療報酬の算定項目がわかる明細書を無料で発行しております。</p>
+
+                    <h5>差額ベッド代（室料差額）</h5>
+                    <p>・特別室（211）：15,000円<br>
+                       ・洋室個室（101,201,202,203）：8,000円<br>
+                       ・和洋室個室（205,206,207）：8,000円<br>
+                       ※非課税/1日につき。各病室ともエアコン、冷蔵庫、TV、Wi-Fi、シャワー等完備。</p>
+                </div>
+            </details>
+
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner text-center">
+        <small>© Medical Corporation Konishi Clinic</small>
+    </div>
+</footer>
+
+<script src="./js/script.js"></script>
+
+</body>
+</html>
