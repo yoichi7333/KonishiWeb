@@ -811,3 +811,34 @@ footer small { font-family: var(--font-sans); font-size: 0.7rem; color: var(--su
     font-family: var(--font-serif);
     letter-spacing: 0.05em;
 }
+
+/* ==================================================
+   現在開いているページ（カレント）のメニュー装飾
+================================================== */
+/* 1. 文字をテーマカラー（緑）にし、少し太くする */
+nav a.active {
+    color: var(--accent) !important; /* 強制的に緑色にする */
+    font-weight: 700;                /* 文字を太くする */
+}
+
+/* 2. 上の英語部分も少し強調する */
+nav a.active .en {
+    font-weight: 700;
+    letter-spacing: 0.2em; /* 文字の間隔を少し広げて目立たせる */
+}
+
+/* 3. 文字の下に小さなドット（丸）を表示してアクセントをつける */
+nav a.active::after {
+    content: '';
+    display: block;
+    width: 6px;             /* ドットの幅 */
+    height: 6px;            /* ドットの高さ */
+    background-color: var(--accent); /* ドットの色を緑に */
+    border-radius: 50%;     /* 丸くする */
+    margin: 5px auto 0;     /* 文字との隙間を調整して中央に配置 */
+}
+
+/* ※WEB予約ボタンは形が違うため、ドットがつかないように除外する */
+.reserve-btn a.active::after {
+    display: none;
+}
