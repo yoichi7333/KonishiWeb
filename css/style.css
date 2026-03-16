@@ -1,0 +1,813 @@
+@charset "UTF-8";
+
+/* ==================================================
+   1. デザインの基本設定 (Variables & Base)
+   サイト全体で使う色やフォントをここで一括管理します。
+================================================== */
+:root {
+    /* --変数名: 値; で定義。
+       一箇所変えるだけでサイト全体の色を変更できる便利な仕組みです。
+    */
+    --accent: #5d8581;      /* 落ち着いた青緑（メインの差し色） */
+    --hover-green: #6b7e6e; /* ホバー時に使う少し明るい緑 */
+    --text: #222222;        /* 基本の文字色 */
+    --sub-text: #666666;    /* 日付や補足に使う薄い文字色 */
+    --bg-light: #fdfdfd;    /* 背景色（真っ白より目に優しい白） */
+    --line: #e0e0e0;        /* 区切り線や枠線の色 */
+    
+    /* フォントの種類 */
+    --font-serif: 'Shippori Mincho', serif; /* 上品な明朝体 */
+    --font-sans: 'Montserrat', sans-serif;  /* 洗練された欧文フォント */
+}
+
+/* 全ての要素に適用される基本ルール */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; /* 余白を含めてサイズを計算するように固定します */
+}
+
+html { 
+    scroll-behavior: smooth; /* リンクを押した時にヌルっと動くようにします */
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    background: var(--bg-light);
+    line-height: 1.8;       /* 行間を広めに取って読みやすくします */
+    overflow-x: hidden;     /* 横揺れ（横スクロール）を防止します */
+    -webkit-font-smoothing: antialiased; /* 文字の縁を滑らかに見せます */
+}
+
+/* 見出しには明朝体を使用 */
+h1, h2, h3, h4 { 
+    font-family: var(--font-serif); 
+    font-weight: 400; 
+}
+
+/* 英語部分や数字などは欧文フォントを適用し、少し隙間（letter-spacing）を空けます */
+.en, .en-title, .more, .arrow-link, time, .card-num { 
+    font-family: var(--font-sans);
+    text-transform: uppercase; /* 小文字で書いても自動的に大文字にします */
+    letter-spacing: 0.15em;    /* 文字間隔を広げて高級感を出します */
+}
+
+/* ==================================================
+   2. ヘッダー (Header)
+   画面上部に固定されるメニューエリアの設定です。
+================================================== */
+.glass-header {
+    position: fixed;        /* スクロールしても画面上部に固定します */
+    width: 100%;            /* 横幅を画面いっぱいに広げます */
+    padding: 20px 60px;     /* 上下に20px、左右に60pxの余白を作ります */
+    z-index: 1000;          /* 他の画像などの要素より一番手前に表示させます */
+    background: rgba(255,255,255,0.7); /* 70%の透明度の白（後ろを少し透かします） */
+    backdrop-filter: blur(12px);       /* 後ろの景色をすりガラスのようにぼかします */
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* 下側に非常に薄い境界線を入れます */
+}
+
+.header-inner { 
+    display: flex;          /* ロゴとメニューを横並びにします */
+    justify-content: space-between; /* 左右の端にそれぞれ配置します */
+    align-items: center;    /* 縦方向のズレをなくし中央で揃えます */
+}
+
+.logo { 
+    text-decoration: none;  /* リンクの下線を消します */
+    color: var(--text);     /* 変数で指定した文字色（濃いグレー）を適用します */
+    font-size: 1.1rem;      /* ロゴの文字サイズを調整します */
+    letter-spacing: 0.1em;  /* 文字同士の間隔を少し広げて上品に見せます */
+}
+
+nav ul { 
+    display: flex;          /* メニュー項目（About, News等）を横並びにします */
+    list-style: none;       /* リストの「・」を消します */
+    align-items: center;    /* 縦方向の中央を揃えます */
+    gap: 40px;              /* メニュー同士の間に40pxの隙間を作ります */
+}
+
+nav a { 
+    text-decoration: none;  /* リンクの下線を消します */
+    color: var(--text);     /* 通常時の文字色を指定します */
+    text-align: center;     /* 文字を中央揃えにします */
+    display: block;         /* リンク全体を一つの箱（ブロック）として扱い、動きを付けやすくします */
+    /* 【重要】 transition: 
+       マウスを乗せた時や外した時の変化を、0.3秒かけて滑らかにします。
+    */
+    transition: all 0.3s ease; 
+}
+
+/* 【修正箇所】 nav a:hover 
+   「当院について」「お知らせ」などのメニューにマウスを乗せた時の動きです。
+*/
+nav a:hover { 
+    /* transform: translateY(-3px); 
+       マウスを乗せた時に、3ピクセル分だけ上に浮かび上がらせます。
+    */
+    transform: translateY(-3px); 
+    /* color: var(--accent); 
+       文字の色を、テーマカラーであるアクセント色（青緑）に変更します。
+    */
+    color: var(--accent); 
+}
+
+nav a .en { 
+    display: block;         /* 日本語の上に配置するためにブロック要素にします */
+    font-size: 0.65rem;     /* 英語部分を小さくします */
+    color: var(--accent);   /* 英語部分は最初からアクセント色にします */
+    margin-bottom: 2px;     /* 日本語との間に少しだけ隙間を作ります */
+}
+
+/* ==================================================
+   【WEBサービス】予約ボタン（丸ボタン形式）
+================================================== */
+.reserve-btn a {
+    background: var(--accent); /* ボタンの背景をアクセント色にします */
+    color: #ffffff;               /* 文字を白にします */
+    padding: 12px 25px;        /* ボタンの中にゆとりのある余白を作ります */
+    border-radius: 40px;       /* 角を大きく丸くしてカプセル型にします */
+    font-size: 0.85rem;        /* ボタン内の文字サイズを調整します */
+    transition: transform 0.3s; /* 拡大する動きを滑らかにします */
+}
+
+.reserve-btn a:hover { 
+    /* transform: scale(1.08);
+       マウスオンでボタン全体を1.08倍の大きさに拡大します。
+    */
+    transform: scale(1.05); 
+    opacity: 1;                /* 透明にならず、くっきりと表示させます */
+}
+
+/* --- 1. WEB予約ボタンのホバー修正 --- */
+.reserve-btn a:hover {
+    transform: scale(1.05);
+    opacity: 1;
+    color: #fff !important; /* 他のナビリンクの色指定を強制的に上書きして「白」を維持します */
+}
+
+/* --- 2. ハンバーガーボタンのデザイン（PCでは非表示） --- */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    z-index: 1100;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text);
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 11px; }
+.menu-toggle span:nth-child(3) { bottom: 0; }
+
+/* ボタンが押された時のアニメーション (X印になる) */
+.menu-toggle.is-active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.menu-toggle.is-active span:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+/* --- 3. スマホ対応 (Responsive 768px以下) --- */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; } /* スマホ時のみボタンを表示 */
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* 最初は画面の右外に隠しておく */
+        width: 80%;   /* 画面の8割を覆うメニュー */
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        padding: 100px 40px;
+        transition: all 0.5s ease;
+        z-index: 1050;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+    }
+
+    nav.is-active {
+        right: 0; /* ボタンが押されたら画面内に出てくる */
+    }
+
+    nav ul {
+        flex-direction: column; /* 縦並びに変更 */
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    nav a {
+        font-size: 1.1rem;
+        text-align: left;
+    }
+}
+/* ==================================================
+   3. メインビジュアル (Hero Slider)
+================================================== */
+.hero { 
+    height: 100vh; /* 画面の高さ100%分を確保 */
+    position: relative; 
+    overflow: hidden; 
+}
+
+.slide { 
+    position: absolute; 
+    inset: 0; /* 上下左右0の位置に固定（全画面） */
+    opacity: 0; 
+    transition: opacity 2s ease-in-out; /* 2秒かけてフワッと切り替え */
+    z-index: 1; 
+}
+
+.slide.is-active { 
+    opacity: 1; 
+    z-index: 2; 
+}
+
+/* ズームアウトするようなエフェクト */
+.img-wrap { 
+    width: 100%; 
+    height: 100%; 
+    transform: scale(1.1); /* 最初は1.1倍の大きさ */
+    transition: transform 8s linear; 
+}
+
+.slide.is-active .img-wrap { 
+    transform: scale(1.0); /* 8秒かけて元の大きさに戻る（ゆっくりズームアウト） */
+}
+
+.slide img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    filter: brightness(0.9); /* 写真を少し暗くして、上の文字を読みやすくします */
+}
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center; /* 縦方向の中央 */
+    padding-left: 10%;   /* 左側に10%の余白 */
+    z-index: 10;
+}
+
+/* 半透明のパネル（文字の背景） */
+.glass-panel {
+    padding: 60px;
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(15px);
+    border-left: 8px solid var(--accent); /* 左側にアクセントの縦線を入れます */
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+}
+
+.hero-content h2 { font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; }
+
+/* スライド下のインジケーター（点） */
+.slider-dots {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    gap: 15px;
+}
+.dot { width: 8px; height: 8px; background: rgba(0,0,0,0.2); border-radius: 50%; cursor: pointer; }
+.dot.is-active { 
+    background: var(--accent); 
+    width: 24px;       /* アクティブな時だけ横長にします */
+    border-radius: 10px; 
+    transition: all 0.3s; 
+}
+
+/* ==================================================
+   4. 各セクションの共通設定 (Sections)
+================================================== */
+.section { padding: 140px 0; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+/* 下からフワッと出るアニメーション用クラス */
+.js-scroll {
+    opacity: 0;
+    transform: translateY(40px); /* 40px下に下げておきます */
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0); /* 元の高さに戻ります */
+}
+
+/* ==================================================
+   5. お知らせリスト (News Section)
+================================================== */
+.news-list { list-style: none; border-top: 1px solid var(--line); }
+
+.news-list li a {
+    display: flex; 
+    align-items: center; 
+    padding: 25px 15px; /* 横にも余白をつけました */
+    border-bottom: 1px solid var(--line); 
+    text-decoration: none; 
+    color: inherit;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+/* ホバー時の反応：少し右に動き、文字色がグリーンに変わる */
+.news-list li a:hover { 
+    background: rgba(107, 126, 110, 0.05); /* ほんのりグリーン */
+    transform: translateX(5px);
+}
+
+.news-list li a:hover time,
+.news-list li a:hover p,
+.news-list li a:hover .cat {
+    color: var(--hover-green);
+}
+
+.news-list time { font-size: 0.85rem; color: var(--sub-text); width: 140px; }
+.news-list .cat {
+    font-size: 0.7rem; 
+    color: var(--accent); 
+    border: 1px solid var(--accent);
+    padding: 2px 12px; 
+    margin-right: 30px; 
+    border-radius: 20px;
+    transition: border-color 0.3s;
+}
+.news-list li a:hover .cat { border-color: var(--hover-green); }
+
+/* ==================================================
+   6. 診療案内カード (Medical Cards)
+================================================== */
+.medical-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* 3列に並べます */
+    gap: 30px; 
+}
+
+.medical-card {
+    display: block;
+    background: #fff; 
+    padding: 50px 35px; 
+    border: 1px solid var(--line);
+    text-decoration: none; 
+    color: inherit; 
+    transition: all 0.4s ease; 
+    position: relative;
+    border-radius: 8px;
+}
+
+/* ホバー時の反応：上に浮き上がり、枠線と文字がグリーンに */
+.medical-card:hover { 
+    transform: translateY(-10px); 
+    border-color: var(--hover-green); 
+    box-shadow: 0 10px 30px rgba(107, 126, 110, 0.15); /* 影もグリーンがかった色に */
+}
+
+.medical-card:hover h4,
+.medical-card:hover .more,
+.medical-card:hover .card-num {
+    color: var(--hover-green);
+}
+
+.card-num { 
+    color: var(--accent); 
+    font-size: 1.2rem; 
+    opacity: 0.3; 
+    margin-bottom: 20px; 
+    display: block; 
+}
+
+.medical-card .more { 
+    font-size: 0.7rem; 
+    color: var(--accent); 
+    margin-top: 20px; 
+    display: block; 
+    border-bottom: 1px solid var(--accent); 
+    width: fit-content; 
+    transition: all 0.3s;
+}
+
+.medical-card:hover .more {
+    border-color: var(--hover-green);
+    letter-spacing: 0.25em; /* 文字間を少し広げて動きを出します */
+}
+
+/* ==================================================
+   7. アクセス・フッター (Access & Footer)
+================================================== */
+.access-flex { display: flex; gap: 60px; align-items: flex-start; }
+.access-info { flex: 1; }
+.tel { font-family: var(--font-sans); font-size: 1.5rem; color: var(--accent); margin-bottom: 30px; }
+.map-wrap { flex: 1.2; height: 450px; background: #eee; }
+
+footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--line); }
+footer small { font-family: var(--font-sans); font-size: 0.7rem; color: var(--sub-text); }
+
+/* ==================================================
+   8. スマホ対応 (Responsive)
+   画面幅が768px（一般的なタブレット/スマホ）以下になった時のルールです。
+================================================== */
+@media (max-width: 768px) {
+    .glass-header { padding: 15px 20px; }
+    nav { display: none; } /* スマホでは一旦メニューを隠します（ハンバーガー用） */
+    
+    .hero-content { padding-left: 5%; }
+    .hero-content h2 { font-size: 1.8rem; }
+    .glass-panel { padding: 30px; }
+    
+    .medical-grid { grid-template-columns: 1fr; } /* 3列から「1列」へ変更 */
+    .access-flex { flex-direction: column; }      /* 左右並びを「上下並び」へ変更 */
+    .map-wrap { width: 100%; height: 300px; }
+    
+    .news-list li a { flex-direction: column; align-items: flex-start; }
+    .news-list time { width: auto; margin-bottom: 5px; }
+    .news-list .cat { margin: 10px 0; }
+}
+
+/* ==================================================
+   【修正】WEB予約ボタンのホバー時の文字色
+================================================== */
+.reserve-btn a:hover {
+    color: #ffffff !important; /* 他のナビの黒色設定を強制的に上書きして白を維持 */
+    opacity: 1;
+}
+
+/* ==================================================
+   【修正】スマホ用メニュー（表示されない問題の解決）
+================================================== */
+@media (max-width: 768px) {
+    /* 元々あった nav { display: none; } が邪魔をしているため、
+       display: block !important; で表示許可を出します */
+    nav {
+        display: block !important; 
+        position: fixed;
+        top: 0;
+        right: -100%; /* 最初は画面の右外に隠す */
+        width: 80%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        padding: 100px 40px;
+        transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 1050;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    }
+
+    /* ボタンが押されて is-active クラスがついた時 */
+    nav.is-active {
+        right: 0; /* 画面内にスライドイン */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    nav a {
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: left;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    /* スマホメニュー内のWEB予約ボタンを調整 */
+    .reserve-btn {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .reserve-btn a {
+        text-align: center;
+        border-bottom: none;
+    }
+}
+
+/* ==================================================
+   9. 下層ページ共通・専用パーツ (Sub Pages)
+================================================== */
+
+/* 下層ページのタイトルエリア */
+.page-header {
+    /* ヘッダーが固定されている分、文字が隠れないように上部余白を大きめにとる */
+    padding: 180px 0 60px; 
+    background-color: var(--bg-light);
+    text-align: center;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    color: var(--accent); /* テーマカラーの青緑 */
+}
+
+.page-title .en {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--sub-text);
+    margin-bottom: 5px;
+    letter-spacing: 0.25em;
+}
+
+/* 一部セクションの上部余白を消すための調整クラス */
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+/* ページネーション（1, 2, 3... 次へ のボタン） */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 60px;
+}
+
+.pagination a, .pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-family: var(--font-sans);
+    transition: all 0.3s ease;
+}
+
+.page-current {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+.page-link {
+    border: 1px solid var(--line);
+    color: var(--text);
+}
+
+.page-link:hover {
+    background-color: rgba(107, 126, 110, 0.05);
+    border-color: var(--hover-green);
+    color: var(--hover-green);
+    transform: translateY(-3px); /* 少しだけ上に浮く */
+}
+
+.page-next {
+    width: auto;
+    padding: 0 25px;
+    border-radius: 25px; /* カプセル型にする */
+    border: 1px solid var(--line);
+    color: var(--text);
+}
+
+.page-next:hover {
+    background-color: rgba(107, 126, 110, 0.05);
+    border-color: var(--hover-green);
+    color: var(--hover-green);
+    transform: translateY(-3px);
+}
+
+        /* Instagramアイコンのスタイル調整 */
+        .nav-insta {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+        .nav-insta a {
+            font-size: 1.4rem;
+            color: var(--accent);
+            transition: transform 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .nav-insta a:hover {
+            color: #E1306C; /* Instagramブランドカラー */
+            transform: scale(1.1);
+        }
+
+        /* スマホ表示時の調整 */
+        @media (max-width: 768px) {
+            .nav-insta {
+                margin-left: 0;
+                margin-top: 20px;
+                justify-content: center;
+            }
+            .nav-insta a {
+                font-size: 2rem;
+            }
+        }
+        /* ==================================================
+   10. 各下層ページの専用・共通パーツ
+================================================== */
+/* ページ共通のリード文 */
+.page-intro { text-align: center; margin-bottom: 50px; }
+.page-intro h3 { font-size: 1.8rem; color: var(--accent); margin-bottom: 20px; font-family: var(--font-serif); }
+.page-intro p { font-size: 1rem; line-height: 2; }
+
+/* ページ内リンクのボタン */
+.service-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 80px; }
+.service-nav a { display: block; padding: 15px 30px; background: #fff; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 40px; transition: all 0.3s; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
+.service-nav a:hover { background: var(--accent); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(93, 133, 129, 0.2); }
+
+/* セクションの枠（不妊治療・婦人科 共通） */
+.content-section, .gyne-section { margin-bottom: 60px; padding: 50px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); scroll-margin-top: 120px; border: 1px solid var(--line); }
+.content-section h3, .gyne-section h3 { font-size: 1.6rem; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); }
+.content-section h4, .gyne-section h4 { font-size: 1.2rem; color: var(--text); margin: 40px 0 15px; padding-left: 15px; border-left: 4px solid var(--accent); font-family: var(--font-serif); }
+.content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
+
+/* ボックス・リストデザイン */
+.price-box { background: var(--bg-light); padding: 30px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--line); }
+.price-box .price-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
+.info-list, .gyne-list { list-style: none; margin-bottom: 20px; font-size: 0.95rem; }
+.info-list dt, .gyne-list dt { font-weight: bold; color: var(--hover-green); margin-top: 20px; margin-bottom: 5px; }
+.info-list dd, .gyne-list dd { margin-left: 0; margin-bottom: 15px; padding-left: 1em; line-height: 1.7; color: var(--sub-text); }
+.normal-list { padding-left: 1.5em; margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
+.normal-list li { margin-bottom: 10px; }
+.notice-text { font-size: 0.85rem; color: #d9534f; background: #fdf5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f2dede; line-height: 1.6; }
+
+/* 治療の流れ・実績（不妊治療） */
+.record-box { background: rgba(93, 133, 129, 0.05); border-left: 4px solid var(--accent); padding: 25px; margin: 30px auto; max-width: 800px; text-align: left; border-radius: 0 8px 8px 0; }
+.record-box p { margin-bottom: 0; color: var(--text); }
+.record-box strong { color: var(--accent); font-size: 1.1rem; }
+.flow-step { background: var(--bg-light); border-radius: 8px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); }
+.flow-step .step-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; }
+.flow-step .step-title span { background: var(--accent); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 15px; font-family: var(--font-sans); }
+.flow-step p { margin: 0; font-size: 0.95rem; }
+
+/* 診療案内・アクセス共通 */
+.section-title { text-align: center; margin-bottom: 40px; font-family: var(--font-serif); color: var(--accent); font-size: 1.8rem; }
+
+/* 診療案内ページ専用 */
+.schedule-wrap { overflow-x: auto; margin-bottom: 25px; }
+.medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-radius: 8px; overflow: hidden; }
+.medical-table th, .medical-table td { padding: 15px 10px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; }
+.medical-table th { background-color: rgba(93, 133, 129, 0.08); color: var(--accent); font-family: var(--font-sans); font-weight: 500; }
+.medical-table td.closed { color: #aaa; background-color: #fcfcfc; }
+.notes-list { font-size: 0.85rem; color: var(--sub-text); padding-left: 20px; line-height: 1.8; margin-bottom: 60px; }
+.notes-list li { margin-bottom: 5px; }
+.reservation-cards { display: flex; gap: 30px; }
+.res-card { flex: 1; background: #fff; border: 1px solid var(--line); padding: 40px 30px; border-radius: 8px; text-align: center; transition: all 0.3s ease; }
+.res-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.06); border-color: var(--accent); transform: translateY(-5px); }
+.res-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
+.res-card .tel-number { font-size: 2.2rem; font-family: var(--font-sans); font-weight: 500; color: var(--text); margin: 15px 0; letter-spacing: 0.05em; }
+.btn-web { display: inline-block; padding: 15px 40px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 50px; margin-top: 20px; transition: 0.3s; font-weight: 500; }
+.btn-web:hover { background: var(--hover-green); }
+.doctor-box { display: flex; gap: 40px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid transparent; }
+.doc-img { width: 220px; height: 280px; background: #eee; border-radius: 4px; object-fit: cover; }
+.doc-info { flex: 1; }
+.doc-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; }
+.doc-name { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 20px; color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 15px; }
+.doc-specialty { font-size: 0.95rem; margin-bottom: 10px; font-weight: 500; }
+.doc-history { font-size: 0.85rem; color: var(--sub-text); line-height: 1.8; margin-top: 20px; }
+.staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.staff-box { padding: 30px; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
+.staff-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
+.staff-box p { font-size: 0.9rem; color: var(--sub-text); line-height: 1.7; }
+.facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.facility-summary { padding: 20px 30px; cursor: pointer; font-weight: 500; color: var(--text); font-size: 1.1rem; list-style: none; }
+.facility-content { padding: 0 30px 30px; font-size: 0.85rem; color: var(--sub-text); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 20px; }
+.facility-content h5 { color: var(--text); font-size: 0.95rem; margin: 15px 0 5px; }
+
+/* アクセスページ専用 */
+.access-wrapper { display: flex; flex-direction: column; gap: 50px; }
+.map-container { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.info-box { background: #fff; padding: 40px; border-radius: 8px; border: 1px solid var(--line); }
+.info-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); font-family: var(--font-serif); }
+.info-detail { margin-bottom: 20px; }
+.info-detail h4 { font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; }
+.info-detail p { font-size: 1rem; color: var(--text); line-height: 1.6; margin: 0; }
+.clinic-name { font-size: 1.4rem; font-family: var(--font-serif); color: var(--text); margin-bottom: 15px; }
+.tel-large { font-size: 2rem; font-family: var(--font-sans); color: var(--accent); font-weight: 500; letter-spacing: 0.05em; }
+.transport-list { list-style: none; padding: 0; }
+.transport-list li { position: relative; padding-left: 25px; margin-bottom: 15px; font-size: 0.95rem; line-height: 1.6; }
+.transport-list li::before { content: '■'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 2px; }
+.hours-mini-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; text-align: center; }
+.hours-mini-table th, .hours-mini-table td { border: 1px solid var(--line); padding: 8px; }
+.hours-mini-table th { background: rgba(93, 133, 129, 0.05); color: var(--accent); font-weight: normal; }
+
+/* スマホ対応の追加分 */
+@media (max-width: 768px) {
+    .content-section, .gyne-section { padding: 30px 20px; scroll-margin-top: 80px; }
+    .service-nav { flex-direction: column; width: 100%; }
+    .service-nav a { text-align: center; width: 100%; }
+    .flow-step .step-title { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .reservation-cards { flex-direction: column; }
+    .doctor-box { flex-direction: column; padding: 20px; gap: 20px; }
+    .doc-img { width: 100%; height: auto; aspect-ratio: 3/4; }
+    .medical-table th, .medical-table td { padding: 8px 5px; font-size: 0.85rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .map-container { height: 300px; }
+    .info-box { padding: 30px 20px; }
+}
+/* ==================================================
+   11. ギャラリーページ専用パーツ
+================================================== */
+/* ギャラリー全体のレイアウト */
+.gallery-section { padding: 80px 0; background-color: #fff; }
+
+/* ギャラリーグリッド：レスポンシブ対応 */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+
+/* 各ギャラリーアイテムの基本スタイル */
+.gallery-item { position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid var(--line); aspect-ratio: 4 / 3; /* 画像のアスペクト比を統一 */ transition: all 0.5s ease-out; cursor: pointer; }
+
+/* ホバー時の効果：画像を拡大し、透明感のある緑のオーバーレイを表示 */
+.gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(93, 133, 129, 0.1); }
+
+/* 画像本体：アスペクト比を保って中央に配置 */
+.gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease-out; }
+
+/* ホバー時に画像を拡大 */
+.gallery-item:hover .gallery-img { transform: scale(1.1); }
+
+/* オーバーレイ：初期状態は透明 */
+.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(93, 133, 129, 0.85); /* 半透明のグリーン */ color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; /* 最初は隠す */ transition: opacity 0.5s ease; z-index: 10; pointer-events: none; /* 下の画像へのクリックを邪魔しない */ }
+
+/* ホバー時にオーバーレイを表示 */
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* オーバーレイ内のテキストスタイル */
+.gallery-title { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
+.gallery-desc { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.9); }
+
+/* スマホ対応の調整 */
+@media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; gap: 20px; } .gallery-title { font-size: 1.1rem; } .gallery-desc { font-size: 0.8rem; } }
+
+/* ==================================================
+   12. Lightbox (拡大表示機能)
+================================================== */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* 暗めの半透明背景 */
+    backdrop-filter: blur(8px);     /* 背景をすりガラスのようにぼかす（透明感） */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* ヘッダーよりもさらに手前に表示 */
+    opacity: 0;    /* 最初は透明 */
+    pointer-events: none; /* 非表示時はクリックできないようにする */
+    transition: opacity 0.4s ease; /* 0.4秒かけてフワッと表示 */
+}
+
+/* 画像がクリックされてアクティブになった時の状態 */
+.lightbox.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    transform: scale(0.95); /* 最初は少し小さくしておく */
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); /* 滑らかに元のサイズに戻る動き */
+}
+
+.lightbox.is-active .lightbox-content {
+    transform: scale(1); /* 100%のサイズにフワッと拡大 */
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* 画像にリッチな影をつける */
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.lightbox-close:hover {
+    color: var(--accent); /* ホバー時にテーマカラーのグリーンに */
+}
+
+.lightbox-caption {
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-family: var(--font-serif);
+    letter-spacing: 0.05em;
+}
