@@ -414,13 +414,13 @@ nav a .en {
 .map-wrap { flex: 1.2; height: 450px; background: #eee; }
 
 /* ==================================================
-   パターン1：グレージュ（温かみと上品さ）
+   パターン2：ディープグリーン（信頼感と引き締め効果）
 ================================================== */
 footer { 
-    background-color: #f4f3f0; /* 温かみのある上品なグレージュ */
+    background-color: var(--accent); /* テーマカラーの緑を使用 */
     padding: 60px 0; 
     text-align: center; 
-    border-top: none;          /* 上の線を消してスッキリと */
+    border-top: none; 
 }
 
 footer .footer-inner {
@@ -432,7 +432,7 @@ footer .footer-inner {
 /* もしフッターにロゴや文字を追加した場合のスタイル（任意） */
 footer .footer-logo {
     font-family: var(--font-serif);
-    color: #555555;
+    color: #ffffff;
     font-size: 1.1rem;
     margin-bottom: 15px;
     letter-spacing: 0.1em;
@@ -441,8 +441,8 @@ footer .footer-logo {
 footer small { 
     font-family: var(--font-sans); 
     font-size: 0.75rem; 
-    color: #888888;            /* 背景に馴染む少し薄いグレー */
-    letter-spacing: 0.08em;    /* 文字間隔を広げて洗練感を出す */
+    color: rgba(255, 255, 255, 0.5); /* 真っ白ではなく半透明にして馴染ませる */
+    letter-spacing: 0.08em;
 }
 
 /* ==================================================
