@@ -5,19 +5,22 @@
    サイト全体で使う色やフォントをここで一括管理します。
 ================================================== */
 :root {
-    /* --変数名: 値; で定義。
-       一箇所変えるだけでサイト全体の色を変更できる便利な仕組みです。
-    */
-    --accent: #5d8581;      /* 落ち着いた青緑（メインの差し色） */
-    --hover-green: #6b7e6e; /* ホバー時に使う少し明るい緑 */
-    --text: #222222;        /* 基本の文字色 */
-    --sub-text: #666666;    /* 日付や補足に使う薄い文字色 */
-    --bg-light: #fdfdfd;    /* 背景色（真っ白より目に優しい白） */
-    --line: #e0e0e0;        /* 区切り線や枠線の色 */
+    /* 変更前: #5d8581 → 少し深みと彩度を持たせたシックなグリーンに変更 */
+    --accent: #3b6962;      
+    /* 変更前: #6b7e6e → アクセントに合わせてホバー色も調整 */
+    --hover-green: #4a7c75; 
     
-    /* フォントの種類 */
-    --font-serif: 'Shippori Mincho', serif; /* 上品な明朝体 */
-    --font-sans: 'Montserrat', sans-serif;  /* 洗練された欧文フォント */
+    --text: #222222;        
+    /* 変更前: #666666 → 少し濃くして可読性をアップ */
+    --sub-text: #555555;    
+    
+    /* 変更前: #fdfdfd → 真っ白なカード等との差を出すため、ほんの少しだけグレーを足す */
+    --bg-light: #f8f9f8;    
+    /* 変更前: #e0e0e0 → 区切り線を少しだけくっきりさせる */
+    --line: #dcdcdc;        
+    
+    --font-serif: 'Shippori Mincho', serif;
+    --font-sans: 'Montserrat', sans-serif;
 }
 
 /* 全ての要素に適用される基本ルール */
@@ -43,7 +46,7 @@ body {
 /* 見出しには明朝体を使用 */
 h1, h2, h3, h4 { 
     font-family: var(--font-serif); 
-    font-weight: 400; 
+    font-weight: 500; /* 400から500に変更して芯を持たせる */
 }
 
 /* 英語部分や数字などは欧文フォントを適用し、少し隙間（letter-spacing）を空けます */
@@ -262,10 +265,10 @@ nav a .en {
 /* 半透明のパネル（文字の背景） */
 .glass-panel {
     padding: 60px;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.75); /* 0.3から0.75に上げて白を強くする */
     backdrop-filter: blur(15px);
-    border-left: 8px solid var(--accent); /* 左側にアクセントの縦線を入れます */
-    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    border-left: 6px solid var(--accent); /* 8pxから6pxにしてスタイリッシュに */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* 影を少し濃くして浮き出させる */
 }
 
 .hero-content h2 { font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; }
@@ -841,4 +844,17 @@ nav a.active::after {
 /* ※WEB予約ボタンは形が違うため、ドットがつかないように除外する */
 .reserve-btn a.active::after {
     display: none;
+}
+
+/* ボックスの線を消し、薄い影でエレガントに浮かせる */
+.medical-card, .info-box, .staff-box, .content-section, .gyne-section, .price-box {
+    border: none !important;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* ホバー時の動きも少し上品に抑える */
+.medical-card:hover { 
+    transform: translateY(-5px); /* -10pxだと動きが大きすぎるため調整 */
+    box-shadow: 0 12px 30px rgba(59, 105, 98, 0.12); /* 影も新しいアクセントカラーに合わせる */
 }
