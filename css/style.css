@@ -414,13 +414,13 @@ nav a .en {
 .map-wrap { flex: 1.2; height: 450px; background: #eee; }
 
 /* ==================================================
-   パターン2：ディープグリーン（信頼感と引き締め効果）
+   パターン1：グレージュ（温かみと上品さ）
 ================================================== */
 footer { 
-    background-color: var(--accent); /* テーマカラーの緑を使用 */
+    background-color: #f4f3f0; /* 温かみのある上品なグレージュ */
     padding: 60px 0; 
     text-align: center; 
-    border-top: none; 
+    border-top: none;          /* 上の線を消してスッキリと */
 }
 
 footer .footer-inner {
@@ -432,7 +432,7 @@ footer .footer-inner {
 /* もしフッターにロゴや文字を追加した場合のスタイル（任意） */
 footer .footer-logo {
     font-family: var(--font-serif);
-    color: #ffffff;
+    color: #555555;
     font-size: 1.1rem;
     margin-bottom: 15px;
     letter-spacing: 0.1em;
@@ -441,8 +441,8 @@ footer .footer-logo {
 footer small { 
     font-family: var(--font-sans); 
     font-size: 0.75rem; 
-    color: rgba(255, 255, 255, 0.5); /* 真っ白ではなく半透明にして馴染ませる */
-    letter-spacing: 0.08em;
+    color: #888888;            /* 背景に馴染む少し薄いグレー */
+    letter-spacing: 0.08em;    /* 文字間隔を広げて洗練感を出す */
 }
 
 /* ==================================================
@@ -887,3 +887,36 @@ nav a.active::after {
     transform: translateY(-5px); /* -10pxだと動きが大きすぎるため調整 */
     box-shadow: 0 12px 30px rgba(59, 105, 98, 0.12); /* 影も新しいアクセントカラーに合わせる */
 }
+
+/* ==================================================
+   【追加】PC用：追従するスライディング・インジケーター
+================================================== */
+@media (min-width: 769px) {
+    nav ul {
+        position: relative; /* インジケーターの基準位置 */
+        z-index: 1;
+    }
+    
+    /* 追従する緑の背景＆下線（マジックライン）の設定 */
+    .nav-indicator {
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        height: calc(100% + 10px); /* 文字全体をふんわり覆う高さ */
+        width: 0;
+        background-color: rgba(59, 105, 98, 0.06); /* ほんのり極薄いグリーン背景 */
+        border-bottom: 2px solid var(--accent);    /* くっきりしたグリーンの下線 */
+        border-radius: 4px;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* 滑らかな動きの要 */
+        opacity: 0;
+        pointer-events: none; /* マウスの邪魔をしない */
+        z-index: -1;          /* 文字の後ろに配置 */
+    }
+
+    /* 追従アニメーションを入れるため、既存の装飾をリセット */
+    nav a:hover { 
+        transform: none !important; /* 上に浮く動きをキャンセル */
+    }
+    nav a.active::after { 
+        display: none !important;   /* 既存の現在位置の丸いドットを非表示 */
+    }

@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
     // ==================================================
     // 4. Lightbox (ギャラリー画像の拡大表示)
     // ==================================================
@@ -91,5 +92,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeLightbox();
             }
         });
+    } // ★修正箇所：ここを正しい閉じカッコ `}` に直しました
+
+    // ==================================================
+    // 5. 【追加】PC用：追従するスライディング・インジケーター（マジックライン）
+    // ==================================================
+    // 画面幅がPCサイズ（769px以上）の時のみ実行
+    if (window.innerWidth > 768) {
+        const nav = document.querySelector('nav ul');
+        if (nav) {
+            // インジケーター（動く背景）を生成してメニューの中に追加
+            const indicator = document.createElement('div');
+            indicator.classList.add('nav-indicator');
+            nav.appendChild(indicator);
+
+            // WEB予約ボタン以外のメニューリンクを取得
+            const links = nav.querySelectorAll('li:not(.reserve-btn) a');
+            let activeLink = nav.querySelector('a.active'); // 現在表示しているページのリンク
+
+            // インジケーターを目的のメニューに移動させる関数
+            function moveIndicator(el) {
+                const rect = el.getBoundingClientRect();
+                const navRect = nav.getBoundingClientRect();
+                
+                // 親要素（ul）の左端からの距離と、文字の幅を計算
+                const left = rect.left - navRect.left;
+                const width = rect.width;
+
+                indicator.style.width = `${width}px`;
+                indicator.style.transform = `translateX(${left}px)`;
+                indicator.style.opacity = '1';
+            }
+
+            // 1. ページ読み込み時：現在いるページ（Active）にインジケーターを合わせる
+            if (activeLink) {
+                setTimeout(() => moveIndicator(activeLink), 100);
+            }
+
+            // 2. マウスが乗った時：そのメニューにスライドさせる
+            links.forEach(link => {
+                link.addEventListener('mouseenter', (e) => {
+                    moveIndicator(e.target);
+                });
+            });
+
+            // 3. マウスがメニュー全体から外れた時：現在いるページ（Active）に戻る
+            nav.addEventListener('mouseleave', () => {
+                if (activeLink) {
+                    moveIndicator(activeLink);
+                } else {
+                    indicator.style.opacity = '0'; // Activeなページがなければ透明にして隠す
+                }
+            });
+        }
     }
+
 });
