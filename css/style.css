@@ -2,26 +2,33 @@
 
 /* ==================================================
    1. デザインの基本設定 (Variables & Base)
-   サイト全体で使う色やフォントをここで一括管理します。
+   透明感と清潔感のある上品なミントグリーンのグラデーション
 ================================================== */
 :root {
-    /* 落ち着きと柔らかさのあるスモーキーローズ */
-    --accent: #B38B86;      
-    /* ホバー用：少し深みを持たせたトーン */
-    --hover-accent: #9A706B; 
+    /* グラデーション設定：背景用（純白から極薄いミントへの柔らかな変化） */
+    --gradient-bg: linear-gradient(135deg, #FFFFFF 0%, #F2F9F7 50%, #F7FCFA 100%);
     
-    /* 真っ黒を避け、温かみのあるチャコールブラウン系に */
-    --text: #4A4342;        
-    /* ほんのり赤みのあるグレージュ系 */
-    --sub-text: #7C7371;    
+    /* グラデーション設定：アクセント・ボタン用（ふんわりと光るミントグリーン） */
+    --gradient-accent: linear-gradient(135deg, #B6DFD6 0%, #90C8BE 100%);
     
-    /* ごく薄い、温かみのある明るいグレージュ */
-    --bg-light: #F9F6F5;    
-    /* 区切り線も柔らかいトーンに */
-    --line: #E8E2E1;        
+    /* 単色アクセント（グラデーションが使えない文字や線用） */
+    --accent: #90C8BE;      
+    --hover-accent: #78B5AA; 
     
-    --font-serif: 'Shippori Mincho', serif;
-    --font-sans: 'Montserrat', sans-serif;
+    /* 文字色：黒ではなく、ミントに馴染む少しグレーがかった落ち着いたチャコール */
+    --text: #535856;        
+    --sub-text: #88908D;    
+    
+    /* 基本背景と線：白にほんの少しだけミントを足した色 */
+    --bg-light: #F6FBF9;    
+    --line: #E1EBE8;        
+    
+    /* 【変更点】フォント設定を整理・統一 */
+    /* 日本語フォント：全体をスッキリとしたゴシック体で統一し、柔らかさを出す */
+    --font-ja: 'Noto Sans JP', sans-serif;
+    
+    /* 英語・数字フォント：スタイリッシュなアクセントとして残す */
+    --font-en: 'Montserrat', sans-serif;
 }
 
 /* 全ての要素に適用される基本ルール */
@@ -36,25 +43,28 @@ html {
 }
 
 body {
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: var(--font-ja); /* ベースを日本語ゴシック体に */
     color: var(--text);
-    background: var(--bg-light);
+    background: var(--gradient-bg);
+    background-attachment: fixed; 
     line-height: 1.8;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
+/* 見出しもゴシック体で統一し、太すぎないウェイト（500）と少しの文字間隔で抜け感を出す */
 h1, h2, h3, h4 { 
-    font-family: var(--font-serif); 
+    font-family: var(--font-ja); 
     font-weight: 500;
+    letter-spacing: 0.05em; /* 文字と文字の間に少しだけゆとりを持たせる */
 }
 
+/* 英語や数字のアクセント部分 */
 .en, .en-title, .more, .arrow-link, time, .card-num { 
-    font-family: var(--font-sans);
+    font-family: var(--font-en);
     text-transform: uppercase;
     letter-spacing: 0.15em;
 }
-
 /* ==================================================
    2. ヘッダー (Header)
 ================================================== */
@@ -63,9 +73,10 @@ h1, h2, h3, h4 {
     width: 100%;
     padding: 20px 60px;
     z-index: 1000;
-    background: rgba(255,255,255,0.7);
+    /* ヘッダーのすりガラスも少しミント寄りの白に */
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.03); /* 線をより薄く繊細に */
+    border-bottom: 1px solid rgba(225, 235, 232, 0.5); 
 }
 
 .header-inner { 
@@ -98,7 +109,7 @@ nav a {
 
 nav a:hover { 
     transform: translateY(-3px); 
-    color: var(--accent); 
+    color: var(--hover-accent); 
 }
 
 nav a .en { 
@@ -109,21 +120,25 @@ nav a .en {
 }
 
 /* ==================================================
-   【WEBサービス】予約ボタン
+   【WEBサービス】予約ボタン（グラデーション適用）
 ================================================== */
 .reserve-btn a {
-    background: var(--accent);
+    /* グラデーションで華やかさと透明感をプラス */
+    background: var(--gradient-accent);
     color: #ffffff;
     padding: 12px 25px;
     border-radius: 40px;
     font-size: 0.85rem;
-    transition: transform 0.3s;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(144, 200, 190, 0.3); /* ボタンにも淡いミントの影 */
+    border: none;
 }
 
 .reserve-btn a:hover {
     transform: scale(1.05);
     opacity: 1;
     color: #fff !important;
+    box-shadow: 0 6px 20px rgba(144, 200, 190, 0.5);
 }
 
 /* --- スマホ用ハンバーガーボタン --- */
@@ -164,7 +179,7 @@ nav a .en {
         right: -100%;
         width: 80%;
         height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
+        background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
         padding: 100px 40px;
         transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -216,7 +231,7 @@ nav a .en {
 .slide img { 
     width: 100%; height: 100%; 
     object-fit: cover; 
-    filter: brightness(0.9);
+    filter: brightness(0.95);
 }
 
 .hero-content {
@@ -230,10 +245,10 @@ nav a .en {
 
 .glass-panel {
     padding: 60px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(15px);
     border-left: 6px solid var(--accent);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); /* パネルの影もミント系に */
 }
 
 .hero-content h2 { font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; }
@@ -281,9 +296,9 @@ nav a .en {
     transition: all 0.3s ease; border-radius: 8px;
 }
 
-/* ホバー時はスモーキーピンクの極薄い背景 */
 .news-list li a:hover { 
-    background: rgba(179, 139, 134, 0.05);
+    /* ホバー時に非常に薄いミントグラデーション */
+    background: linear-gradient(90deg, rgba(235,246,243,0.6) 0%, rgba(255,255,255,0) 100%);
     transform: translateX(5px);
 }
 .news-list li a:hover time,
@@ -303,23 +318,24 @@ nav a .en {
 ================================================== */
 .medical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .medical-card {
-    display: block; background: #fff; padding: 50px 35px; 
+    display: block; background: rgba(255,255,255,0.9); padding: 50px 35px; 
     text-decoration: none; color: inherit; transition: all 0.4s ease; 
-    position: relative; border-radius: 8px;
-    border: none !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* 影をより繊細に */
+    position: relative; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.5) !important;
+    box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); /* ミントがかった影 */
 }
 
 .medical-card:hover { 
     transform: translateY(-5px); 
-    box-shadow: 0 12px 30px rgba(179, 139, 134, 0.15); /* ローズ系の影 */
+    box-shadow: 0 15px 35px rgba(144, 200, 190, 0.2); 
+    background: #ffffff;
 }
 
 .medical-card:hover h4,
 .medical-card:hover .more,
 .medical-card:hover .card-num { color: var(--hover-accent); }
 
-.card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.3; margin-bottom: 20px; display: block; }
+.card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.4; margin-bottom: 20px; display: block; }
 .medical-card .more { 
     font-size: 0.7rem; color: var(--accent); margin-top: 20px; display: block; 
     border-bottom: 1px solid var(--accent); width: fit-content; transition: all 0.3s;
@@ -332,11 +348,12 @@ nav a .en {
 .access-flex { display: flex; gap: 60px; align-items: flex-start; }
 .access-info { flex: 1; }
 .tel { font-family: var(--font-sans); font-size: 1.5rem; color: var(--accent); margin-bottom: 30px; }
-.map-wrap { flex: 1.2; height: 450px; background: #eee; }
+.map-wrap { flex: 1.2; height: 450px; background: #eee; border-radius: 12px; overflow: hidden; }
 
 footer { 
-    background-color: #F4F0EE; /* グレージュ系フッター背景 */
-    padding: 60px 0; text-align: center; border-top: none;
+    /* フッターにもグラデーションを適用 */
+    background: linear-gradient(to bottom, transparent, #F0F8F6);
+    padding: 80px 0 60px; text-align: center; border-top: none;
 }
 footer .footer-inner { display: flex; flex-direction: column; align-items: center; }
 footer .footer-logo { font-family: var(--font-serif); color: var(--text); font-size: 1.1rem; margin-bottom: 15px; letter-spacing: 0.1em; }
@@ -361,7 +378,7 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 /* ==================================================
    9. 下層ページ共通・専用パーツ
 ================================================== */
-.page-header { padding: 180px 0 60px; background-color: var(--bg-light); text-align: center; }
+.page-header { padding: 180px 0 60px; background: transparent; text-align: center; }
 .page-title { font-size: 2.2rem; color: var(--accent); }
 .page-title .en { display: block; font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; letter-spacing: 0.25em; }
 .pt-0 { padding-top: 0 !important; }
@@ -372,16 +389,16 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
     width: 45px; height: 45px; border-radius: 50%; text-decoration: none;
     font-family: var(--font-sans); transition: all 0.3s ease;
 }
-.page-current { background-color: var(--accent); color: #fff; }
-.page-link { border: 1px solid var(--line); color: var(--text); }
+.page-current { background: var(--gradient-accent); color: #fff; box-shadow: 0 4px 10px rgba(144, 200, 190, 0.3); }
+.page-link { border: 1px solid var(--line); color: var(--text); background: #fff; }
 .page-link:hover {
-    background-color: rgba(179, 139, 134, 0.05); border-color: var(--hover-accent);
-    color: var(--hover-accent); transform: translateY(-3px);
+    background: #fff; border-color: var(--hover-accent);
+    color: var(--hover-accent); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(144, 200, 190, 0.15);
 }
-.page-next { width: auto; padding: 0 25px; border-radius: 25px; border: 1px solid var(--line); color: var(--text); }
+.page-next { width: auto; padding: 0 25px; border-radius: 25px; border: 1px solid var(--line); color: var(--text); background: #fff; }
 .page-next:hover {
-    background-color: rgba(179, 139, 134, 0.05); border-color: var(--hover-accent);
-    color: var(--hover-accent); transform: translateY(-3px);
+    background: #fff; border-color: var(--hover-accent);
+    color: var(--hover-accent); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(144, 200, 190, 0.15);
 }
 
 .nav-insta { display: flex; align-items: center; margin-left: 15px; }
@@ -400,18 +417,18 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 .page-intro p { font-size: 1rem; line-height: 2; }
 
 .service-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 80px; }
-.service-nav a { display: block; padding: 15px 30px; background: #fff; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 40px; transition: all 0.3s; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
-.service-nav a:hover { background: var(--accent); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(179, 139, 134, 0.2); }
+.service-nav a { display: block; padding: 15px 30px; background: rgba(255,255,255,0.8); border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 40px; transition: all 0.3s; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
+.service-nav a:hover { background: var(--gradient-accent); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(144, 200, 190, 0.3); border-color: transparent; }
 
 .content-section, .gyne-section {
-    margin-bottom: 60px; padding: 50px; background: #fff; border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03); scroll-margin-top: 120px; border: none;
+    margin-bottom: 60px; padding: 50px; background: rgba(255,255,255,0.9); border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(144, 200, 190, 0.06); scroll-margin-top: 120px; border: 1px solid rgba(255,255,255,0.6);
 }
 .content-section h3, .gyne-section h3 { font-size: 1.6rem; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); }
 .content-section h4, .gyne-section h4 { font-size: 1.2rem; color: var(--text); margin: 40px 0 15px; padding-left: 15px; border-left: 4px solid var(--accent); font-family: var(--font-serif); }
 .content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
 
-.price-box { background: var(--bg-light); padding: 30px; border-radius: 8px; margin-bottom: 30px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+.price-box { background: rgba(246, 251, 249, 0.8); padding: 30px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
 .price-box .price-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
 .info-list, .gyne-list { list-style: none; margin-bottom: 20px; font-size: 0.95rem; }
 .info-list dt, .gyne-list dt { font-weight: bold; color: var(--hover-accent); margin-top: 20px; margin-bottom: 5px; }
@@ -420,33 +437,34 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 .normal-list li { margin-bottom: 10px; }
 .notice-text { font-size: 0.85rem; color: #d9534f; background: #fdf5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f2dede; line-height: 1.6; }
 
-.record-box { background: rgba(179, 139, 134, 0.05); border-left: 4px solid var(--accent); padding: 25px; margin: 30px auto; max-width: 800px; text-align: left; border-radius: 0 8px 8px 0; }
+.record-box { background: rgba(235, 246, 243, 0.5); border-left: 4px solid var(--accent); padding: 25px; margin: 30px auto; max-width: 800px; text-align: left; border-radius: 0 8px 8px 0; }
 .record-box p { margin-bottom: 0; color: var(--text); }
 .record-box strong { color: var(--accent); font-size: 1.1rem; }
-.flow-step { background: var(--bg-light); border-radius: 8px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); }
+.flow-step { background: rgba(255,255,255,0.8); border-radius: 8px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); box-shadow: 0 4px 15px rgba(144, 200, 190, 0.05); }
 .flow-step .step-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; }
-.flow-step .step-title span { background: var(--accent); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 15px; font-family: var(--font-sans); }
+.flow-step .step-title span { background: var(--gradient-accent); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 15px; font-family: var(--font-sans); }
 .flow-step p { margin: 0; font-size: 0.95rem; }
 
 .section-title { text-align: center; margin-bottom: 40px; font-family: var(--font-serif); color: var(--accent); font-size: 1.8rem; }
 
 .schedule-wrap { overflow-x: auto; margin-bottom: 25px; }
-.medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-radius: 8px; overflow: hidden; }
+.medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.08); border-radius: 8px; overflow: hidden; }
 .medical-table th, .medical-table td { padding: 15px 10px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; }
-.medical-table th { background-color: rgba(179, 139, 134, 0.08); color: var(--accent); font-family: var(--font-sans); font-weight: 500; }
+.medical-table th { background: rgba(235, 246, 243, 0.6); color: var(--accent); font-family: var(--font-sans); font-weight: 500; }
 .medical-table td.closed { color: #aaa; background-color: #fcfcfc; }
 .notes-list { font-size: 0.85rem; color: var(--sub-text); padding-left: 20px; line-height: 1.8; margin-bottom: 60px; }
 .notes-list li { margin-bottom: 5px; }
 .reservation-cards { display: flex; gap: 30px; }
-.res-card { flex: 1; background: #fff; border: 1px solid var(--line); padding: 40px 30px; border-radius: 8px; text-align: center; transition: all 0.3s ease; }
-.res-card:hover { box-shadow: 0 10px 25px rgba(179, 139, 134, 0.1); border-color: var(--accent); transform: translateY(-5px); }
+.res-card { flex: 1; background: rgba(255,255,255,0.9); border: 1px solid var(--line); padding: 40px 30px; border-radius: 12px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); }
+.res-card:hover { box-shadow: 0 10px 25px rgba(144, 200, 190, 0.2); border-color: transparent; transform: translateY(-5px); background: #fff; }
 .res-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
 .res-card .tel-number { font-size: 2.2rem; font-family: var(--font-sans); font-weight: 500; color: var(--text); margin: 15px 0; letter-spacing: 0.05em; }
-.btn-web { display: inline-block; padding: 15px 40px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 50px; margin-top: 20px; transition: 0.3s; font-weight: 500; }
-.btn-web:hover { background: var(--hover-accent); }
 
-.doctor-box { display: flex; gap: 40px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px; border: none; }
-.doc-img { width: 220px; height: 280px; background: #eee; border-radius: 4px; object-fit: cover; }
+.btn-web { display: inline-block; padding: 15px 40px; background: var(--gradient-accent); color: #fff; text-decoration: none; border-radius: 50px; margin-top: 20px; transition: 0.3s; font-weight: 500; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.3); }
+.btn-web:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(144, 200, 190, 0.4); }
+
+.doctor-box { display: flex; gap: 40px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.5); }
+.doc-img { width: 220px; height: 280px; background: #eee; border-radius: 8px; object-fit: cover; }
 .doc-info { flex: 1; }
 .doc-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; }
 .doc-name { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 20px; color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 15px; }
@@ -454,19 +472,19 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 .doc-history { font-size: 0.85rem; color: var(--sub-text); line-height: 1.8; margin-top: 20px; }
 
 .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.staff-box { padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: none; }
+.staff-box { padding: 30px; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); border: 1px solid rgba(255,255,255,0.5); }
 .staff-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
 .staff-box p { font-size: 0.9rem; color: var(--sub-text); line-height: 1.7; }
 
-.facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.9); }
 .facility-summary { padding: 20px 30px; cursor: pointer; font-weight: 500; color: var(--text); font-size: 1.1rem; list-style: none; }
 .facility-content { padding: 0 30px 30px; font-size: 0.85rem; color: var(--sub-text); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 20px; }
 .facility-content h5 { color: var(--text); font-size: 0.95rem; margin: 15px 0 5px; }
 
 .access-wrapper { display: flex; flex-direction: column; gap: 50px; }
-.map-container { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+.map-container { width: 100%; height: 450px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.info-box { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: none; }
+.info-box { background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); border: 1px solid rgba(255,255,255,0.5); }
 .info-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); font-family: var(--font-serif); }
 .info-detail { margin-bottom: 20px; }
 .info-detail h4 { font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; }
@@ -478,7 +496,7 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 .transport-list li::before { content: '■'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 2px; }
 .hours-mini-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; text-align: center; }
 .hours-mini-table th, .hours-mini-table td { border: 1px solid var(--line); padding: 8px; }
-.hours-mini-table th { background: rgba(179, 139, 134, 0.05); color: var(--accent); font-weight: normal; }
+.hours-mini-table th { background: rgba(235, 246, 243, 0.6); color: var(--accent); font-weight: normal; }
 
 @media (max-width: 768px) {
     .content-section, .gyne-section { padding: 30px 20px; scroll-margin-top: 80px; }
@@ -497,13 +515,13 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 /* ==================================================
    11. ギャラリーページ専用パーツ
 ================================================== */
-.gallery-section { padding: 80px 0; background-color: #fff; }
+.gallery-section { padding: 80px 0; background-color: transparent; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid var(--line); aspect-ratio: 4 / 3; transition: all 0.5s ease-out; cursor: pointer; }
-.gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(179, 139, 134, 0.15); }
+.gallery-item { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.1); border: 2px solid #fff; aspect-ratio: 4 / 3; transition: all 0.5s ease-out; cursor: pointer; }
+.gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.25); }
 .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease-out; }
 .gallery-item:hover .gallery-img { transform: scale(1.1); }
-.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(179, 139, 134, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease; z-index: 10; pointer-events: none; }
+.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(144, 200, 190, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease; z-index: 10; pointer-events: none; }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 .gallery-title { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
 .gallery-desc { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.9); }
@@ -515,7 +533,7 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 ================================================== */
 .lightbox {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(74, 67, 66, 0.8); /* 影もチャコール系に合わせて柔らかく */
+    background: rgba(83, 88, 86, 0.8); 
     backdrop-filter: blur(8px);
     display: flex; justify-content: center; align-items: center;
     z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
@@ -543,571 +561,14 @@ nav a.active::after {
 .reserve-btn a.active::after { display: none; }
 
 /* ==================================================
-   【追加】PC用：追従するスライディング・インジケーター
+   PC用：追従するスライディング・インジケーター
 ================================================== */
 @media (min-width: 769px) {
     nav ul { position: relative; z-index: 1; }
     .nav-indicator {
         position: absolute; bottom: -5px; left: 0; height: calc(100% + 10px); width: 0;
-        background-color: rgba(179, 139, 134, 0.08); /* ほんのりローズ背景 */
-        border-bottom: 2px solid var(--accent);
-        border-radius: 4px; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        opacity: 0; pointer-events: none; z-index: -1;
-    }
-    nav a:hover { transform: none !important; }
-    nav a.active::after { display: none !important; }
-}@charset "UTF-8";
-
-/* ==================================================
-   1. デザインの基本設定 (Variables & Base)
-   サイト全体で使う色やフォントをここで一括管理します。
-================================================== */
-:root {
-    /* 落ち着きと柔らかさのあるスモーキーローズ */
-    --accent: #B38B86;      
-    /* ホバー用：少し深みを持たせたトーン */
-    --hover-accent: #9A706B; 
-    
-    /* 真っ黒を避け、温かみのあるチャコールブラウン系に */
-    --text: #4A4342;        
-    /* ほんのり赤みのあるグレージュ系 */
-    --sub-text: #7C7371;    
-    
-    /* ごく薄い、温かみのある明るいグレージュ */
-    --bg-light: #F9F6F5;    
-    /* 区切り線も柔らかいトーンに */
-    --line: #E8E2E1;        
-    
-    --font-serif: 'Shippori Mincho', serif;
-    --font-sans: 'Montserrat', sans-serif;
-}
-
-/* 全ての要素に適用される基本ルール */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box;
-}
-
-html { 
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    color: var(--text);
-    background: var(--bg-light);
-    line-height: 1.8;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4 { 
-    font-family: var(--font-serif); 
-    font-weight: 500;
-}
-
-.en, .en-title, .more, .arrow-link, time, .card-num { 
-    font-family: var(--font-sans);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-}
-
-/* ==================================================
-   2. ヘッダー (Header)
-================================================== */
-.glass-header {
-    position: fixed;
-    width: 100%;
-    padding: 20px 60px;
-    z-index: 1000;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.03); /* 線をより薄く繊細に */
-}
-
-.header-inner { 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo { 
-    text-decoration: none;
-    color: var(--text);
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
-}
-
-nav ul { 
-    display: flex;
-    list-style: none;
-    align-items: center;
-    gap: 40px;
-}
-
-nav a { 
-    text-decoration: none;
-    color: var(--text);
-    text-align: center;
-    display: block;
-    transition: all 0.3s ease; 
-}
-
-nav a:hover { 
-    transform: translateY(-3px); 
-    color: var(--accent); 
-}
-
-nav a .en { 
-    display: block;
-    font-size: 0.65rem;
-    color: var(--accent);
-    margin-bottom: 2px;
-}
-
-/* ==================================================
-   【WEBサービス】予約ボタン
-================================================== */
-.reserve-btn a {
-    background: var(--accent);
-    color: #ffffff;
-    padding: 12px 25px;
-    border-radius: 40px;
-    font-size: 0.85rem;
-    transition: transform 0.3s;
-}
-
-.reserve-btn a:hover {
-    transform: scale(1.05);
-    opacity: 1;
-    color: #fff !important;
-}
-
-/* --- スマホ用ハンバーガーボタン --- */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 30px;
-    height: 24px;
-    position: relative;
-    z-index: 1100;
-}
-
-.menu-toggle span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--text);
-    position: absolute;
-    transition: all 0.3s ease;
-}
-
-.menu-toggle span:nth-child(1) { top: 0; }
-.menu-toggle span:nth-child(2) { top: 11px; }
-.menu-toggle span:nth-child(3) { bottom: 0; }
-
-.menu-toggle.is-active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
-.menu-toggle.is-active span:nth-child(2) { opacity: 0; }
-.menu-toggle.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
-
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
-    nav {
-        display: block !important; 
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-        padding: 100px 40px;
-        transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-        z-index: 1050;
-        box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-    }
-    nav.is-active { right: 0; }
-    nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-    nav a {
-        font-size: 1.2rem;
-        width: 100%;
-        text-align: left;
-        padding: 10px 0;
-        border-bottom: 1px solid var(--line);
-    }
-    .reserve-btn { width: 100%; margin-top: 20px; }
-    .reserve-btn a { text-align: center; border-bottom: none; }
-}
-
-/* ==================================================
-   3. メインビジュアル (Hero Slider)
-================================================== */
-.hero { 
-    height: 100vh;
-    position: relative; 
-    overflow: hidden; 
-}
-
-.slide { 
-    position: absolute; 
-    inset: 0;
-    opacity: 0; 
-    transition: opacity 2s ease-in-out;
-    z-index: 1; 
-}
-
-.slide.is-active { opacity: 1; z-index: 2; }
-
-.img-wrap { 
-    width: 100%; height: 100%; 
-    transform: scale(1.1);
-    transition: transform 8s linear; 
-}
-.slide.is-active .img-wrap { transform: scale(1.0); }
-.slide img { 
-    width: 100%; height: 100%; 
-    object-fit: cover; 
-    filter: brightness(0.9);
-}
-
-.hero-content {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    padding-left: 10%;
-    z-index: 10;
-}
-
-.glass-panel {
-    padding: 60px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
-    border-left: 6px solid var(--accent);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-}
-
-.hero-content h2 { font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; }
-
-.slider-dots {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    display: flex;
-    gap: 15px;
-}
-.dot { width: 8px; height: 8px; background: rgba(0,0,0,0.15); border-radius: 50%; cursor: pointer; }
-.dot.is-active { 
-    background: var(--accent); 
-    width: 24px;
-    border-radius: 10px; 
-    transition: all 0.3s; 
-}
-
-/* ==================================================
-   4. 各セクションの共通設定
-================================================== */
-.section { padding: 140px 0; }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
-
-.js-scroll {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.js-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ==================================================
-   5. お知らせリスト
-================================================== */
-.news-list { list-style: none; border-top: 1px solid var(--line); }
-.news-list li a {
-    display: flex; align-items: center; padding: 25px 15px; 
-    border-bottom: 1px solid var(--line); text-decoration: none; color: inherit;
-    transition: all 0.3s ease; border-radius: 8px;
-}
-
-/* ホバー時はスモーキーピンクの極薄い背景 */
-.news-list li a:hover { 
-    background: rgba(179, 139, 134, 0.05);
-    transform: translateX(5px);
-}
-.news-list li a:hover time,
-.news-list li a:hover p,
-.news-list li a:hover .cat { color: var(--hover-accent); }
-
-.news-list time { font-size: 0.85rem; color: var(--sub-text); width: 140px; }
-.news-list .cat {
-    font-size: 0.7rem; color: var(--accent); 
-    border: 1px solid var(--accent); padding: 2px 12px; margin-right: 30px; 
-    border-radius: 20px; transition: border-color 0.3s;
-}
-.news-list li a:hover .cat { border-color: var(--hover-accent); }
-
-/* ==================================================
-   6. 診療案内カード
-================================================== */
-.medical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.medical-card {
-    display: block; background: #fff; padding: 50px 35px; 
-    text-decoration: none; color: inherit; transition: all 0.4s ease; 
-    position: relative; border-radius: 8px;
-    border: none !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* 影をより繊細に */
-}
-
-.medical-card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 12px 30px rgba(179, 139, 134, 0.15); /* ローズ系の影 */
-}
-
-.medical-card:hover h4,
-.medical-card:hover .more,
-.medical-card:hover .card-num { color: var(--hover-accent); }
-
-.card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.3; margin-bottom: 20px; display: block; }
-.medical-card .more { 
-    font-size: 0.7rem; color: var(--accent); margin-top: 20px; display: block; 
-    border-bottom: 1px solid var(--accent); width: fit-content; transition: all 0.3s;
-}
-.medical-card:hover .more { border-color: var(--hover-accent); letter-spacing: 0.25em; }
-
-/* ==================================================
-   7. アクセス・フッター
-================================================== */
-.access-flex { display: flex; gap: 60px; align-items: flex-start; }
-.access-info { flex: 1; }
-.tel { font-family: var(--font-sans); font-size: 1.5rem; color: var(--accent); margin-bottom: 30px; }
-.map-wrap { flex: 1.2; height: 450px; background: #eee; }
-
-footer { 
-    background-color: #F4F0EE; /* グレージュ系フッター背景 */
-    padding: 60px 0; text-align: center; border-top: none;
-}
-footer .footer-inner { display: flex; flex-direction: column; align-items: center; }
-footer .footer-logo { font-family: var(--font-serif); color: var(--text); font-size: 1.1rem; margin-bottom: 15px; letter-spacing: 0.1em; }
-footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--sub-text); letter-spacing: 0.08em; }
-
-/* ==================================================
-   8. スマホ対応 (Responsive)
-================================================== */
-@media (max-width: 768px) {
-    .glass-header { padding: 15px 20px; }
-    .hero-content { padding-left: 5%; }
-    .hero-content h2 { font-size: 1.8rem; }
-    .glass-panel { padding: 30px; }
-    .medical-grid { grid-template-columns: 1fr; }
-    .access-flex { flex-direction: column; }
-    .map-wrap { width: 100%; height: 300px; }
-    .news-list li a { flex-direction: column; align-items: flex-start; }
-    .news-list time { width: auto; margin-bottom: 5px; }
-    .news-list .cat { margin: 10px 0; }
-}
-
-/* ==================================================
-   9. 下層ページ共通・専用パーツ
-================================================== */
-.page-header { padding: 180px 0 60px; background-color: var(--bg-light); text-align: center; }
-.page-title { font-size: 2.2rem; color: var(--accent); }
-.page-title .en { display: block; font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; letter-spacing: 0.25em; }
-.pt-0 { padding-top: 0 !important; }
-
-.pagination { display: flex; justify-content: center; gap: 15px; margin-top: 60px; }
-.pagination a, .pagination span {
-    display: flex; align-items: center; justify-content: center;
-    width: 45px; height: 45px; border-radius: 50%; text-decoration: none;
-    font-family: var(--font-sans); transition: all 0.3s ease;
-}
-.page-current { background-color: var(--accent); color: #fff; }
-.page-link { border: 1px solid var(--line); color: var(--text); }
-.page-link:hover {
-    background-color: rgba(179, 139, 134, 0.05); border-color: var(--hover-accent);
-    color: var(--hover-accent); transform: translateY(-3px);
-}
-.page-next { width: auto; padding: 0 25px; border-radius: 25px; border: 1px solid var(--line); color: var(--text); }
-.page-next:hover {
-    background-color: rgba(179, 139, 134, 0.05); border-color: var(--hover-accent);
-    color: var(--hover-accent); transform: translateY(-3px);
-}
-
-.nav-insta { display: flex; align-items: center; margin-left: 15px; }
-.nav-insta a { font-size: 1.4rem; color: var(--accent); transition: transform 0.3s ease, color 0.3s ease; display: flex; align-items: center; }
-.nav-insta a:hover { color: #E1306C; transform: scale(1.1); }
-@media (max-width: 768px) {
-    .nav-insta { margin-left: 0; margin-top: 20px; justify-content: center; }
-    .nav-insta a { font-size: 2rem; }
-}
-
-/* ==================================================
-   10. 各下層ページの専用・共通パーツ
-================================================== */
-.page-intro { text-align: center; margin-bottom: 50px; }
-.page-intro h3 { font-size: 1.8rem; color: var(--accent); margin-bottom: 20px; font-family: var(--font-serif); }
-.page-intro p { font-size: 1rem; line-height: 2; }
-
-.service-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 80px; }
-.service-nav a { display: block; padding: 15px 30px; background: #fff; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 40px; transition: all 0.3s; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
-.service-nav a:hover { background: var(--accent); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(179, 139, 134, 0.2); }
-
-.content-section, .gyne-section {
-    margin-bottom: 60px; padding: 50px; background: #fff; border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03); scroll-margin-top: 120px; border: none;
-}
-.content-section h3, .gyne-section h3 { font-size: 1.6rem; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); }
-.content-section h4, .gyne-section h4 { font-size: 1.2rem; color: var(--text); margin: 40px 0 15px; padding-left: 15px; border-left: 4px solid var(--accent); font-family: var(--font-serif); }
-.content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
-
-.price-box { background: var(--bg-light); padding: 30px; border-radius: 8px; margin-bottom: 30px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-.price-box .price-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
-.info-list, .gyne-list { list-style: none; margin-bottom: 20px; font-size: 0.95rem; }
-.info-list dt, .gyne-list dt { font-weight: bold; color: var(--hover-accent); margin-top: 20px; margin-bottom: 5px; }
-.info-list dd, .gyne-list dd { margin-left: 0; margin-bottom: 15px; padding-left: 1em; line-height: 1.7; color: var(--sub-text); }
-.normal-list { padding-left: 1.5em; margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
-.normal-list li { margin-bottom: 10px; }
-.notice-text { font-size: 0.85rem; color: #d9534f; background: #fdf5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f2dede; line-height: 1.6; }
-
-.record-box { background: rgba(179, 139, 134, 0.05); border-left: 4px solid var(--accent); padding: 25px; margin: 30px auto; max-width: 800px; text-align: left; border-radius: 0 8px 8px 0; }
-.record-box p { margin-bottom: 0; color: var(--text); }
-.record-box strong { color: var(--accent); font-size: 1.1rem; }
-.flow-step { background: var(--bg-light); border-radius: 8px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); }
-.flow-step .step-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; }
-.flow-step .step-title span { background: var(--accent); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 15px; font-family: var(--font-sans); }
-.flow-step p { margin: 0; font-size: 0.95rem; }
-
-.section-title { text-align: center; margin-bottom: 40px; font-family: var(--font-serif); color: var(--accent); font-size: 1.8rem; }
-
-.schedule-wrap { overflow-x: auto; margin-bottom: 25px; }
-.medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-radius: 8px; overflow: hidden; }
-.medical-table th, .medical-table td { padding: 15px 10px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; }
-.medical-table th { background-color: rgba(179, 139, 134, 0.08); color: var(--accent); font-family: var(--font-sans); font-weight: 500; }
-.medical-table td.closed { color: #aaa; background-color: #fcfcfc; }
-.notes-list { font-size: 0.85rem; color: var(--sub-text); padding-left: 20px; line-height: 1.8; margin-bottom: 60px; }
-.notes-list li { margin-bottom: 5px; }
-.reservation-cards { display: flex; gap: 30px; }
-.res-card { flex: 1; background: #fff; border: 1px solid var(--line); padding: 40px 30px; border-radius: 8px; text-align: center; transition: all 0.3s ease; }
-.res-card:hover { box-shadow: 0 10px 25px rgba(179, 139, 134, 0.1); border-color: var(--accent); transform: translateY(-5px); }
-.res-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
-.res-card .tel-number { font-size: 2.2rem; font-family: var(--font-sans); font-weight: 500; color: var(--text); margin: 15px 0; letter-spacing: 0.05em; }
-.btn-web { display: inline-block; padding: 15px 40px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 50px; margin-top: 20px; transition: 0.3s; font-weight: 500; }
-.btn-web:hover { background: var(--hover-accent); }
-
-.doctor-box { display: flex; gap: 40px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px; border: none; }
-.doc-img { width: 220px; height: 280px; background: #eee; border-radius: 4px; object-fit: cover; }
-.doc-info { flex: 1; }
-.doc-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; }
-.doc-name { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 20px; color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 15px; }
-.doc-specialty { font-size: 0.95rem; margin-bottom: 10px; font-weight: 500; }
-.doc-history { font-size: 0.85rem; color: var(--sub-text); line-height: 1.8; margin-top: 20px; }
-
-.staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.staff-box { padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: none; }
-.staff-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
-.staff-box p { font-size: 0.9rem; color: var(--sub-text); line-height: 1.7; }
-
-.facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
-.facility-summary { padding: 20px 30px; cursor: pointer; font-weight: 500; color: var(--text); font-size: 1.1rem; list-style: none; }
-.facility-content { padding: 0 30px 30px; font-size: 0.85rem; color: var(--sub-text); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 20px; }
-.facility-content h5 { color: var(--text); font-size: 0.95rem; margin: 15px 0 5px; }
-
-.access-wrapper { display: flex; flex-direction: column; gap: 50px; }
-.map-container { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.info-box { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: none; }
-.info-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); font-family: var(--font-serif); }
-.info-detail { margin-bottom: 20px; }
-.info-detail h4 { font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; }
-.info-detail p { font-size: 1rem; color: var(--text); line-height: 1.6; margin: 0; }
-.clinic-name { font-size: 1.4rem; font-family: var(--font-serif); color: var(--text); margin-bottom: 15px; }
-.tel-large { font-size: 2rem; font-family: var(--font-sans); color: var(--accent); font-weight: 500; letter-spacing: 0.05em; }
-.transport-list { list-style: none; padding: 0; }
-.transport-list li { position: relative; padding-left: 25px; margin-bottom: 15px; font-size: 0.95rem; line-height: 1.6; }
-.transport-list li::before { content: '■'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 2px; }
-.hours-mini-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; text-align: center; }
-.hours-mini-table th, .hours-mini-table td { border: 1px solid var(--line); padding: 8px; }
-.hours-mini-table th { background: rgba(179, 139, 134, 0.05); color: var(--accent); font-weight: normal; }
-
-@media (max-width: 768px) {
-    .content-section, .gyne-section { padding: 30px 20px; scroll-margin-top: 80px; }
-    .service-nav { flex-direction: column; width: 100%; }
-    .service-nav a { text-align: center; width: 100%; }
-    .flow-step .step-title { flex-direction: column; align-items: flex-start; gap: 5px; }
-    .reservation-cards { flex-direction: column; }
-    .doctor-box { flex-direction: column; padding: 20px; gap: 20px; }
-    .doc-img { width: 100%; height: auto; aspect-ratio: 3/4; }
-    .medical-table th, .medical-table td { padding: 8px 5px; font-size: 0.85rem; }
-    .info-grid { grid-template-columns: 1fr; }
-    .map-container { height: 300px; }
-    .info-box { padding: 30px 20px; }
-}
-
-/* ==================================================
-   11. ギャラリーページ専用パーツ
-================================================== */
-.gallery-section { padding: 80px 0; background-color: #fff; }
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid var(--line); aspect-ratio: 4 / 3; transition: all 0.5s ease-out; cursor: pointer; }
-.gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(179, 139, 134, 0.15); }
-.gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease-out; }
-.gallery-item:hover .gallery-img { transform: scale(1.1); }
-.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(179, 139, 134, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease; z-index: 10; pointer-events: none; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-title { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
-.gallery-desc { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.9); }
-
-@media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; gap: 20px; } .gallery-title { font-size: 1.1rem; } .gallery-desc { font-size: 0.8rem; } }
-
-/* ==================================================
-   12. Lightbox
-================================================== */
-.lightbox {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(74, 67, 66, 0.8); /* 影もチャコール系に合わせて柔らかく */
-    backdrop-filter: blur(8px);
-    display: flex; justify-content: center; align-items: center;
-    z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-}
-.lightbox.is-active { opacity: 1; pointer-events: auto; }
-.lightbox-content {
-    position: relative; max-width: 90%; max-height: 90vh;
-    transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lightbox.is-active .lightbox-content { transform: scale(1); }
-.lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); object-fit: contain; }
-.lightbox-close { position: absolute; top: -40px; right: 0; color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1; transition: color 0.3s; }
-.lightbox-close:hover { color: var(--accent); }
-.lightbox-caption { color: #fff; text-align: center; margin-top: 15px; font-size: 1.1rem; font-family: var(--font-serif); letter-spacing: 0.05em; }
-
-/* ==================================================
-   現在開いているページ（カレント）のメニュー装飾
-================================================== */
-nav a.active { color: var(--accent) !important; font-weight: 700; }
-nav a.active .en { font-weight: 700; letter-spacing: 0.2em; }
-nav a.active::after {
-    content: ''; display: block; width: 6px; height: 6px;
-    background-color: var(--accent); border-radius: 50%; margin: 5px auto 0;
-}
-.reserve-btn a.active::after { display: none; }
-
-/* ==================================================
-   【追加】PC用：追従するスライディング・インジケーター
-================================================== */
-@media (min-width: 769px) {
-    nav ul { position: relative; z-index: 1; }
-    .nav-indicator {
-        position: absolute; bottom: -5px; left: 0; height: calc(100% + 10px); width: 0;
-        background-color: rgba(179, 139, 134, 0.08); /* ほんのりローズ背景 */
+        /* インジケーターの背景もミントのグラデーションに */
+        background: linear-gradient(90deg, rgba(235,246,243,0.8) 0%, rgba(255,255,255,0) 100%);
         border-bottom: 2px solid var(--accent);
         border-radius: 4px; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         opacity: 0; pointer-events: none; z-index: -1;
