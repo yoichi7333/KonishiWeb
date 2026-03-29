@@ -74,7 +74,7 @@ h1, h2, h3, h4 {
     padding: 20px 60px;
     z-index: 1000;
     /* ヘッダーのすりガラスも少しミント寄りの白に */
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(225, 235, 232, 0.5); 
 }
@@ -130,7 +130,7 @@ nav a .en {
     border-radius: 40px;
     font-size: 0.85rem;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(144, 200, 190, 0.3); /* ボタンにも淡いミントの影 */
+    box-shadow: 0 4px 15px rgba(77, 101, 97, 0.3); /* ボタンにも淡いミントの影 */
     border: none;
 }
 
@@ -245,13 +245,19 @@ nav a .en {
 
 .glass-panel {
     padding: 60px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.5); /* 白の半透明（0.7が透明度） */
+    backdrop-filter: blur(15px); /* 後ろのぼかし具合 */
     border-left: 6px solid var(--accent);
     box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); /* パネルの影もミント系に */
 }
 
-.hero-content h2 { font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; }
+.hero-content h2 { 
+    font-size: 2.8rem; 
+    line-height: 1.5; 
+    margin-bottom: 15px; 
+    color: var(--text); 
+    font-weight: 250; /* ←ここを追加（400だと標準、300だとより細くスタイリッシュになります） */
+}
 
 .slider-dots {
     position: absolute;
