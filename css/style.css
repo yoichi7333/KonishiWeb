@@ -525,8 +525,16 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
 .info-list dd, .gyne-list dd { margin-left: 0; margin-bottom: 15px; padding-left: 1em; line-height: 1.7; color: var(--sub-text); }
 .normal-list { padding-left: 1.5em; margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
 .normal-list li { margin-bottom: 10px; }
-.notice-text { font-size: 0.85rem; color: #d9534f; background: #fdf5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f2dede; line-height: 1.6; }
-
+.notice-text { 
+    font-size: 0.85rem; 
+    color: #C87481;        /* 文字色：キツい赤を避け、読みやすさを保った上品なローズピンク */
+    background: #FDF4F6;   /* 背景色：ふんわりと温かみのあるサクラピンク */
+    padding: 15px; 
+    border-radius: 8px;    /* 角の丸みを他のカードと同じ8pxに統一して柔らかく */
+    margin-bottom: 20px; 
+    border: 1px solid #F0E1E4; /* 枠線：背景に馴染む淡いピンクグレー */
+    line-height: 1.6; 
+}
 .record-box { background: rgba(235, 246, 243, 0.5); border-left: 4px solid var(--accent); padding: 25px; margin: 30px auto; max-width: 800px; text-align: left; border-radius: 0 8px 8px 0; }
 .record-box p { margin-bottom: 0; color: var(--text); }
 .record-box strong { color: var(--accent); font-size: 1.1rem; }
