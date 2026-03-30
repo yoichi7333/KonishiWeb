@@ -62,12 +62,59 @@
             </div>
 
             <div class="service-nav js-scroll">
+                <a href="#overview">当院の治療内容</a>
                 <a href="#flow">初診からの流れ</a>
                 <a href="#exams">不妊の原因・検査</a>
                 <a href="#treatments">一般不妊・手術療法</a>
                 <a href="#art">生殖補助医療(ART)</a>
                 <a href="#recurrent">不育症</a>
                 <a href="#cost">費用について</a>
+            </div>
+
+            <div id="overview" class="content-section js-scroll">
+                <h3>当院で行っている治療内容</h3>
+                <p>患者様のお悩みや状態に合わせて、以下の幅広い検査・治療に対応しております。</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
+                    
+                    <div style="background: var(--bg-light); padding: 25px; border-radius: 8px; border: 1px solid var(--line);">
+                        <h4 style="margin: 0 0 5px 0; padding-left: 10px; border-left: 4px solid var(--accent); font-size: 1.1rem; color: var(--accent);">一般不妊治療</h4>
+                        <p style="font-size: 0.85rem; color: var(--sub-text); margin: 0 0 15px 0;">（不妊検査・タイミング指導・排卵誘発）</p>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.95rem; line-height: 1.8;">
+                            <li>１、不妊検査（ホルモン検査・子宮卵管造影・子宮鏡検査など）</li>
+                            <li>２、タイミング指導、排卵誘発</li>
+                            <li>３、人工授精</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: var(--bg-light); padding: 25px; border-radius: 8px; border: 1px solid var(--line);">
+                        <h4 style="margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid var(--accent); font-size: 1.1rem; color: var(--accent);">手術（日帰り手術）</h4>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.95rem; line-height: 1.8;">
+                            <li>１、卵管鏡下卵管形成術(FT)</li>
+                            <li>２、子宮鏡下手術(TCR)</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--bg-light); padding: 25px; border-radius: 8px; border: 1px solid var(--line);">
+                        <h4 style="margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid var(--accent); font-size: 1.1rem; color: var(--accent);">生殖補助医療（ART）</h4>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.95rem; line-height: 1.8;">
+                            <li>１、体外受精</li>
+                            <li>２、顕微授精</li>
+                            <li>３、胚盤胞移植</li>
+                            <li>４、胚（受精卵）の凍結保存</li>
+                            <li>５、融解胚移植</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--bg-light); padding: 25px; border-radius: 8px; border: 1px solid var(--line);">
+                        <h4 style="margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid var(--accent); font-size: 1.1rem; color: var(--accent);">不育症</h4>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; font-size: 0.95rem; line-height: 1.8;">
+                            <li>１、不育症検査</li>
+                            <li>２、低用量アスピリン療法・漢方薬</li>
+                        </ul>
+                    </div>
+                    
+                </div>
             </div>
 
             <div id="flow" class="content-section js-scroll">
@@ -112,7 +159,12 @@
                     <dd>排卵日に性交渉を持ち、その後子宮頸部の粘液を採取して精子の状態（相性）を確認します。</dd>
                     
                     <dt>【子宮卵管造影検査】</dt>
-                    <dd>造影剤を注入し、卵管の詰まりや子宮の形を確認します。この検査を機に妊娠しやすくなる方もいらっしゃいます。</dd>
+                    <dd>
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-bottom:0;">
+                            <div class="step-text">造影剤を注入し、卵管の詰まりや子宮の形を確認します。この検査を機に妊娠しやすくなる方もいらっしゃいます。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>子宮卵管造影検査</span></div>
+                        </div>
+                    </dd>
 
                     <dt>【AMH（抗ミュラー管ホルモン）検査】</dt>
                     <dd>卵巣内にどのくらい卵子のもとが残っているか（卵巣年齢）を調べます。2024年6月より一般不妊治療でも保険適用となりました。</dd>
@@ -129,12 +181,23 @@
                 <p>基礎体温や超音波による卵胞計測で排卵日を特定し、最適な性交渉のタイミングを指導します。必要に応じてクロミフェンやゴナドトロピン注射による排卵誘発を行います。</p>
                 
                 <h4>人工授精 (IUI)</h4>
-                <p>採取した精液を洗浄・濃縮し、排卵期に子宮内へ注入します。4～6回で妊娠に至らない場合は、体外受精（IVF）へのステップアップを検討します。</p>
+                <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-bottom:0;">
+                    <div class="step-text">
+                        <p>採取した精液を洗浄・濃縮し、排卵期に子宮内へ注入します。4～6回で妊娠に至らない場合は、体外受精（IVF）へのステップアップを検討します。</p>
+                    </div>
+                    <div class="step-img-dummy"><span>Illust Area<br>人工授精（IUI）</span></div>
+                </div>
 
-                <h4>手術療法 (日帰り手術)</h4>
+                <h4 style="margin-top: 40px;">手術療法 (日帰り手術)</h4>
                 <ul class="normal-list">
-                    <li><strong>卵管鏡下卵管形成術 (FT):</strong> 卵管が狭かったり詰まったりしている部分を、細いカテーテルのバルーンで拡げる治療です。</li>
-                    <li><strong>子宮鏡下手術 (TCR):</strong> 子宮腔内のポリープや粘膜下筋腫などを、内視鏡で直接観察しながら切除する低侵襲手術です。</li>
+                    <li>
+                        <strong>卵管鏡下卵管形成術 (FT):</strong> 
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-top:5px;">
+                            <div class="step-text">卵管が狭かったり詰まったりしている部分を、細いカテーテルのバルーンで拡げる治療です。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>卵管鏡下卵管形成術</span></div>
+                        </div>
+                    </li>
+                    <li style="margin-top: 15px;"><strong>子宮鏡下手術 (TCR):</strong> 子宮腔内のポリープや粘膜下筋腫などを、内視鏡で直接観察しながら切除する低侵襲手術です。</li>
                 </ul>
             </div>
 
@@ -144,8 +207,48 @@
                 
                 <ul class="normal-list">
                     <li><strong>体外受精 (IVF):</strong> 採取した卵子と精子を体外で受精させ、子宮に戻す治療です。</li>
-                    <li><strong>顕微授精 (ICSI):</strong> 精子の状態に応じて、細い針を用いて1つの精子を卵子に直接注入します。</li>
-                    <li><strong>胚盤胞移植 / 融解胚移植:</strong> 受精卵（胚）を凍結保存し、子宮内膜が整った最適な周期に融解して移植します。</li>
+                    
+                    <li style="margin-top: 15px;">
+                        <strong>顕微授精 (ICSI):</strong>
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-top:5px;">
+                            <div class="step-text">精子の状態に応じて、細い針を用いて1つの精子を卵子に直接注入します。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>顕微授精（ICSI）</span></div>
+                        </div>
+                    </li>
+                    
+                    <li style="margin-top: 15px;">
+                        <strong>胚凍結保存:</strong>
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-top:5px;">
+                            <div class="step-text">良好に育った受精卵（胚）を、マイナス196℃の液体窒素内で安全に凍結保存します。当院では原則として全胚凍結を行っております。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>胚凍結保存</span></div>
+                        </div>
+                    </li>
+
+                    <li style="margin-top: 15px;">
+                        <strong>融解胚移植:</strong>
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-top:5px;">
+                            <div class="step-text">受精卵（胚）を凍結保存し、子宮内膜が整った最適な周期に融解して移植します。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>融解胚移植</span></div>
+                        </div>
+                    </li>
+                </ul>
+
+                <h4 style="margin-top: 40px;">先進医療・オプション</h4>
+                <ul class="normal-list">
+                    <li>
+                        <strong>レーザーアシステッドハッチング (LAH):</strong>
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-top:5px;">
+                            <div class="step-text">着床を促すため、受精卵を包む透明帯にレーザーで小さな穴を開けたり薄くしたりして、胚が殻から抜け出しやすくする技術です。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>レーザーアシステッド<br>ハッチング</span></div>
+                        </div>
+                    </li>
+                    <li style="margin-top: 15px;">
+                        <strong>タイムラプス培養器:</strong>
+                        <div class="flow-step with-img" style="background:transparent; padding:0; border:none; box-shadow:none; margin-top:5px;">
+                            <div class="step-text">培養器内に内蔵されたカメラで胚を一定間隔で撮影し、外の空気に触れさせることなく成長過程を詳細に観察・評価できるシステムです。</div>
+                            <div class="step-img-dummy"><span>Illust Area<br>タイムラプス</span></div>
+                        </div>
+                    </li>
                 </ul>
             </div>
 
@@ -182,7 +285,7 @@
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-logo">医療法人こにしクリニック　不妊治療・婦人科</br>
+        <div class="footer-logo">医療法人こにしクリニック 不妊治療・婦人科</br>
         〒792-0811 愛媛県新居浜市庄内町1-13-35</div>
         <small>© 2026 Konishi Clinic All right reserved </small>
     </div>
