@@ -122,25 +122,48 @@ nav a .en {
 }
 
 /* ==================================================
-   【WEBサービス】予約ボタン（グラデーション適用）
+   【WEBサービス】予約ボタン（シンプルに拡大・色変化）
 ================================================== */
 .reserve-btn a {
-    /* グラデーションで華やかさと透明感をプラス */
-    background: var(--gradient-accent);
+    display: inline-block;
+    background: var(--accent); /* ミントグリーン */
     color: #ffffff;
     padding: 12px 25px;
-    border-radius: 40px;
+    border-radius: 40px; /* 角のない丸いボタン */
     font-size: 0.85rem;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(124, 174, 166, 0.3); /* ボタンにも淡いミントの影 */
+    font-weight: bold;
     border: none;
+    box-shadow: 0 4px 15px rgba(94, 187, 170, 0.2); 
+    transition: all 0.3s ease; /* 変化を0.3秒かけて滑らかに行う */
 }
 
 .reserve-btn a:hover {
-    transform: scale(1.05);
-    opacity: 1;
+    transform: scale(1.05)!important; /* 1.05倍に少しだけ拡大 */
+    background: var(--hover-accent); /* ほんのり深みのあるミント色に変化 */
     color: #fff !important;
-    box-shadow: 0 6px 20px rgba(144, 200, 190, 0.5);
+    box-shadow: 0 8px 20px rgba(94, 187, 170, 0.3); /* 浮き上がったように影を少し広げる */
+}
+
+/* ==================================================
+   ページ下部などの共通ボタン（.btn-web）も同じ動きに統一
+================================================== */
+.btn-web { 
+    display: inline-block; 
+    padding: 15px 40px; 
+    background: var(--accent); 
+    color: #fff; 
+    text-decoration: none; 
+    border-radius: 50px; 
+    margin-top: 20px; 
+    font-weight: bold; 
+    box-shadow: 0 4px 15px rgba(94, 187, 170, 0.2);
+    transition: all 0.3s ease; 
+}
+
+.btn-web:hover { 
+    transform: scale(1.05); /* ヘッダーのボタンと同じく1.05倍に拡大 */
+    background: var(--hover-accent); 
+    box-shadow: 0 8px 20px rgba(94, 187, 170, 0.3); 
 }
 
 /* --- スマホ用ハンバーガーボタン --- */
@@ -359,6 +382,12 @@ nav a .en {
     object-fit: cover; /* 画像が歪まないように、枠に合わせて綺麗にトリミングする魔法のコード */
     border-radius: 6px; /* 角を少し丸くする */
     flex-shrink: 0;     /* 画面が狭くなっても写真が潰れないようにする */
+}
+
+/* style.css に追加 */
+.news-list li {
+    /* ヘッダーの高さ分（約80px〜100px程度）ジャンプ位置を下にずらす */
+    scroll-margin-top: 100px; 
 }
 /* ==================================================
    6. 診療案内カード
@@ -827,4 +856,50 @@ nav a.active::after {
         height: 160px;
         margin-top: 0;
     }
+}
+/* ==================================================
+   【修正】お知らせリストのレイアウト・ホバー調整
+   ※aタグではなく、行(li)全体を一つのブロックとして扱う
+================================================== */
+/* 行(li)全体に余白と下線を設定 */
+.news-list li {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px 15px; /* aタグから移動 */
+    border-bottom: 1px solid var(--line); /* aタグから移動 */
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    scroll-margin-top: 100px;
+}
+
+/* 既存のaタグが持っている余白・下線・アニメーションを解除 */
+.news-list li a {
+    padding: 0 !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+}
+
+/* テキスト部分がしっかり幅を取り、画像部分は潰れないようにする */
+.news-list li > a:first-child { flex-grow: 1; }
+.news-list li > a:last-child { flex-shrink: 0; }
+
+/* ホバー時の浮き上がるアクションを li に移す */
+.news-list li:hover {
+    background: var(--bg-light);
+    transform: translateX(5px);
+}
+.news-list li:hover time,
+.news-list li:hover p,
+.news-list li:hover .cat { color: var(--hover-accent); }
+.news-list li:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; }
+
+/* スマホ表示の調整（縦並びに戻す） */
+@media (max-width: 768px) {
+    .news-list li { flex-direction: column; }
+    .news-list li > a:first-child { flex-direction: column; align-items: flex-start; width: 100%; }
 }

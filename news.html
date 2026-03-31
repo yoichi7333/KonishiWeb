@@ -48,24 +48,21 @@
         <div class="container js-scroll">
             <ul class="news-list">
     
-    <li>
-        <li>
-        <a href="#">
-            <time datetime="2026-04-01">2026.04.01</time>
-            <span class="cat">お知らせ</span>
-            <p>5月の休診日のお知らせ。<br>
-                5月1日から5月7日までは都合により休診とさせていただきます。緊急を要するご連絡はいつでも受け付けておりますので
-                クリニックまでご連絡ください。また不妊治療に関わる体外受精なども期間中中止とさせていただきます。<br>
-                ここにお知らせの内容が入ります。文章が長くなっても「お知らせ」の枠が二段に崩れることはありません。</p>
-            
-            <img src="./image/image23.jpg" alt="待合室" class="news-img js-lightbox" data-caption="清潔で明るい待合室です">
-        </a>
-    </li>
-    </li>
+   <li id="news-0401">
+    <a href="#">
+        <time datetime="2026-04-01">2026.04.01</time>
+        <span class="cat">お知らせ</span>
+        <p>5月の休診日のお知らせです。...</p>
+    </a>
+    
+    <a href="./image/image23.jpg" class="js-lightbox-trigger">
+        <img src="./image/image23.jpg" alt="待合室" class="news-img">
+    </a>
+</li>
 
-    <li>
+    <li id="news-0215">
         <a href="./file/Webサービス案内.pdf" target="_blank">
-            <time datetime="2026-05-01">2026.05.01</time>
+            <time datetime="2026-02-15">2026.02.15</time>
             <span class="cat">お知らせ</span>
             <p>Webサービスを開始しました。詳細はこちらをご確認ください（PDFが開きます）</p>
         </a>
@@ -123,7 +120,13 @@
     </div>
 </footer>
 
-<script src="./js/script.js"></script>
+<div id="custom-lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close">×</span>
+        <img src="" alt="" class="lightbox-img" id="lightbox-target-img">
+    </div>
+</div>
 
+<script src="./js/script.js"></script>
 </body>
 </html>
