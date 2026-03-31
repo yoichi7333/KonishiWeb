@@ -294,6 +294,7 @@ nav a .en {
     transform: translateY(0);
 }
 
+
 /* ==================================================
    5. お知らせリスト
 ================================================== */
@@ -305,22 +306,60 @@ nav a .en {
 }
 
 .news-list li a:hover { 
-    /* ホバー時に非常に薄いミントグラデーション */
-    background: linear-gradient(90deg, rgba(235,246,243,0.6) 0%, rgba(255,255,255,0) 100%);
+    background: var(--bg-light); 
     transform: translateX(5px);
 }
 .news-list li a:hover time,
 .news-list li a:hover p,
 .news-list li a:hover .cat { color: var(--hover-accent); }
 
-.news-list time { font-size: 0.85rem; color: var(--sub-text); width: 140px; }
+/* ▼ 日付を縮ませない */
+.news-list time { 
+    font-size: 0.85rem; color: var(--sub-text); width: 140px; 
+    flex-shrink: 0; 
+}
+
+/* ▼ カテゴリ枠を絶対に改行・縮小させない */
 .news-list .cat {
     font-size: 0.7rem; color: var(--accent); 
     border: 1px solid var(--accent); padding: 2px 12px; margin-right: 30px; 
-    border-radius: 20px; transition: border-color 0.3s;
+    border-radius: 20px; transition: border-color 0.3s; font-weight: bold;
+    white-space: nowrap; /* 文字の改行を防ぐ */
+    flex-shrink: 0;      /* 枠が潰れるのを防ぐ */
 }
-.news-list li a:hover .cat { border-color: var(--hover-accent); }
+.news-list li a:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; }
 
+/* ▼ 追加：テキストが長くなった時の調整 */
+.news-list p {
+    flex: 1; /* テキストが残りのスペースを全部使う */
+    margin-right: 20px; /* 右側に画像が来た時のための隙間 */
+    line-height: 1.6;
+}
+
+/* ▼ 追加：お知らせ用イラスト・写真のダミー枠 */
+.news-img-dummy {
+    width: 120px;
+    height: 80px;
+    background-color: var(--bg-light);
+    border: 2px dashed var(--line);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* 画像も潰れないようにする */
+    color: var(--sub-text);
+    font-size: 0.75rem;
+    font-family: var(--font-en);
+}
+
+/* ▼ 追加：実際にお知らせの画像（写真）を入れる時のスタイル */
+.news-img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover; /* 画像が歪まないように、枠に合わせて綺麗にトリミングする魔法のコード */
+    border-radius: 6px; /* 角を少し丸くする */
+    flex-shrink: 0;     /* 画面が狭くなっても写真が潰れないようにする */
+}
 /* ==================================================
    6. 診療案内カード
 ================================================== */
@@ -358,15 +397,76 @@ nav a .en {
 .tel { font-family: var(--font-sans); font-size: 1.5rem; color: var(--accent); margin-bottom: 30px; }
 .map-wrap { flex: 1.2; height: 450px; background: #eee; border-radius: 12px; overflow: hidden; }
 
+/* --- フッター本体 --- */
 footer { 
-    /* フッターにもグラデーションを適用 */
     background: linear-gradient(to bottom, transparent, #F0F8F6);
-    padding: 80px 0 60px; text-align: center; border-top: none;
+    padding: 60px 0 40px; /* 余白を少しスッキリと調整 */
+    text-align: center; 
+    border-top: none;
 }
-footer .footer-inner { display: flex; flex-direction: column; align-items: center; }
-footer .footer-logo { font-family: var(--font-serif); color: var(--text); font-size: 1.1rem; margin-bottom: 15px; letter-spacing: 0.1em; }
-footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--sub-text); letter-spacing: 0.08em; }
 
+footer .footer-inner { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 30px; /* メニューとロゴ・住所の間に適度な空間を作る */
+}
+
+/* --- 追加：フッターメニューのデザイン --- */
+.footer-nav ul {
+    display: flex;
+    flex-wrap: wrap; /* スマホなどで画面が狭い場合は自動で折り返す */
+    justify-content: center;
+    list-style: none;
+    gap: 15px 40px; /* 縦・横の隙間 */
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.footer-nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem; /* 本文より少し小さめで控えめに */
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+    color: var(--accent); /* ホバー時はミントグリーンに */
+}
+
+/* --- 変更：ロゴと住所のテキストを小さく上品に --- */
+footer .footer-logo { 
+    font-family: var(--font-ja); 
+    color: var(--text); 
+    font-size: 0.95rem; /* 以前より小さく調整 */
+    line-height: 1.8;
+}
+
+/* 住所部分はさらに小さく、色を少し薄くしてメリハリをつける */
+footer .footer-address {
+    display: block;
+    font-size: 0.8rem; 
+    color: var(--sub-text);
+    margin-top: 5px;
+}
+
+footer small { 
+    font-family: var(--font-en); 
+    font-size: 0.75rem; 
+    color: var(--sub-text); 
+    letter-spacing: 0.08em; 
+    margin-top: 10px;
+}
+
+/* --- スマホ用フッターメニュー微調整 --- */
+@media (max-width: 768px) {
+    .footer-nav ul {
+        gap: 15px 20px; /* スマホではメニュー同士の隙間を少し狭くする */
+    }
+    .footer-nav a {
+        font-size: 0.85rem;
+    }
+}
 /* ==================================================
    8. スマホ対応 (Responsive)
 ================================================== */
@@ -462,7 +562,12 @@ footer small { font-family: var(--font-sans); font-size: 0.75rem; color: var(--s
     .news-list time { width: auto; margin-bottom: 5px; }
     .news-list .cat { margin: 10px 0; }
 }
+/* 既存のスマホ用お知らせ設定の下に追記 */
+    .news-list p { margin-right: 0; margin-bottom: 15px; width: 100%; }
+    .news-img-dummy { width: 100px; height: 70px; }
 
+    /* 既存のスマホ用お知らせ設定の下に追記 */
+    .news-img { width: 100px; height: 70px; }
 
 
 /* ==================================================
