@@ -1,23 +1,50 @@
 @charset "UTF-8";
 
-/* ==================================================
-   1. デザインの基本設定 (Variables & Base)
-================================================== */
+/* ===================================================
+   【目次】
+   01. カラーバリエーション・基本設定 (:root)
+   02. 基本レイアウト・文字設定 (Typography & Reset)
+   03. 汎用クラス定義 (Utility Classes)
+   04. ヘッダー・ナビゲーション (Header & Menu)
+   05. ボタン・共通パーツ (Buttons & UI)
+   06. トップページ専用 (Hero Slider)
+   07. コンテンツ・セクション共通 (Sections)
+   08. 各種コンポーネント (お知らせ・カード・表など)
+   09. フッター (Footer)
+   10. スマホ・タブレット対応 (Responsive)
+   11. JS・特殊機能用クラス (Lightbox, Animation)
+=================================================== */
+
+/* ===================================================
+   01. カラーバリエーション・基本設定 (:root)
+=================================================== */
 :root {
+    /* グラデーション */
     --gradient-bg: linear-gradient(135deg, #FFFFFF 0%, #F2F9F7 50%, #F7FCFA 100%);
     --gradient-accent: linear-gradient(135deg, #B6DFD6 0%, #90C8BE 100%);
+    
+    /* テーマカラー */
     --accent: #90C8BE;
     --hover-accent: #78B5AA;
+    
+    /* テキスト・背景・ライン */
     --text: #535856;
     --sub-text: #88908D;
     --bg-light: #F6FBF9;
     --line: #E1EBE8;
+    
+    /* フォント */
     --font-ja: 'Noto Sans JP', sans-serif;
     --font-en: 'Montserrat', sans-serif;
+    --font-serif: 'Shippori Mincho', serif;
 }
 
+/* ===================================================
+   02. 基本レイアウト・文字設定 (Typography & Reset)
+=================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
 body {
     font-family: var(--font-ja);
     color: var(--text);
@@ -28,26 +55,55 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 { font-family: var(--font-ja); font-weight: 500; letter-spacing: 0.05em; }
-.en, .en-title, .more, .arrow-link, time, .card-num { font-family: var(--font-en); text-transform: uppercase; letter-spacing: 0.15em; }
-.pt-0 { padding-top: 0 !important; }
+h1, h2, h3, h4, h5, h6 { 
+    font-family: var(--font-ja); 
+    font-weight: 500; 
+    letter-spacing: 0.05em; 
+}
 
-/* ==================================================
-   2. ヘッダー (Header)
-================================================== */
+img { width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* 英語装飾テキスト */
+.en, .en-title, .more, .arrow-link, time, .card-num { 
+    font-family: var(--font-en); 
+    text-transform: uppercase; 
+    letter-spacing: 0.15em; 
+}
+
+/* ===================================================
+   03. 汎用クラス定義 (Utility Classes)
+   ※ HTML側で直接レイアウトを微調整するための便利クラス
+=================================================== */
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+.w-100 { width: 100% !important; }
+.w-50 { width: 50% !important; }
+
+.mt-20 { margin-top: 20px !important; }
+.mb-20 { margin-bottom: 20px !important; }
+.pt-0 { padding-top: 0 !important; }
+.pb-0 { padding-bottom: 0 !important; }
+
+/* ===================================================
+   04. ヘッダー・ナビゲーション (Header & Menu)
+=================================================== */
 .glass-header {
     position: fixed; width: 100%; padding: 20px 60px; z-index: 1000;
     background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(225, 235, 232, 0.5);
 }
 .header-inner { display: flex; justify-content: space-between; align-items: center; }
-.logo { text-decoration: none; color: var(--text); font-size: 1.1rem; letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; }
+.logo { font-size: 1.1rem; letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; }
 
 nav ul { display: flex; list-style: none; align-items: center; gap: 40px; position: relative; z-index: 1; }
-nav a { text-decoration: none; color: var(--text); text-align: center; display: block; transition: all 0.3s ease; }
+nav a { text-align: center; display: block; }
 nav a:hover { transform: translateY(-3px); color: var(--hover-accent); }
 nav a .en { display: block; font-size: 0.65rem; color: var(--accent); margin-bottom: 2px; }
 
+/* 現在地（Active） */
 nav a.active { color: var(--accent) !important; font-weight: 700; }
 nav a.active .en { font-weight: 700; letter-spacing: 0.2em; }
 nav a.active::after { content: ''; display: block; width: 6px; height: 6px; background-color: var(--accent); border-radius: 50%; margin: 5px auto 0; }
@@ -65,39 +121,45 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
     nav a.active::after { display: none !important; }
 }
 
-/* ==================================================
-   3. ボタン (Buttons)
-================================================== */
+/* ===================================================
+   05. ボタン・共通パーツ (Buttons & UI)
+=================================================== */
+/* ヘッダーWEB予約ボタン */
 .reserve-btn a {
     display: inline-block; background: var(--accent); color: #ffffff; padding: 12px 25px;
     border-radius: 40px; font-size: 0.85rem; font-weight: bold; border: none;
-    box-shadow: 0 4px 15px rgba(94, 187, 170, 0.2); transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(94, 187, 170, 0.2); 
 }
 .reserve-btn a:hover {
     transform: scale(1.05) !important; background: var(--hover-accent); color: #fff !important;
     box-shadow: 0 8px 20px rgba(94, 187, 170, 0.3);
 }
 
+/* ページ下部などの共通大きなボタン */
 .btn-web { 
     display: inline-block; padding: 15px 40px; background: var(--gradient-accent); color: #fff;
-    text-decoration: none; border-radius: 50px; margin-top: 20px; transition: 0.3s; font-weight: 500;
+    border-radius: 50px; margin-top: 20px; font-weight: 500;
     box-shadow: 0 4px 15px rgba(144, 200, 190, 0.3); 
 }
 .btn-web:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 20px rgba(94, 187, 170, 0.4); }
 
+/* ページ内リンクボタン（治療内容など） */
 .service-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 80px; }
-.service-nav a { display: block; padding: 15px 30px; background: rgba(255,255,255,0.8); border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 40px; transition: all 0.3s; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
+.service-nav a { display: block; padding: 15px 30px; background: rgba(255,255,255,0.8); border: 1px solid var(--accent); color: var(--accent); border-radius: 40px; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
 .service-nav a:hover { background: var(--gradient-accent); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(144, 200, 190, 0.3); border-color: transparent; }
 
-/* ==================================================
-   4. メインビジュアル (Hero Slider) - 復元！
-================================================== */
+/* 注意書きテキスト（ピンク） */
+.notice-text { font-size: 0.85rem; color: #C87481; background: #FDF4F6; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #F0E1E4; line-height: 1.6; }
+
+/* ===================================================
+   06. トップページ専用 (Hero Slider)
+=================================================== */
 .hero { height: 100vh; position: relative; overflow: hidden; }
 .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 2s ease-in-out; z-index: 1; }
 .slide.is-active { opacity: 1; z-index: 2; }
 .img-wrap { width: 100%; height: 100%; transform: scale(1.1); transition: transform 8s linear; }
 .slide.is-active .img-wrap { transform: scale(1.0); }
-.slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.95); }
+.slide img { object-fit: cover; filter: brightness(0.95); }
 
 .hero-content { position: absolute; inset: 0; display: flex; align-items: center; padding-left: 10%; z-index: 10; }
 .glass-panel { padding: 60px; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px); border-left: 6px solid var(--accent); box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); }
@@ -107,16 +169,17 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 .dot { width: 8px; height: 8px; background: rgba(0,0,0,0.15); border-radius: 50%; cursor: pointer; }
 .dot.is-active { background: var(--accent); width: 24px; border-radius: 10px; transition: all 0.3s; }
 
-/* ==================================================
-   5. レイアウト・各種コンポーネント
-================================================== */
-.section { padding: 80px 0; }
+/* ===================================================
+   07. コンテンツ・セクション共通 (Sections)
+=================================================== */
+.section { padding: 100px 0; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
 
-.js-scroll { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
-.js-scroll.is-visible { opacity: 1; transform: translateY(0); }
+/* トップページの余白微調整 */
+.about-section { padding-bottom: 60px; }
+.news-section { padding-top: 60px; }
 
-/* 下層ページ用ヘッダー・枠 */
+/* ページ見出し・導入文 */
 .page-header { padding: 180px 0 60px; background: transparent; text-align: center; }
 .page-title { font-size: 2.2rem; color: var(--accent); }
 .page-title .en { display: block; font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; letter-spacing: 0.25em; }
@@ -125,6 +188,7 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 .page-intro h3 { font-size: 1.8rem; color: var(--accent); margin-bottom: 20px; font-family: var(--font-serif); }
 .page-intro p { font-size: 1rem; line-height: 2; }
 
+/* 下層ページの白背景枠 */
 .content-section, .gyne-section {
     margin-bottom: 60px; padding: 50px; background: rgba(255,255,255,0.9); border-radius: 12px;
     box-shadow: 0 4px 25px rgba(144, 200, 190, 0.06); scroll-margin-top: 120px; border: 1px solid rgba(255,255,255,0.6);
@@ -132,7 +196,11 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 .content-section h3, .gyne-section h3 { font-size: 1.6rem; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); }
 .content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
 
-/* お知らせ（崩れ修正版） */
+/* ===================================================
+   08. 各種コンポーネント
+=================================================== */
+
+/* --- 08-1. お知らせリスト --- */
 .news-list { list-style: none; border-top: 1px solid var(--line); }
 .news-list li {
     display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
@@ -140,7 +208,7 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
     border-radius: 8px; scroll-margin-top: 100px;
 }
 .news-list li:hover { background: var(--bg-light); transform: translateX(5px); }
-.news-list li > a:first-child { flex-grow: 1; display: flex; align-items: center; text-decoration: none; color: inherit; }
+.news-list li > a:first-child { flex-grow: 1; display: flex; align-items: center; }
 .news-list li > a:last-child { flex-shrink: 0; }
 .news-list time { font-size: 0.85rem; color: var(--sub-text); width: 140px; flex-shrink: 0; }
 .news-list .cat {
@@ -152,87 +220,90 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 .news-list p { flex: 1; margin-right: 20px; line-height: 1.6; }
 .news-img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
 
-/* 診療案内カード */
+/* --- 08-2. 診療案内カード (01〜06) --- */
 .medical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.medical-card { display: block; background: rgba(255,255,255,0.9); padding: 20px; text-decoration: none; color: inherit; transition: all 0.4s ease; position: relative; border-radius: 12px; border: 1px solid rgba(255,255,255,0.5) !important; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
+.medical-card { display: block; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.5) !important; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
 .medical-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(144, 200, 190, 0.2); background: #ffffff; }
 .card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.4; margin-bottom: 20px; display: block; }
 
-/* 治療ステップ・イラストダミー */
+/* --- 08-3. 治療フロー＆テーブル --- */
 .flow-step { background: rgba(255,255,255,0.8); border-radius: 8px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); box-shadow: 0 4px 15px rgba(144, 200, 190, 0.05); }
 .flow-step .step-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; }
 .flow-step .step-title span { background: var(--gradient-accent); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 15px; }
 .flow-step.with-img { display: flex; gap: 30px; align-items: flex-start; }
 .flow-step.with-img .step-text { flex: 1; }
-.step-img-dummy { width: 250px; height: 180px; background-color: var(--bg-light); border: 2px dashed var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; text-align: center; padding: 10px; margin-top: 5px; }
-.step-img-dummy span { font-family: var(--font-en); font-size: 0.85rem; color: var(--accent); font-weight: bold; }
+.step-img-dummy { width: 250px; height: 180px; background-color: var(--bg-light); border: 2px dashed var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; }
+.step-img-dummy span { font-family: var(--font-en); font-size: 0.85rem; color: var(--accent); font-weight: bold; text-align: center; }
 
-/* その他パーツ（テーブル・料金・枠線）- 復元！ */
 .schedule-wrap { overflow-x: auto; margin-bottom: 25px; }
 .medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.08); border-radius: 8px; overflow: hidden; }
 .medical-table th, .medical-table td { padding: 15px 10px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; }
 .medical-table th { background: rgba(235, 246, 243, 0.6); color: var(--accent); font-weight: 500; }
 .medical-table td.closed { color: #aaa; background-color: #fcfcfc; }
+
 .price-box { background: rgba(246, 251, 249, 0.8); padding: 30px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--line); }
 .price-box .price-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
-.notice-text { font-size: 0.85rem; color: #C87481; background: #FDF4F6; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #F0E1E4; line-height: 1.6; }
-.record-box { background: rgba(235, 246, 243, 0.5); border-left: 4px solid var(--accent); padding: 25px; margin: 30px auto; max-width: 800px; border-radius: 0 8px 8px 0; }
-.record-box p { margin-bottom: 0; color: var(--text); }
-.record-box strong { color: var(--accent); font-size: 1.1rem; }
 
-/* 予約カード・医師・スタッフ・施設・アクセス - 復元！ */
+/* --- 08-4. 医師・スタッフ・施設・ギャラリー --- */
 .reservation-cards { display: flex; gap: 30px; }
-.res-card { flex: 1; background: rgba(255,255,255,0.9); border: 1px solid var(--line); padding: 40px 30px; border-radius: 12px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); }
+.res-card { flex: 1; background: rgba(255,255,255,0.9); border: 1px solid var(--line); padding: 40px 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); }
 .res-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.2); background: #fff; border-color: transparent; }
 .res-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
-.res-card .tel-number { font-size: 2.2rem; font-weight: 500; color: var(--text); margin: 15px 0; letter-spacing: 0.05em; }
+.res-card .tel-number { font-size: 2.2rem; font-weight: 500; margin: 15px 0; letter-spacing: 0.05em; }
 
 .doctor-box { display: flex; gap: 40px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.5); }
 .doc-img { width: 220px; height: 280px; background: #eee; border-radius: 8px; object-fit: cover; }
 .doc-info { flex: 1; }
 .doc-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; }
-.doc-name { font-size: 1.6rem; margin-bottom: 20px; color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 15px; }
+.doc-name { font-size: 1.6rem; margin-bottom: 20px; border-bottom: 1px solid var(--line); padding-bottom: 15px; }
 
 .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .staff-box { padding: 30px; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); border: 1px solid rgba(255,255,255,0.5); }
 .staff-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
 
+/* ▼▼▼ ここから追加 ▼▼▼ */
+/* 施設基準・アコーディオン */
 .facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.9); }
-.facility-summary { padding: 20px 30px; cursor: pointer; font-weight: 500; color: var(--text); font-size: 1.1rem; list-style: none; }
-.facility-content { padding: 0 30px 30px; font-size: 0.85rem; color: var(--sub-text); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 20px; }
+.facility-summary { padding: 20px 30px; cursor: pointer; font-weight: bold; color: var(--accent); font-size: 1.1rem; list-style: none; }
+.facility-summary::-webkit-details-marker { display: none; }
+.facility-summary::marker { display: none; }
+.facility-content { padding: 0 30px 30px; font-size: 0.9rem; color: var(--text); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 20px; }
+.facility-content h5 { font-size: 1rem; color: var(--accent); margin-top: 25px; margin-bottom: 8px; border-left: 4px solid var(--accent); padding-left: 10px; }
+.facility-content h5:first-child { margin-top: 0; }
+.facility-content p { margin-bottom: 15px; color: var(--sub-text); line-height: 1.8; }
+/* ▲▲▲ ここまで追加 ▲▲▲ */
 
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+.gallery-item { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.1); border: 2px solid #fff; aspect-ratio: 4 / 3; cursor: pointer; }
+.gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.25); }
+.gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease-out; }
+.gallery-item:hover .gallery-img { transform: scale(1.1); }
+.gallery-overlay { position: absolute; inset: 0; background: rgba(144, 200, 190, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease; z-index: 10; pointer-events: none; }
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-title { font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
+
+/* --- 08-5. アクセスマップ --- */
 .access-wrapper { display: flex; flex-direction: column; gap: 50px; }
 .map-container { width: 100%; height: 450px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .info-box { background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); border: 1px solid rgba(255,255,255,0.5); }
 .info-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
 
-/* ギャラリー - 復元！ */
-.gallery-section { padding: 80px 0; background-color: transparent; }
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.1); border: 2px solid #fff; aspect-ratio: 4 / 3; transition: all 0.5s ease-out; cursor: pointer; }
-.gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.25); }
-.gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease-out; }
-.gallery-item:hover .gallery-img { transform: scale(1.1); }
-.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(144, 200, 190, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease; z-index: 10; pointer-events: none; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-title { font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
-
-/* ==================================================
-   6. フッター (Footer)
-================================================== */
+/* ===================================================
+   09. フッター (Footer)
+=================================================== */
 footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 60px 0 40px; text-align: center; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 30px; }
 .footer-nav ul { display: flex; flex-wrap: wrap; justify-content: center; list-style: none; gap: 15px 40px; padding: 0; margin: 0 0 10px 0; }
-.footer-nav a { text-decoration: none; color: var(--text); font-size: 0.9rem; transition: color 0.3s ease; }
+.footer-nav a { font-size: 0.9rem; }
 .footer-nav a:hover { color: var(--accent); }
 .footer-logo { font-size: 0.95rem; line-height: 1.8; }
 .footer-address { display: block; font-size: 0.8rem; color: var(--sub-text); margin-top: 5px; }
 
-/* ==================================================
-   7. スマホ・タブレット対応 (Responsive)
-================================================== */
-/* --- 1150px以下（ハンバーガーメニュー等） --- */
+/* ===================================================
+   10. スマホ・タブレット対応 (Responsive)
+=================================================== */
+/* --- ハンバーガーメニュー本体 --- */
 .menu-toggle { display: none; background: none; border: none; cursor: pointer; width: 30px; height: 24px; position: relative; z-index: 1100; }
 .menu-toggle span { display: block; width: 100%; height: 2px; background-color: var(--text); position: absolute; transition: all 0.3s ease; }
 .menu-toggle span:nth-child(1) { top: 0; }
@@ -242,34 +313,31 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
 .menu-toggle.is-active span:nth-child(2) { opacity: 0; }
 .menu-toggle.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
 
+/* --- 1150px以下（メニューのスマホ化） --- */
 @media (max-width: 1150px) {
     .glass-header { padding: 15px 20px; }
     .menu-toggle { display: block; }
     
     nav {
         display: block !important; position: fixed; top: 0; right: -100%; width: 80%; max-width: 350px;
-        height: 100vh; /* 古いスマホ用 */
-        height: 100dvh; /* ★iPhoneのツールバー分を考慮した最新の高さ指定 */
+        height: 100dvh; /* iPhoneツールバー対応 */
         background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
-        padding: 80px 30px 40px; /* ★上下の余白を少し詰める */
-        transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); z-index: 1050;
+        padding: 80px 30px 40px; transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); z-index: 1050;
         box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-        overflow-y: auto; /* ★メニュー内をスクロール可能にする */
-        -webkit-overflow-scrolling: touch; /* ★スマホでの滑らかなスクロールを有効に */
+        overflow-y: auto; -webkit-overflow-scrolling: touch; /* スクロール対応 */
     }
     nav.is-active { right: 0; }
-    nav ul { flex-direction: column; align-items: flex-start; gap: 8px; /* ★メニュー同士の隙間を狭くする */ }
+    nav ul { flex-direction: column; align-items: flex-start; gap: 8px; }
     nav a { font-size: 1.05rem; width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); }
-    .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; /* 一番下のボタンに余裕を持たせる */ }
+    .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
     .reserve-btn a { text-align: center; border-bottom: none; }
-
 }
 
 @media (max-width: 1024px) {
     .medical-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* --- 768px以下（スマホ表示用） --- */
+/* --- 768px以下（完全スマホ表示） --- */
 @media (max-width: 768px) {
     .hero-content { padding-left: 5%; }
     .hero-content h2 { font-size: 1.8rem; }
@@ -302,9 +370,17 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     .footer-nav a { font-size: 0.85rem; }
 }
 
-/* ==================================================
-   8. Lightbox (画像拡大機能)
-================================================== */
+/* ===================================================
+   11. JS・特殊機能用クラス (Lightbox, Animation)
+=================================================== */
+/* スクロールアニメーション */
+.js-scroll { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.js-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+/* 背景スクロールロック（JSから付与される用） */
+body.no-scroll { overflow: hidden; }
+
+/* Lightbox（画像拡大） */
 .lightbox {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(83, 88, 86, 0.8); 
     backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center;
