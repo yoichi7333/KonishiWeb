@@ -110,7 +110,7 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 /* ==================================================
    5. レイアウト・各種コンポーネント
 ================================================== */
-.section { padding: 140px 0; }
+.section { padding: 80px 0; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
 
 .js-scroll { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -154,7 +154,7 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 
 /* 診療案内カード */
 .medical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.medical-card { display: block; background: rgba(255,255,255,0.9); padding: 50px 35px; text-decoration: none; color: inherit; transition: all 0.4s ease; position: relative; border-radius: 12px; border: 1px solid rgba(255,255,255,0.5) !important; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
+.medical-card { display: block; background: rgba(255,255,255,0.9); padding: 20px; text-decoration: none; color: inherit; transition: all 0.4s ease; position: relative; border-radius: 12px; border: 1px solid rgba(255,255,255,0.5) !important; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
 .medical-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(144, 200, 190, 0.2); background: #ffffff; }
 .card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.4; margin-bottom: 20px; display: block; }
 
