@@ -356,7 +356,7 @@ nav a.active::after {
 
 /* ページごとの導入文（イントロ） */
 .page-intro { text-align: center; margin-bottom: 50px; }
-.page-intro h3 { font-size: 1.8rem; color: var(--accent); margin-bottom: 20px; font-family: var(--font-serif); }
+.page-intro h3 { font-size: 1.5rem; color: var(--accent); margin-bottom: 20px;}
 .page-intro p { font-size: 1rem; line-height: 2; }
 
 /* 下層ページの白背景の大きな枠組み */
@@ -373,7 +373,7 @@ nav a.active::after {
 .content-section h3, .gyne-section h3 { 
     font-size: 1.6rem; color: var(--accent); 
     border-bottom: 1px solid var(--line); /* 下線 */
-    padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); 
+    padding-bottom: 15px; margin-bottom: 30px; 
 }
 .content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
 
