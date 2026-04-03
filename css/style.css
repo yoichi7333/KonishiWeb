@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* ↑このファイルがUTF-8という文字コードで書かれていることをブラウザに伝えます（文字化け防止） */
 
 /* ===================================================
    【目次】
@@ -17,183 +18,363 @@
 
 /* ===================================================
    01. カラーバリエーション・基本設定 (:root)
+   ※サイト全体で使い回す「変数（カスタムプロパティ）」を定義します。
+   ※後から色を変えたい時は、ここの値を変更するだけで全ページに反映されます。
 =================================================== */
 :root {
-    /* グラデーション */
+    /* グラデーション設定（linear-gradient = 直線的なグラデーション） */
+    /* 135deg: 斜め右下方向へ / 0%の色から始まり、50%の色を経由し、100%の色で終わる */
     --gradient-bg: linear-gradient(135deg, #FFFFFF 0%, #F2F9F7 50%, #F7FCFA 100%);
     --gradient-accent: linear-gradient(135deg, #B6DFD6 0%, #90C8BE 100%);
     
-    /* テーマカラー */
-    --accent: #90C8BE;
-    --hover-accent: #78B5AA;
+    /* テーマカラー（HEX値 = #から始まる16進数のカラーコード） */
+    --accent: #90C8BE;       /* メインのミントグリーン */
+    --hover-accent: #78B5AA; /* マウスを乗せた時用の、少し濃いミントグリーン */
     
-    /* テキスト・背景・ライン */
-    --text: #535856;
-    --sub-text: #88908D;
-    --bg-light: #F6FBF9;
-    --line: #E1EBE8;
+    /* テキスト・背景・ラインの色 */
+    --text: #535856;         /* メインの文字色（真っ黒ではなく、目に優しいチャコールグレー） */
+    --sub-text: #88908D;     /* 控えめな文字色（薄いグレー、補足説明などに使用） */
+    --bg-light: #F6FBF9;     /* ほんのりミントがかった白背景（カードやボックスの背景用） */
+    --line: #E1EBE8;         /* 区切り線などの淡い色 */
     
-    /* フォント */
-    --font-ja: 'Noto Sans JP', sans-serif;
-    --font-en: 'Montserrat', sans-serif;
-    --font-serif: 'Shippori Mincho', serif;
+    /* フォント（書体）設定：左から優先して読み込まれ、無い場合は右のフォントが適用されます */
+    --font-ja: 'Noto Sans JP', sans-serif; /* 日本語用：読みやすいゴシック体（sans-serif） */
+    --font-en: 'Montserrat', sans-serif;   /* 英語用：スタイリッシュなゴシック体 */
+    --font-serif: 'Shippori Mincho', serif; /* 見出し用：明朝体（serif）で高級感を演出 */
 }
 
 /* ===================================================
    02. 基本レイアウト・文字設定 (Typography & Reset)
 =================================================== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* { 
+    /* すべての要素（*）に対する初期化（リセット） */
+    margin: 0;  /* 外側の余白をゼロにする */
+    padding: 0; /* 内側の余白をゼロにする */
+    box-sizing: border-box; /* 幅や高さの計算に、余白と枠線を含める（レイアウト崩れを防ぐ魔法のコード） */
+}
+
+html { 
+    scroll-behavior: smooth; /* ページ内リンク（#topなど）をクリックした時、スルスルと滑らかに移動する */
+}
 
 body {
-    font-family: var(--font-ja);
-    color: var(--text);
-    background: var(--gradient-bg);
-    background-attachment: fixed;
-    line-height: 1.8;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-ja); /* 全体のフォントを上で定義した日本語フォントにする */
+    color: var(--text); /* 全体の文字色を上で定義した色にする */
+    background: var(--gradient-bg); /* 全体の背景をグラデーションにする */
+    background-attachment: fixed; /* スクロールしても背景画像（グラデーション）を固定する */
+    line-height: 1.8; /* 行間を文字サイズの1.8倍に設定（読みやすさの黄金比） */
+    overflow-x: hidden; /* 横スクロールバーを非表示にする（スマホでの横揺れ防止） */
+    -webkit-font-smoothing: antialiased; /* MacやiPhoneで文字の輪郭を滑らかに綺麗に表示させる */
 }
 
 h1, h2, h3, h4, h5, h6 { 
-    font-family: var(--font-ja); 
-    font-weight: 500; 
-    letter-spacing: 0.05em; 
+    font-family: var(--font-ja); /* 見出しのフォント設定 */
+    font-weight: 500; /* 文字の太さ（通常は400、太字は700。500は少しだけ太い） */
+    letter-spacing: 0.05em; /* 文字と文字の隙間（字送り）を少し空けて読みやすくする */
 }
 
-img { width: 100%; height: auto; display: block; }
-a { text-decoration: none; color: inherit; transition: 0.3s; }
+img { 
+    width: 100%; /* 画像の横幅を親要素（枠）の100%に合わせる */
+    height: auto; /* 高さは元の画像の比率を保って自動調整する */
+    display: block; /* 画像の下にできる不要な謎の隙間を消す */
+}
 
-/* 英語装飾テキスト */
+a { 
+    text-decoration: none; /* リンクの下線を消す */
+    color: inherit; /* リンクの色を、親要素の文字色と同じにする（勝手に青くなるのを防ぐ） */
+    transition: 0.3s; /* マウスを乗せた時などの変化を、0.3秒かけて滑らかに行う */
+}
+
+/* 英語装飾テキスト用クラス（クラス = .から始まる特定の部品への命令） */
 .en, .en-title, .more, .arrow-link, time, .card-num { 
-    font-family: var(--font-en); 
-    text-transform: uppercase; 
-    letter-spacing: 0.15em; 
+    font-family: var(--font-en); /* 英語用フォントを適用 */
+    text-transform: uppercase; /* 小文字で入力しても、自動的にすべて大文字（UPPERCASE）に変換する */
+    letter-spacing: 0.15em; /* 文字の間隔を広め（0.15文字分）にとってスタイリッシュに */
 }
 
 /* ===================================================
    03. 汎用クラス定義 (Utility Classes)
-   ※ HTML側で直接レイアウトを微調整するための便利クラス
+   ※ HTML側で直接 `class="text-center"` のように書いてレイアウトを微調整するための便利クラスです。
+   ※ `!important` は「他のどんな設定よりもこれを最優先しろ」という強い命令です。
 =================================================== */
-.text-center { text-align: center !important; }
-.text-left { text-align: left !important; }
-.text-right { text-align: right !important; }
+.text-center { text-align: center !important; } /* 文字を中央揃えにする */
+.text-left { text-align: left !important; }     /* 文字を左揃えにする */
+.text-right { text-align: right !important; }   /* 文字を右揃えにする */
 
-.w-100 { width: 100% !important; }
-.w-50 { width: 50% !important; }
+.w-100 { width: 100% !important; } /* 横幅を100%にする */
+.w-50 { width: 50% !important; }   /* 横幅を50%（半分）にする */
 
-.mt-20 { margin-top: 20px !important; }
-.mb-20 { margin-bottom: 20px !important; }
-.pt-0 { padding-top: 0 !important; }
-.pb-0 { padding-bottom: 0 !important; }
+.mt-20 { margin-top: 20px !important; }       /* 上の外側余白を20px空ける */
+.mb-20 { margin-bottom: 20px !important; }    /* 下の外側余白を20px空ける */
+.pt-0 { padding-top: 0 !important; }          /* 上の内側余白をゼロにする（詰めたい時用） */
+.pb-0 { padding-bottom: 0 !important; }       /* 下の内側余白をゼロにする */
 
 /* ===================================================
    04. ヘッダー・ナビゲーション (Header & Menu)
 =================================================== */
 .glass-header {
-    position: fixed; width: 100%; padding: 20px 60px; z-index: 1000;
-    background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(225, 235, 232, 0.5);
+    position: fixed; /* 画面の決まった位置に固定する（スクロールしても追従） */
+    width: 100%; /* 横幅を画面いっぱいに広げる */
+    padding: 20px 60px; /* 内側の余白：上下に20px、左右に60px */
+    z-index: 1000; /* 重なり順：他の要素より手前（上）に表示するための大きな数値 */
+    background: rgba(255, 255, 255, 0.5); /* 背景色：白（255,255,255）で、透明度50%（0.5） */
+    backdrop-filter: blur(12px); /* 背景のぼかし効果（すりガラス風）：12pxの強さでぼかす */
+    border-bottom: 1px solid rgba(225, 235, 232, 0.5); /* 下側の境界線：1pxの直線で、半透明の薄い緑色 */
 }
-.header-inner { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.1rem; letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; }
 
-nav ul { display: flex; list-style: none; align-items: center; gap: 40px; position: relative; z-index: 1; }
-nav a { text-align: center; display: block; }
-nav a:hover { transform: translateY(-3px); color: var(--hover-accent); }
-nav a .en { display: block; font-size: 0.65rem; color: var(--accent); margin-bottom: 2px; }
+.header-inner { 
+    display: flex; /* Flexbox（要素を横並びにする魔法の箱）を有効化 */
+    justify-content: space-between; /* 中身（ロゴとメニュー）を左右の両端に離して配置 */
+    align-items: center; /* 中身の縦方向の位置を中央で揃える */
+}
 
-/* 現在地（Active） */
-nav a.active { color: var(--accent) !important; font-weight: 700; }
-nav a.active .en { font-weight: 700; letter-spacing: 0.2em; }
-nav a.active::after { content: ''; display: block; width: 6px; height: 6px; background-color: var(--accent); border-radius: 50%; margin: 5px auto 0; }
-.reserve-btn a.active::after { display: none; }
+.logo { 
+    font-size: 1.1rem; /* 文字サイズ（1rem = 基準サイズの1倍、約16px） */
+    letter-spacing: 0.1em; /* 字送り */
+    white-space: nowrap; /* 文字が長くても絶対に改行させない */
+    flex-shrink: 0; /* 画面が狭くなってもロゴの幅を縮ませない */
+}
 
-/* PC用：メニュー追従インジケーター */
+nav ul { 
+    display: flex; /* メニューのリスト（li）を横並びにする */
+    list-style: none; /* リストの先頭につく「・」を消す */
+    align-items: center; /* 縦方向の中央揃え */
+    gap: 40px; /* メニューとメニューの間の隙間を40px空ける */
+    position: relative; /* インジケーター（追従する線）の基準位置にするため設定 */
+    z-index: 1; 
+}
+
+nav a { 
+    text-align: center; /* リンク内の文字を中央揃え */
+    display: block; /* リンクのクリックできる範囲を文字だけでなくブロック全体に広げる */
+}
+
+nav a:hover { 
+    transform: translateY(-3px); /* マウスを乗せた時(hover)、上に3px移動（フワッと浮く） */
+    color: var(--hover-accent); /* 文字色を濃いミントに変更 */
+}
+
+nav a .en { 
+    display: block; /* 英語表記部分を改行させて日本語の上に配置 */
+    font-size: 0.65rem; /* 英語表記は少し小さめに */
+    color: var(--accent); /* 色はミントグリーン */
+    margin-bottom: 2px; /* 日本語との間に2pxの隙間を空ける */
+}
+
+/* 現在地（Active）のページを示すメニューの装飾 */
+nav a.active { color: var(--accent) !important; font-weight: 700; } /* 色を変えて太字にする */
+nav a.active .en { font-weight: 700; letter-spacing: 0.2em; } /* 英語部分も太字にし、少し文字間隔を広げる */
+nav a.active::after { 
+    /* 現在地のメニューの下に、疑似要素(::after)を使って丸いドットを表示する */
+    content: ''; /* 表示する文字は無し */
+    display: block; 
+    width: 6px; height: 6px; /* 6pxの正方形 */
+    background-color: var(--accent); /* 色はミントグリーン */
+    border-radius: 50%; /* 角を50%丸めて完全な円にする */
+    margin: 5px auto 0; /* 上に5px余白を空け、左右はauto（中央揃え）にする */
+}
+.reserve-btn a.active::after { display: none; } /* WEB予約ボタンには丸いドットを表示しない */
+
+/* PC用：メニューの下をスライドして追従するインジケーター（線） */
 @media (min-width: 1150px) {
+    /* 画面幅が1150px以上（PCサイズ）の時だけ適用されるルール */
     .nav-indicator {
-        position: absolute; bottom: -5px; left: 0; height: calc(100% + 10px); width: 0;
-        background: linear-gradient(90deg, rgba(235,246,243,0.8) 0%, rgba(255,255,255,0) 100%);
-        border-bottom: 2px solid var(--accent); border-radius: 4px; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        opacity: 0; pointer-events: none; z-index: -1;
+        position: absolute; /* 親要素（nav ul）を基準に自由な位置に配置 */
+        bottom: -5px; left: 0; /* 下から-5px（はみ出す）、左から0の位置 */
+        height: calc(100% + 10px); /* 高さはメニューの100%に10px足したサイズ */
+        width: 0; /* 最初は幅ゼロ（見えない） */
+        background: linear-gradient(90deg, rgba(235,246,243,0.8) 0%, rgba(255,255,255,0) 100%); /* 背景グラデーション */
+        border-bottom: 2px solid var(--accent); /* 下に2pxのミントグリーンの線 */
+        border-radius: 4px; /* 角を4pxだけ少し丸くする */
+        /* アニメーション：すべての変化を0.4秒かけて、特殊な動き(cubic-bezier)で行う */
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        opacity: 0; /* 最初は透明（見えない） */
+        pointer-events: none; /* マウスのクリック等に反応させない（邪魔にならないように） */
+        z-index: -1; /* メニューの文字より後ろ（下）に表示する */
     }
-    nav a:hover { transform: none !important; }
-    nav a.active::after { display: none !important; }
+    nav a:hover { transform: none !important; } /* インジケーターが動くので、文字自体の浮き上がりはキャンセル */
+    nav a.active::after { display: none !important; } /* PCでは丸いドットも隠す */
 }
 
 /* ===================================================
    05. ボタン・共通パーツ (Buttons & UI)
 =================================================== */
-/* ヘッダーWEB予約ボタン */
+/* ヘッダー内にある「WEB予約」ボタン */
 .reserve-btn a {
-    display: inline-block; background: var(--accent); color: #ffffff; padding: 12px 25px;
-    border-radius: 40px; font-size: 0.85rem; font-weight: bold; border: none;
-    box-shadow: 0 4px 15px rgba(94, 187, 170, 0.2); 
+    display: inline-block; /* 横並びになりつつ、幅や高さも指定できるブロックにする */
+    background: var(--accent); /* 背景色：ミントグリーン */
+    color: #ffffff; /* 文字色：白（HEX値） */
+    padding: 12px 25px; /* 内側余白：上下12px、左右25px */
+    border-radius: 40px; /* 角を40px丸める（カプセル型のボタンになる） */
+    font-size: 0.85rem; 
+    font-weight: bold; /* 太字 */
+    border: none; /* 枠線なし */
+    box-shadow: 0 4px 15px rgba(94, 187, 170, 0.2); /* 影：右0px、下4pxにズラし、15pxの強さでぼかす。色はミントで透明度20% */
 }
 .reserve-btn a:hover {
-    transform: scale(1.05) !important; background: var(--hover-accent); color: #fff !important;
-    box-shadow: 0 8px 20px rgba(94, 187, 170, 0.3);
+    transform: scale(1.05) !important; /* マウスホバー時、元の1.05倍の大きさにフワッと拡大する */
+    background: var(--hover-accent); /* 背景色を濃いミントに */
+    color: #fff !important;
+    box-shadow: 0 8px 20px rgba(94, 187, 170, 0.3); /* 影を大きく・濃くして、より浮き上がったように見せる */
 }
 
-/* ページ下部などの共通大きなボタン */
+/* ページ下部などに置く共通の大きなボタン */
 .btn-web { 
-    display: inline-block; padding: 15px 40px; background: var(--gradient-accent); color: #fff;
-    border-radius: 50px; margin-top: 20px; font-weight: 500;
+    display: inline-block; 
+    padding: 15px 40px; 
+    background: var(--gradient-accent); /* 背景をミントのグラデーションに */
+    color: #fff; 
+    border-radius: 50px; 
+    margin-top: 20px; 
+    font-weight: 500;
     box-shadow: 0 4px 15px rgba(144, 200, 190, 0.3); 
 }
-.btn-web:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 20px rgba(94, 187, 170, 0.4); }
+.btn-web:hover { 
+    transform: translateY(-2px) scale(1.05); /* 上に2px移動しつつ、1.05倍に拡大する合わせ技 */
+    box-shadow: 0 8px 20px rgba(94, 187, 170, 0.4); 
+}
 
-/* ページ内リンクボタン（治療内容など） */
-.service-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 80px; }
-.service-nav a { display: block; padding: 15px 30px; background: rgba(255,255,255,0.8); border: 1px solid var(--accent); color: var(--accent); border-radius: 40px; font-family: var(--font-serif); letter-spacing: 0.05em; font-size: 0.95rem; }
-.service-nav a:hover { background: var(--gradient-accent); color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(144, 200, 190, 0.3); border-color: transparent; }
+/* ページ内リンクボタン（治療内容など、白背景にミント枠線のボタン） */
+.service-nav { 
+    display: flex; flex-wrap: wrap; /* 横並びにし、画面端で折り返す（wrap） */
+    justify-content: center; gap: 15px; margin-bottom: 80px; 
+}
+.service-nav a { 
+    display: block; padding: 15px 30px; 
+    background: rgba(255,255,255,0.8); /* 白の半透明背景 */
+    border: 1px solid var(--accent); /* 1pxのミントグリーンの枠線 */
+    color: var(--accent); 
+    border-radius: 40px; 
+    font-family: var(--font-serif); /* フォントを明朝体に */
+    letter-spacing: 0.05em; font-size: 0.95rem; 
+}
+.service-nav a:hover { 
+    background: var(--gradient-accent); /* ホバー時はグラデーション背景に塗りつぶす */
+    color: #fff; /* 文字は白に反転 */
+    transform: translateY(-3px); box-shadow: 0 5px 15px rgba(144, 200, 190, 0.3); 
+    border-color: transparent; /* 枠線を透明にして消す */
+}
 
-/* 注意書きテキスト（ピンク） */
-.notice-text { font-size: 0.85rem; color: #C87481; background: #FDF4F6; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #F0E1E4; line-height: 1.6; }
+/* 注意書きテキスト（ピンクの枠） */
+.notice-text { 
+    font-size: 0.85rem; 
+    color: #C87481; /* くすんだローズピンク文字 */
+    background: #FDF4F6; /* 極薄いピンク背景 */
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    border: 1px solid #F0E1E4; /* 薄いピンクの枠線 */
+    line-height: 1.6; 
+}
 
 /* ===================================================
    06. トップページ専用 (Hero Slider)
 =================================================== */
-.hero { height: 100vh; position: relative; overflow: hidden; }
-.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 2s ease-in-out; z-index: 1; }
-.slide.is-active { opacity: 1; z-index: 2; }
-.img-wrap { width: 100%; height: 100%; transform: scale(1.1); transition: transform 8s linear; }
-.slide.is-active .img-wrap { transform: scale(1.0); }
-.slide img { object-fit: cover; filter: brightness(0.95); }
+.hero { 
+    height: 100vh; /* 高さを画面（Viewport Height）の100%（ぴったりフルスクリーン）にする */
+    position: relative; /* 子要素（スライドや文字）の絶対配置の基準にする */
+    overflow: hidden; /* 枠からはみ出た画像は見えなくする */
+}
+.slide { 
+    position: absolute; inset: 0; /* 上下左右0pxの位置に張り付かせる（画面全体に広がる） */
+    opacity: 0; /* 最初は透明（見えない） */
+    transition: opacity 2s ease-in-out; /* 透明度の変化（フェードイン・アウト）を2秒かけて行う */
+    z-index: 1; /* 重なり順：下 */
+}
+.slide.is-active { 
+    opacity: 1; /* アクティブなスライドは透明度1（完全に見える）にする */
+    z-index: 2; /* アクティブなスライドを上に持ってくる */
+}
 
-.hero-content { position: absolute; inset: 0; display: flex; align-items: center; padding-left: 10%; z-index: 10; }
-.glass-panel { padding: 60px; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px); border-left: 6px solid var(--accent); box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); }
-.hero-content h2 { font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; color: var(--text); font-weight: 250; }
+.img-wrap { 
+    width: 100%; height: 100%; 
+    transform: scale(1.1); /* 最初は画像を1.1倍に拡大しておく */
+    transition: transform 8s linear; /* 8秒かけて一定の速度(linear)で変化させる（ズームアウトの準備） */
+}
+.slide.is-active .img-wrap { 
+    transform: scale(1.0); /* アクティブになったら、8秒かけて元の等倍(1.0)にゆっくり縮小（ズームアウト）していく */
+}
+.slide img { 
+    object-fit: cover; /* 縦横比を崩さず、画面全体を覆うように画像を綺麗に切り抜く */
+    filter: brightness(0.95); /* 画像の明るさを95%に少し落とし、上に乗る白文字を読みやすくする */
+}
 
-.slider-dots { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; gap: 15px; }
-.dot { width: 8px; height: 8px; background: rgba(0,0,0,0.15); border-radius: 50%; cursor: pointer; }
-.dot.is-active { background: var(--accent); width: 24px; border-radius: 10px; transition: all 0.3s; }
+/* スライド上に乗るガラス風パネル（キャッチコピー） */
+.hero-content { 
+    position: absolute; inset: 0; display: flex; 
+    align-items: center; /* 縦方向の中央 */
+    padding-left: 10%; /* 左端から10%の余白を空ける */
+    z-index: 10; /* 画像よりずっと上に表示 */
+}
+.glass-panel { 
+    padding: 60px; 
+    background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px); /* 半透明白＋すりガラス15px */
+    border-left: 6px solid var(--accent); /* 左側に太さ6pxのミントグリーンのアクセント線 */
+    box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); /* ぼんやりと広い範囲の影 */
+}
+.hero-content h2 { 
+    font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; 
+    color: var(--text); font-weight: 250; /* 文字の太さをかなり細めに設定して洗練された印象に */
+}
+
+/* スライダー下部の丸い点（ドット） */
+.slider-dots { 
+    position: absolute; 
+    bottom: 40px; /* 下から40pxの位置 */
+    left: 50%; transform: translateX(-50%); /* 左から50%押し出し、自分の幅の半分(-50%)戻すことで、完璧な中央配置にするテクニック */
+    z-index: 20; display: flex; gap: 15px; 
+}
+.dot { 
+    width: 8px; height: 8px; /* 通常時は8pxの正円 */
+    background: rgba(0,0,0,0.15); /* 黒の15%透明 */
+    border-radius: 50%; cursor: pointer; /* マウスカーソルを指マーク(pointer)にする */
+}
+.dot.is-active { 
+    background: var(--accent); /* 今表示しているスライドのドットはミントグリーンに */
+    width: 24px; /* 横幅を広げてカプセル型にする */
+    border-radius: 10px; transition: all 0.3s; 
+}
 
 /* ===================================================
    07. コンテンツ・セクション共通 (Sections)
 =================================================== */
-.section { padding: 100px 0; }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.section { padding: 100px 0; } /* 各大きな区画（セクション）の上下に100pxの余白 */
+.container { 
+    max-width: 1100px; /* 中身の最大幅を1100pxに制限する（大画面PCでも広がりすぎないように） */
+    margin: 0 auto; /* 上下はゼロ、左右の余白を自動(auto)にして、要素を画面の中央に配置する */
+    padding: 0 40px; /* 画面が狭くなった時用に、左右に最低限40pxの余白を確保 */
+}
 
-/* トップページの余白微調整 */
-.about-section { padding-bottom: 60px; }
-.news-section { padding-top: 60px; }
+/* トップページのセクション間隔の微調整 */
+.about-section { padding-bottom: 60px; } /* Philosophyのすぐ下の余白を減らす */
+.news-section { padding-top: 60px; }     /* Newsのすぐ上の余白を減らす */
 
-/* ページ見出し・導入文 */
-.page-header { padding: 180px 0 60px; background: transparent; text-align: center; }
+/* 下層ページの上部タイトル（ページヘッダー） */
+.page-header { padding: 180px 0 60px; background: transparent; text-align: center; } /* ヘッダーメニューに隠れないよう、上に180pxの余白を大きく取る */
 .page-title { font-size: 2.2rem; color: var(--accent); }
 .page-title .en { display: block; font-size: 0.9rem; color: var(--sub-text); margin-bottom: 5px; letter-spacing: 0.25em; }
 
+/* ページごとの導入文（イントロ） */
 .page-intro { text-align: center; margin-bottom: 50px; }
 .page-intro h3 { font-size: 1.8rem; color: var(--accent); margin-bottom: 20px; font-family: var(--font-serif); }
 .page-intro p { font-size: 1rem; line-height: 2; }
 
-/* 下層ページの白背景枠 */
+/* 下層ページの白背景の大きな枠組み */
 .content-section, .gyne-section {
-    margin-bottom: 60px; padding: 50px; background: rgba(255,255,255,0.9); border-radius: 12px;
-    box-shadow: 0 4px 25px rgba(144, 200, 190, 0.06); scroll-margin-top: 120px; border: 1px solid rgba(255,255,255,0.6);
+    margin-bottom: 60px; 
+    padding: 50px; /* 枠の内側に50pxのゆとり */
+    background: rgba(255,255,255,0.9); /* 白の90%不透明 */
+    border-radius: 12px; /* 角丸12px */
+    box-shadow: 0 4px 25px rgba(144, 200, 190, 0.06); 
+    scroll-margin-top: 120px; /* ページ内リンクで飛んできた時、固定ヘッダーの下に隠れないよう、上に120pxの見えないバリア（スクロール位置調整）を張る */
+    border: 1px solid rgba(255,255,255,0.6);
 }
-.content-section h3, .gyne-section h3 { font-size: 1.6rem; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); }
+/* 枠組みの中の見出し（h3） */
+.content-section h3, .gyne-section h3 { 
+    font-size: 1.6rem; color: var(--accent); 
+    border-bottom: 1px solid var(--line); /* 下線 */
+    padding-bottom: 15px; margin-bottom: 30px; font-family: var(--font-serif); 
+}
 .content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
 
 /* ===================================================
@@ -203,96 +384,133 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
 /* --- 08-1. お知らせリスト --- */
 .news-list { list-style: none; border-top: 1px solid var(--line); }
 .news-list li {
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+    display: flex; align-items: flex-start; /* 横並びにし、要素の「上端」で揃える */
+    justify-content: space-between; gap: 20px;
     padding: 25px 15px; border-bottom: 1px solid var(--line); transition: all 0.3s ease;
     border-radius: 8px; scroll-margin-top: 100px;
 }
-.news-list li:hover { background: var(--bg-light); transform: translateX(5px); }
-.news-list li > a:first-child { flex-grow: 1; display: flex; align-items: center; }
-.news-list li > a:last-child { flex-shrink: 0; }
+.news-list li:hover { 
+    background: var(--bg-light); /* マウスを乗せたら背景色を付ける */
+    transform: translateX(5px); /* 右に5pxスッと動かす */
+}
+.news-list li > a:first-child { 
+    flex-grow: 1; /* リンク部分（テキスト等）に、余っている幅をすべて使わせる */
+    display: flex; align-items: center; 
+}
+.news-list li > a:last-child { flex-shrink: 0; } /* 最後の要素（画像）は幅を縮ませない */
 .news-list time { font-size: 0.85rem; color: var(--sub-text); width: 140px; flex-shrink: 0; }
 .news-list .cat {
-    font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); padding: 2px 12px; margin-right: 30px; 
-    border-radius: 20px; font-weight: bold; white-space: nowrap; flex-shrink: 0; 
+    /* カテゴリ名（「お知らせ」「重要」など）の装飾 */
+    font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); 
+    padding: 2px 12px; margin-right: 30px; border-radius: 20px; 
+    font-weight: bold; 
+    white-space: nowrap; /* テキストが長くなっても絶対に枠内で改行させない */
+    flex-shrink: 0; /* 画面が狭くなっても枠を潰さない */
 }
 .news-list li:hover time, .news-list li:hover p { color: var(--hover-accent); }
-.news-list li:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; }
+.news-list li:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; } /* ホバー時、カテゴリ枠を塗りつぶし反転 */
 .news-list p { flex: 1; margin-right: 20px; line-height: 1.6; }
-.news-img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+.news-img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; } /* お知らせ右側のサムネイル画像 */
 
 /* --- 08-2. 診療案内カード (01〜06) --- */
-.medical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.medical-card { display: block; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.5) !important; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
+.medical-grid { 
+    display: grid; /* Gridレイアウト（マス目状に要素を配置する）を有効化 */
+    grid-template-columns: repeat(3, 1fr); /* 3列（1fr = 1つの均等な比率）のマス目を作る */
+    gap: 30px; /* マス目同士の隙間を30pxにする */
+}
+.medical-card { 
+    display: block; background: rgba(255,255,255,0.9); 
+    padding: 40px; /* 上下左右の余白を40pxで統一して正方形に近い美しい形にする */
+    border-radius: 12px; border: 1px solid rgba(255,255,255,0.5) !important; 
+    box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); 
+}
 .medical-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(144, 200, 190, 0.2); background: #ffffff; }
-.card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.4; margin-bottom: 20px; display: block; }
+.card-num { color: var(--accent); font-size: 1.2rem; opacity: 0.4; margin-bottom: 20px; display: block; } /* 01, 02 などの数字（透明度0.4で薄く） */
 
 /* --- 08-3. 治療フロー＆テーブル --- */
-.flow-step { background: rgba(255,255,255,0.8); border-radius: 8px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); box-shadow: 0 4px 15px rgba(144, 200, 190, 0.05); }
+/* 治療ステップ（ステップ1、ステップ2...などの枠） */
+.flow-step { 
+    background: rgba(255,255,255,0.8); border-radius: 8px; padding: 25px; margin-bottom: 20px; 
+    border-left: 5px solid var(--accent); /* 左側に太いミント色のライン */
+    box-shadow: 0 4px 15px rgba(144, 200, 190, 0.05); 
+}
 .flow-step .step-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; }
 .flow-step .step-title span { background: var(--gradient-accent); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 15px; }
 .flow-step.with-img { display: flex; gap: 30px; align-items: flex-start; }
 .flow-step.with-img .step-text { flex: 1; }
+/* 画像を入れるためのダミー枠（破線） */
 .step-img-dummy { width: 250px; height: 180px; background-color: var(--bg-light); border: 2px dashed var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; }
 .step-img-dummy span { font-family: var(--font-en); font-size: 0.85rem; color: var(--accent); font-weight: bold; text-align: center; }
 
-.schedule-wrap { overflow-x: auto; margin-bottom: 25px; }
-.medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.08); border-radius: 8px; overflow: hidden; }
+/* 診療時間などの表（テーブル） */
+.schedule-wrap { overflow-x: auto; margin-bottom: 25px; } /* スマホなどで表がはみ出す時、表の中だけを横スクロールできるようにする */
+.medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.08); border-radius: 8px; overflow: hidden; } /* border-collapse: 枠線の隙間をなくす */
 .medical-table th, .medical-table td { padding: 15px 10px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; }
-.medical-table th { background: rgba(235, 246, 243, 0.6); color: var(--accent); font-weight: 500; }
-.medical-table td.closed { color: #aaa; background-color: #fcfcfc; }
+.medical-table th { background: rgba(235, 246, 243, 0.6); color: var(--accent); font-weight: 500; } /* 見出しセル（th）の色 */
+.medical-table td.closed { color: #aaa; background-color: #fcfcfc; } /* 休診日のセル（グレーアウト） */
 
+/* 料金表などを囲むボックス */
 .price-box { background: rgba(246, 251, 249, 0.8); padding: 30px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--line); }
 .price-box .price-title { font-weight: bold; color: var(--accent); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
 
 /* --- 08-4. 医師・スタッフ・施設・ギャラリー --- */
+/* ご予約方法カード（電話とWeb） */
 .reservation-cards { display: flex; gap: 30px; }
 .res-card { flex: 1; background: rgba(255,255,255,0.9); border: 1px solid var(--line); padding: 40px 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); }
 .res-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.2); background: #fff; border-color: transparent; }
 .res-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
 .res-card .tel-number { font-size: 2.2rem; font-weight: 500; margin: 15px 0; letter-spacing: 0.05em; }
 
+/* 医師紹介ボックス */
 .doctor-box { display: flex; gap: 40px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.5); }
-.doc-img { width: 220px; height: 280px; background: #eee; border-radius: 8px; object-fit: cover; }
+.doc-img { width: 220px; height: 280px; background: #eee; border-radius: 8px; object-fit: cover; } /* 医師の写真は固定サイズで綺麗にトリミング */
 .doc-info { flex: 1; }
 .doc-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; }
 .doc-name { font-size: 1.6rem; margin-bottom: 20px; border-bottom: 1px solid var(--line); padding-bottom: 15px; }
 
-.staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+/* スタッフ紹介（複数ボックス） */
+.staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; } /* 画面幅に合わせて自動で列数を調整するGrid。最小幅は280px */
 .staff-box { padding: 30px; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); border: 1px solid rgba(255,255,255,0.5); }
 .staff-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
 
-/* ▼▼▼ ここから追加 ▼▼▼ */
-/* 施設基準・アコーディオン */
+/* 施設基準・アコーディオン（クリックして開閉するメニュー） */
 .facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.9); }
 .facility-summary { padding: 20px 30px; cursor: pointer; font-weight: bold; color: var(--accent); font-size: 1.1rem; list-style: none; }
-.facility-summary::-webkit-details-marker { display: none; }
-.facility-summary::marker { display: none; }
+.facility-summary::-webkit-details-marker { display: none; } /* ブラウザ（特にSafari）標準の黒い三角マークを非表示にする */
+.facility-summary::marker { display: none; } /* その他のブラウザ用の三角マーク非表示 */
 .facility-content { padding: 0 30px 30px; font-size: 0.9rem; color: var(--text); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 20px; }
-.facility-content h5 { font-size: 1rem; color: var(--accent); margin-top: 25px; margin-bottom: 8px; border-left: 4px solid var(--accent); padding-left: 10px; }
-.facility-content h5:first-child { margin-top: 0; }
+.facility-content h5 { font-size: 1rem; color: var(--accent); margin-top: 25px; margin-bottom: 8px; border-left: 4px solid var(--accent); padding-left: 10px; } /* 見出しにミントの縦線装飾と余白を設定 */
+.facility-content h5:first-child { margin-top: 0; } /* 一番最初の見出しだけは上の余白を詰める */
 .facility-content p { margin-bottom: 15px; color: var(--sub-text); line-height: 1.8; }
-/* ▲▲▲ ここまで追加 ▲▲▲ */
 
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.1); border: 2px solid #fff; aspect-ratio: 4 / 3; cursor: pointer; }
+/* ギャラリー（写真一覧） */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; } /* 自動折り返しのGrid */
+.gallery-item { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.1); border: 2px solid #fff; aspect-ratio: 4 / 3; cursor: pointer; } /* aspect-ratio: 4 / 3 で写真を綺麗な横長比率（4:3）に統一 */
 .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.25); }
 .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease-out; }
-.gallery-item:hover .gallery-img { transform: scale(1.1); }
-.gallery-overlay { position: absolute; inset: 0; background: rgba(144, 200, 190, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease; z-index: 10; pointer-events: none; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-item:hover .gallery-img { transform: scale(1.1); } /* ホバー時、枠の中で写真だけがゆっくり1.1倍にズームインする */
+.gallery-overlay { 
+    /* 写真の上に被さる半透明のミント色レイヤー（キャプション表示用） */
+    position: absolute; inset: 0; background: rgba(144, 200, 190, 0.85); color: #fff; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    padding: 20px; text-align: center; 
+    opacity: 0; /* 最初は透明 */
+    transition: opacity 0.5s ease; z-index: 10; pointer-events: none; 
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; } /* ホバー時のみ浮かび上がる */
 .gallery-title { font-size: 1.2rem; margin-bottom: 10px; font-weight: 500; }
 
 /* --- 08-5. アクセスマップ --- */
 .access-wrapper { display: flex; flex-direction: column; gap: 50px; }
 .map-container { width: 100%; height: 450px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; } /* 情報枠を2列で表示 */
 .info-box { background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); border: 1px solid rgba(255,255,255,0.5); }
 .info-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
 
 /* ===================================================
    09. フッター (Footer)
 =================================================== */
-footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 60px 0 40px; text-align: center; }
+footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 60px 0 40px; text-align: center; } /* 下に行くにつれて薄いミントになるグラデーション */
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 30px; }
 .footer-nav ul { display: flex; flex-wrap: wrap; justify-content: center; list-style: none; gap: 15px 40px; padding: 0; margin: 0 0 10px 0; }
 .footer-nav a { font-size: 0.9rem; }
@@ -302,94 +520,137 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
 
 /* ===================================================
    10. スマホ・タブレット対応 (Responsive)
+   ※ `@media (max-width: 〇〇px)` の中に書かれた設定は、画面幅が指定サイズ「以下」になった時だけ適用され、PC用の設定を上書きします。
 =================================================== */
-/* --- ハンバーガーメニュー本体 --- */
-.menu-toggle { display: none; background: none; border: none; cursor: pointer; width: 30px; height: 24px; position: relative; z-index: 1100; }
-.menu-toggle span { display: block; width: 100%; height: 2px; background-color: var(--text); position: absolute; transition: all 0.3s ease; }
-.menu-toggle span:nth-child(1) { top: 0; }
-.menu-toggle span:nth-child(2) { top: 11px; }
-.menu-toggle span:nth-child(3) { bottom: 0; }
-.menu-toggle.is-active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
-.menu-toggle.is-active span:nth-child(2) { opacity: 0; }
-.menu-toggle.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+/* --- ハンバーガーメニュー本体（アイコン） --- */
+.menu-toggle { 
+    display: none; /* PC画面では非表示にしておく */
+    background: none; border: none; cursor: pointer; width: 30px; height: 24px; position: relative; z-index: 1100; 
+}
+.menu-toggle span { 
+    /* 三本線の設定 */
+    display: block; width: 100%; height: 2px; background-color: var(--text); position: absolute; transition: all 0.3s ease; 
+}
+.menu-toggle span:nth-child(1) { top: 0; } /* 1本目の線（一番上） */
+.menu-toggle span:nth-child(2) { top: 11px; } /* 2本目の線（真ん中） */
+.menu-toggle span:nth-child(3) { bottom: 0; } /* 3本目の線（一番下） */
 
-/* --- 1150px以下（メニューのスマホ化） --- */
+/* メニューが開いた時（is-active）の「×」印へのアニメーション */
+.menu-toggle.is-active span:nth-child(1) { transform: translateY(11px) rotate(45deg); } /* 1番上の線を真ん中まで下げて、45度回転 */
+.menu-toggle.is-active span:nth-child(2) { opacity: 0; } /* 真ん中の線は透明にして消す */
+.menu-toggle.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); } /* 1番下の線を真ん中まで上げて、逆45度回転（これで「×」になる） */
+
+/* --- 1150px以下（メニューのスマホ化・iPad等のタブレット対応） --- */
 @media (max-width: 1150px) {
-    .glass-header { padding: 15px 20px; }
-    .menu-toggle { display: block; }
+    .glass-header { padding: 15px 20px; } /* ヘッダーの余白を少し狭くする */
+    .menu-toggle { display: block; } /* PCでは隠していたハンバーガーアイコンを表示する */
     
     nav {
-        display: block !important; position: fixed; top: 0; right: -100%; width: 80%; max-width: 350px;
-        height: 100dvh; /* iPhoneツールバー対応 */
-        background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+        display: block !important; /* スマホ用メニューの設定を有効にする */
+        position: fixed; top: 0; right: -100%; /* 初期状態は画面の「右外」に隠しておく（-100%） */
+        width: 80%; max-width: 350px; /* メニューの横幅は画面の80%（最大350px） */
+        height: 100dvh; /* 高さはスマホの操作バー（ツールバー）を考慮した正確な画面の高さ(100dvh) */
+        background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); /* ほぼ不透明の白背景 */
         padding: 80px 30px 40px; transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); z-index: 1050;
-        box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-        overflow-y: auto; -webkit-overflow-scrolling: touch; /* スクロール対応 */
+        box-shadow: -10px 0 30px rgba(0,0,0,0.05); /* メニュー左側に影をつける */
+        overflow-y: auto; -webkit-overflow-scrolling: touch; /* メニュー項目が多い時、メニュー内を指でスクロールできるようにする */
     }
-    nav.is-active { right: 0; }
-    nav ul { flex-direction: column; align-items: flex-start; gap: 8px; }
-    nav a { font-size: 1.05rem; width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    nav.is-active { right: 0; } /* メニューを開いた時（is-active）、隠していたメニューを右から0位置（画面内）にスライドインさせる */
+    nav ul { flex-direction: column; align-items: flex-start; gap: 8px; } /* メニュー項目を「縦並び（column）」に変更 */
+    nav a { font-size: 1.05rem; width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); } /* 文字を左寄せにし、下線を引く */
     .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
-    .reserve-btn a { text-align: center; border-bottom: none; }
+    .reserve-btn a { text-align: center; border-bottom: none; } /* 予約ボタンのデザイン調整 */
 }
 
 @media (max-width: 1024px) {
-    .medical-grid { grid-template-columns: repeat(2, 1fr); }
+    .medical-grid { grid-template-columns: repeat(2, 1fr); } /* 3列だった診療カードを、画面が少し狭くなったら2列に変更する */
 }
 
-/* --- 768px以下（完全スマホ表示） --- */
+/* --- 768px以下（完全スマホ表示用レイアウト変更） --- */
 @media (max-width: 768px) {
     .hero-content { padding-left: 5%; }
-    .hero-content h2 { font-size: 1.8rem; }
+    .hero-content h2 { font-size: 1.8rem; } /* スマホではキャッチコピーの文字サイズを小さくする */
     .glass-panel { padding: 30px; }
-    .container { padding: 0 20px; }
+    .container { padding: 0 20px; } /* スマホでは全体の左右余白を20pxに狭くする */
     .content-section, .gyne-section { padding: 30px 20px; scroll-margin-top: 80px; }
     
-    .medical-grid { grid-template-columns: 1fr; }
+    .medical-grid { grid-template-columns: 1fr; } /* 2列だった診療カードを、スマホでは「1列」の縦並びに変更する */
     .service-nav { flex-direction: column; width: 100%; }
-    .service-nav a { text-align: center; width: 100%; }
+    .service-nav a { text-align: center; width: 100%; } /* 横並びだった治療メニューのリンクボタンを縦並びに */
     
-    .news-list li { flex-direction: column; }
+    .news-list li { flex-direction: column; } /* お知らせを横並びから縦並びに変更 */
     .news-list li > a:first-child { flex-direction: column; align-items: flex-start; width: 100%; }
-    .news-list p { margin-right: 0; margin-bottom: 15px; width: 100%; }
-    .news-img { width: 100px; height: 70px; }
+    .news-list p { margin-right: 0; margin-bottom: 15px; width: 100%; } /* スマホでのテキスト折り返しと余白調整 */
+    .news-img { width: 100px; height: 70px; } /* スマホではお知らせのサムネイル画像を小さくする */
     
-    .flow-step.with-img { flex-direction: column; gap: 15px; }
+    .flow-step.with-img { flex-direction: column; gap: 15px; } /* 治療フローの図とテキストを縦並びに */
     .step-img-dummy { width: 100%; height: 160px; margin-top: 0; }
     
-    .reservation-cards { flex-direction: column; }
-    .doctor-box { flex-direction: column; padding: 20px; gap: 20px; }
+    .reservation-cards { flex-direction: column; } /* 予約カード（電話/Web）を縦並びに */
+    .doctor-box { flex-direction: column; padding: 20px; gap: 20px; } /* 医師紹介を縦並びにし、写真が上にくるようにする */
     .doc-img { width: 100%; height: auto; aspect-ratio: 3/4; }
     
-    .info-grid { grid-template-columns: 1fr; }
-    .map-container { height: 300px; }
+    .info-grid { grid-template-columns: 1fr; } /* アクセス情報を1列に */
+    .map-container { height: 300px; } /* Googleマップの高さを300pxに低くする */
     .info-box { padding: 30px 20px; }
     
-    .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
+    .gallery-grid { grid-template-columns: 1fr; gap: 20px; } /* ギャラリーを1列に */
     .footer-nav ul { gap: 15px 20px; }
-    .footer-nav a { font-size: 0.85rem; }
+    .footer-nav a { font-size: 0.85rem; } /* フッターリンクの文字サイズを調整 */
 }
 
 /* ===================================================
    11. JS・特殊機能用クラス (Lightbox, Animation)
+   ※ HTMLに特定のクラス（js-scrollなど）を付けることで、JavaScriptと連携して動くデザイン設定です。
 =================================================== */
-/* スクロールアニメーション */
-.js-scroll { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
-.js-scroll.is-visible { opacity: 1; transform: translateY(0); }
+/* ページスクロールアニメーション（ふわっと浮き出る設定） */
+.js-scroll { 
+    opacity: 0; /* 最初は透明で見えない */
+    transform: translateY(40px); /* 40px下にズラして配置しておく */
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); /* 1.2秒かけてゆっくりと変化させる */
+}
+.js-scroll.is-visible { 
+    /* JavaScriptが「画面に入った！」と判断して .is-visible クラスを付けた時の設定 */
+    opacity: 1; /* 完全に見えるようになる */
+    transform: translateY(0); /* 元の（0）位置に戻ってくる（＝ふわっと浮き上がるように見える） */
+}
 
-/* 背景スクロールロック（JSから付与される用） */
+/* 背景スクロールロック（ハンバーガーメニュー等を開いた時に、裏側のページが動かないようにJSから付与される用） */
 body.no-scroll { overflow: hidden; }
 
-/* Lightbox（画像拡大） */
+/* Lightbox（画像拡大機能）全体を覆う黒い背景画面 */
 .lightbox {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(83, 88, 86, 0.8); 
-    backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center;
-    z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; /* 画面全体を覆う */
+    background: rgba(83, 88, 86, 0.8); backdrop-filter: blur(8px); /* 黒っぽい半透明＋すりガラス効果 */
+    display: flex; justify-content: center; align-items: center; /* 中の画像を中心に配置 */
+    z-index: 2000; /* ヘッダー(1000)よりもさらに上（最前面）に表示 */
+    opacity: 0; pointer-events: none; transition: opacity 0.4s ease; /* 最初は見えない・クリックできない */
 }
-.lightbox.is-active { opacity: 1; pointer-events: auto; }
-.lightbox-content { position: relative; max-width: 90%; max-height: 90vh; transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-.lightbox.is-active .lightbox-content { transform: scale(1); }
-.lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); object-fit: contain; }
-.lightbox-close { position: absolute; top: -40px; right: 0; color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1; transition: color 0.3s; }
-.lightbox-close:hover { color: var(--accent); }
-.lightbox-caption { color: #fff; text-align: center; margin-top: 15px; font-size: 1.1rem; letter-spacing: 0.05em; }
+.lightbox.is-active { opacity: 1; pointer-events: auto; } /* アクティブになったら表示・クリック可能に */
+
+/* 拡大される画像を入れる枠 */
+.lightbox-content { 
+    position: relative; max-width: 90%; max-height: 90vh; 
+    transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); /* 開く時に少しだけ拡大するアニメーション準備 */
+}
+.lightbox.is-active .lightbox-content { transform: scale(1); } /* 完全に開いたら元のサイズに */
+
+/* 拡大画像そのものの設定 */
+.lightbox-img { 
+    max-width: 100%; max-height: 80vh; /* 画像が画面からはみ出さないように制限 */
+    border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
+    object-fit: contain; /* 画像の比率を崩さず全体を表示させる */
+}
+
+/* 閉じるボタン（右上の「×」印） */
+.lightbox-close { 
+    position: absolute; top: -40px; right: 0; /* 画像の右上、少し外側に配置 */
+    color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1; transition: color 0.3s; 
+}
+.lightbox-close:hover { color: var(--accent); } /* マウスを乗せたらミントグリーンに */
+
+/* 拡大画像の下に表示する説明文（キャプション） */
+.lightbox-caption { 
+    color: #fff; text-align: center; margin-top: 15px; 
+    font-size: 1.1rem; letter-spacing: 0.05em; 
+}
