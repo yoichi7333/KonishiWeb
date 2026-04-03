@@ -34,9 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollElements.forEach(el => observer.observe(el));
     }
 
-    // ==================================================
     // 3. ハンバーガーメニューの開閉制御
-    // ==================================================
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('#nav-menu');
 
@@ -44,12 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('is-active');
             navMenu.classList.toggle('is-active');
+            
+            // ★追加：メニューが開いている時は背面のスクロールを禁止する
+            if (navMenu.classList.contains('is-active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
 
         document.querySelectorAll('#nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('is-active');
                 navMenu.classList.remove('is-active');
+                document.body.style.overflow = ''; // ★追加：メニューを閉じたらスクロールを許可する
             });
         });
     }
