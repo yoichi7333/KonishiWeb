@@ -113,13 +113,11 @@ a {
    04. ヘッダー・ナビゲーション (Header & Menu)
 =================================================== */
 .glass-header {
-    position: fixed; /* 画面の決まった位置に固定する（スクロールしても追従） */
-    width: 100%; /* 横幅を画面いっぱいに広げる */
-    padding: 20px 60px; /* 内側の余白：上下に20px、左右に60px */
-    z-index: 1000; /* 重なり順：他の要素より手前（上）に表示するための大きな数値 */
-    background: rgba(255, 255, 255, 0.5); /* 背景色：白（255,255,255）で、透明度50%（0.5） */
-    backdrop-filter: blur(12px); /* 背景のぼかし効果（すりガラス風）：12pxの強さでぼかす */
-    border-bottom: 1px solid rgba(225, 235, 232, 0.5); /* 下側の境界線：1pxの直線で、半透明の薄い緑色 */
+    position: fixed; 
+    top: 0; left: 0; /* ★ここを追加（常に画面の左上にピン留めする） */
+    width: 100%; padding: 20px 60px; z-index: 1000;
+    background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(225, 235, 232, 0.5);
 }
 
 .header-inner { 
@@ -394,8 +392,12 @@ nav a.active::after {
     transform: translateX(5px); /* 右に5pxスッと動かす */
 }
 .news-list li > a:first-child { 
-    flex-grow: 1; /* リンク部分（テキスト等）に、余っている幅をすべて使わせる */
-    display: flex; align-items: center; 
+    flex-grow: 1; display: flex; align-items: center; 
+    min-width: 0; /* ★追加：スマホでの文字突き抜けバグを防止 */
+}
+.news-list p { 
+    flex: 1; margin-right: 20px; line-height: 1.6; 
+    min-width: 0; word-break: break-word; /* ★追加：長い文章でも必ず枠内で折り返す */
 }
 .news-list li > a:last-child { flex-shrink: 0; } /* 最後の要素（画像）は幅を縮ませない */
 .news-list time { font-size: 0.85rem; color: var(--sub-text); width: 140px; flex-shrink: 0; }
@@ -409,9 +411,22 @@ nav a.active::after {
 }
 .news-list li:hover time, .news-list li:hover p { color: var(--hover-accent); }
 .news-list li:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; } /* ホバー時、カテゴリ枠を塗りつぶし反転 */
-.news-list p { flex: 1; margin-right: 20px; line-height: 1.6; }
 .news-img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; } /* お知らせ右側のサムネイル画像 */
 
+/* ページ送り（ページネーション） */
+.pagination { 
+    display: flex; justify-content: center; align-items: center; 
+    gap: 10px; margin-top: 40px; flex-wrap: wrap; width: 100%; 
+}
+.pagination span, .pagination a { 
+    display: flex; justify-content: center; align-items: center; 
+    width: 40px; height: 40px; border-radius: 50%; 
+    background: #fff; color: var(--text); border: 1px solid var(--line); 
+    font-weight: bold; transition: all 0.3s ease; text-decoration: none;
+}
+.pagination .page-current, .pagination a:hover { 
+    background: var(--accent); color: #fff; border-color: transparent; 
+}
 /* --- 08-2. 診療案内カード (01〜06) --- */
 .medical-grid { 
     display: grid; /* Gridレイアウト（マス目状に要素を配置する）を有効化 */
@@ -441,6 +456,25 @@ nav a.active::after {
 /* 画像を入れるためのダミー枠（破線） */
 .step-img-dummy { width: 250px; height: 180px; background-color: var(--bg-light); border: 2px dashed var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; }
 .step-img-dummy span { font-family: var(--font-en); font-size: 0.85rem; color: var(--accent); font-weight: bold; text-align: center; }
+
+/* --- 08-3. 治療フロー＆テーブル 内の修正 --- */
+.step-img {
+    width: 250px;           /* PCでの横幅 */
+    aspect-ratio: 4 / 3;    /* ★重要：縦横比を4:3に固定（高さは書かなくてOK） */
+    object-fit: cover;      /* 枠に合わせて画像を綺麗に切り抜く */
+    border-radius: 8px;
+    flex-shrink: 0;         /* 横幅が狭くなっても画像が潰されないように固定 */
+}
+
+/* --- 10. スマホ対応 (768px以下) 内の修正 --- */
+@media (max-width: 768px) {
+    .step-img {
+        width: 100%;        /* スマホでは横幅いっぱい */
+        aspect-ratio: 16 / 9; /* ★スマホでは少し横長に見せるとスッキリします */
+        height: auto;       /* 高さは比率に合わせて自動計算 */
+        margin-top: 0;
+    }
+}
 
 /* 診療時間などの表（テーブル） */
 .schedule-wrap { overflow-x: auto; margin-bottom: 25px; } /* スマホなどで表がはみ出す時、表の中だけを横スクロールできるようにする */
@@ -585,6 +619,7 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     
     .flow-step.with-img { flex-direction: column; gap: 15px; } /* 治療フローの図とテキストを縦並びに */
     .step-img-dummy { width: 100%; height: 160px; margin-top: 0; }
+    .step-img { width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 0; }
     
     .reservation-cards { flex-direction: column; } /* 予約カード（電話/Web）を縦並びに */
     .doctor-box { flex-direction: column; padding: 20px; gap: 20px; } /* 医師紹介を縦並びにし、写真が上にくるようにする */

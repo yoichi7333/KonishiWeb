@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ==================================================
-    // 1. スライドショー制御 (index.htmlのみで動作)
-    // ==================================================
+    // 1. スライドショー制御 (index.htmlのみ)
     const slides = document.querySelectorAll('.slide');
     if (slides.length > 0) {
         const dots = document.querySelectorAll('.dot');
@@ -18,9 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(nextSlide, 6000);
     }
 
-    // ==================================================
-    // 2. スクロールアニメーション (Intersection Observer)
-    // ==================================================
+    // 2. スクロールアニメーション
     const scrollElements = document.querySelectorAll('.js-scroll');
     if (scrollElements.length > 0) {
         const observer = new IntersectionObserver((entries) => {
@@ -43,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             menuToggle.classList.toggle('is-active');
             navMenu.classList.toggle('is-active');
             
-            // ★追加：メニューが開いている時は背面のスクロールを禁止する
+            // メニューが開いている時は背面のスクロールを禁止
             if (navMenu.classList.contains('is-active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -51,18 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // メニューのリンクをクリックしたら閉じる
         document.querySelectorAll('#nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('is-active');
                 navMenu.classList.remove('is-active');
-                document.body.style.overflow = ''; // ★追加：メニューを閉じたらスクロールを許可する
+                document.body.style.overflow = '';
             });
         });
     }
 
-    // ==================================================
     // 4. PC用：追従するスライディング・インジケーター
-    // ==================================================
     if (window.innerWidth > 768) {
         const nav = document.querySelector('nav ul');
         if (nav) {
@@ -105,91 +100,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================================================
-    // 5. ギャラリーページ用 Lightbox（自動生成）
+    // 5. 統合版 Lightbox (ギャラリー ＆ お知らせ共通)
     // ==================================================
-    const galleryLightbox = document.createElement('div');
-    galleryLightbox.classList.add('lightbox');
-    galleryLightbox.innerHTML = `
+    // 拡大画面の枠組み（HTML）を自動で作る
+    const lightbox = document.createElement('div');
+    lightbox.classList.add('lightbox');
+    lightbox.innerHTML = `
         <div class="lightbox-content">
             <span class="lightbox-close">&times;</span>
             <img src="" alt="" class="lightbox-img">
             <div class="lightbox-caption"></div>
         </div>
     `;
-    document.body.appendChild(galleryLightbox);
+    document.body.appendChild(lightbox);
 
-    const galleryLightboxImg = galleryLightbox.querySelector('.lightbox-img');
-    const galleryLightboxCaption = galleryLightbox.querySelector('.lightbox-caption');
-    const lightboxElements = document.querySelectorAll('.js-lightbox, .gallery-item');
+    const lightboxImg = lightbox.querySelector('.lightbox-img');
+    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+    // 「ギャラリーの画像」と「お知らせの拡大リンク」を両方探す
+    const lightboxElements = document.querySelectorAll('.gallery-item, .js-lightbox');
 
     lightboxElements.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            e.stopPropagation();
-
+            e.preventDefault(); // 通常のリンク移動をストップ
+            
             let imgSrc = '';
             let captionText = '';
 
+            // ギャラリーからクリックされた場合
             if (item.classList.contains('gallery-item')) {
                 const img = item.querySelector('.gallery-img');
                 const title = item.querySelector('.gallery-title');
                 imgSrc = img ? img.getAttribute('src') : '';
                 captionText = title ? title.textContent : '';
-            } else {
-                imgSrc = item.getAttribute('src');
+            } 
+            // お知らせ（js-lightbox）からクリックされた場合
+            else {
+                imgSrc = item.getAttribute('href');
                 captionText = item.getAttribute('data-caption') || '';
             }
-            
+
+            // 画像があれば拡大表示する
             if (imgSrc) {
-                galleryLightboxImg.src = imgSrc;
-                galleryLightboxCaption.textContent = captionText;
-                galleryLightbox.classList.add('is-active');
+                lightboxImg.src = imgSrc;
+                lightboxCaption.textContent = captionText;
+                lightbox.classList.add('is-active');
             }
         });
     });
 
-    galleryLightbox.addEventListener('click', (e) => {
-        if (e.target !== galleryLightboxImg) {
-            galleryLightbox.classList.remove('is-active');
-        }
-    });
-
-    // ==================================================
-    // 6. お知らせページ用 Lightbox（今回追加分）
-    // ==================================================
-    const triggers = document.querySelectorAll('.js-lightbox-trigger');
-    const customLightbox = document.getElementById('custom-lightbox');
-    
-    // customLightbox が存在するページ（お知らせページ）だけで動かす
-    if (customLightbox) {
-        const targetImg = document.getElementById('lightbox-target-img');
-        const closeBtn = customLightbox.querySelector('.lightbox-close');
-
-        // 画像をクリックした時
-        triggers.forEach(function(trigger) {
-            trigger.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                const imagePath = this.getAttribute('href'); 
-                if (targetImg) {
-                    targetImg.setAttribute('src', imagePath); 
+    // 拡大画面の背景や×ボタンをクリックしたら閉じる
+    lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg) {
+            lightbox.classList.remove('is-active');
+            // フワッと消えた後に画像を空にする
+            setTimeout(() => {
+                if (!lightbox.classList.contains('is-active')) {
+                    lightboxImg.src = '';
                 }
-                customLightbox.classList.add('is-active'); 
-            });
-        });
-
-        // 閉じるボタン（×）をクリックした時
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                customLightbox.classList.remove('is-active'); 
-            });
+            }, 400);
         }
+    });
 
-        // 背景の黒い部分をクリックした時
-        customLightbox.addEventListener('click', function(e) {
-            if (e.target === customLightbox) {
-                customLightbox.classList.remove('is-active');
-            }
-        });
-    }
-
-}); // ★すべてのプログラムをここで1回だけ閉じます
+});
