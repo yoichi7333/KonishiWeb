@@ -391,9 +391,10 @@ nav a.active::after {
     background: var(--bg-light); /* マウスを乗せたら背景色を付ける */
     transform: translateX(5px); /* 右に5pxスッと動かす */
 }
-.news-list li > a:first-child { 
+.news-list li > a:first-child,
+.news-list li > div.news-text-wrap {  /* ←この行を追加！ */
     flex-grow: 1; display: flex; align-items: center; 
-    min-width: 0; /* ★追加：スマホでの文字突き抜けバグを防止 */
+    min-width: 0; 
 }
 .news-list p { 
     flex: 1; margin-right: 20px; line-height: 1.6; 
@@ -412,7 +413,19 @@ nav a.active::after {
 .news-list li:hover time, .news-list li:hover p { color: var(--hover-accent); }
 .news-list li:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; } /* ホバー時、カテゴリ枠を塗りつぶし反転 */
 .news-img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; } /* お知らせ右側のサムネイル画像 */
-
+/* お知らせ内のテキストリンク（Instagramなど） */
+.instagram-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: bold;
+    text-decoration: underline;
+    font-family: var(--font-en);
+}
+.instagram-link:hover {
+    color: var(--hover-accent);
+    text-decoration: none;
+}
 /* ページ送り（ページネーション） */
 .pagination { 
     display: flex; justify-content: center; align-items: center; 
