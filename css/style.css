@@ -265,6 +265,22 @@ nav a.active::after {
     line-height: 1.6; 
 }
 
+/* 少しだけ注目させたい時のミントグリーン枠 */
+.point-text { 
+    font-size: 0.85rem; 
+    color: var(--text); /* 文字色は読みやすい基本のチャコールグレー */
+    background: var(--bg-light); /* すでに設定済みの「ほんのりミントがかった白」 */
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    border: 1px solid var(--accent); /* 基本のミントグリーンで枠を囲む */
+    line-height: 1.6; 
+}
+
+/* 文字を太字にしてさらに目立たせたい部分の装飾 */
+.point-text strong {
+    color: var(--accent);
+}
 /* ===================================================
    06. トップページ専用 (Hero Slider)
 =================================================== */
