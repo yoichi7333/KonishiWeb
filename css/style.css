@@ -485,9 +485,10 @@ nav a.active::after {
 
 /* --- 08-3. 治療フロー＆テーブル 内の修正 --- */
 .step-img {
-    width: 250px;           /* PCでの横幅 */
-    aspect-ratio: 4 / 3;    /* ★重要：縦横比を4:3に固定（高さは書かなくてOK） */
-    object-fit: cover;      /* 枠に合わせて画像を綺麗に切り抜く */
+    width: 300px;           /* ★PCでの横幅を少し広げる(250px->300px) */
+    aspect-ratio: 4 / 3;    /* 縦横比を4:3に固定 */
+    object-fit: contain;    /* ★重要：枠内に収める（トリミングしない・全体表示） */
+    background-color: var(--bg-light); /* ★画像が枠より小さい場合の余白用背景色 */
     border-radius: 8px;
     flex-shrink: 0;         /* 横幅が狭くなっても画像が潰されないように固定 */
 }
@@ -496,9 +497,10 @@ nav a.active::after {
 @media (max-width: 768px) {
     .step-img {
         width: 100%;        /* スマホでは横幅いっぱい */
-        aspect-ratio: 16 / 9; /* ★スマホでは少し横長に見せるとスッキリします */
+        aspect-ratio: 16 / 9; /* スマホは少し横長に見せるとスッキリします */
         height: auto;       /* 高さは比率に合わせて自動計算 */
         margin-top: 0;
+        object-fit: cover;  /* ★スマホではトリミング(cover)を維持 */
     }
 }
 
