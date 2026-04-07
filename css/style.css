@@ -247,12 +247,14 @@ nav a.active::after {
     font-weight: 500; /* ★少し太字にして読みやすさをアップ */
     letter-spacing: 0.05em; font-size: 0.95rem; 
 }
+
 .service-nav a:hover { 
     background: var(--gradient-accent); /* ホバー時はグラデーション背景に塗りつぶす */
     color: #fff; /* 文字は白に反転 */
     transform: translateY(-3px); box-shadow: 0 5px 15px rgba(144, 200, 190, 0.3); 
     border-color: transparent; /* 枠線を透明にして消す */
 }
+
 
 /* 注意書きテキスト（ピンクの枠） */
 .notice-text { 
@@ -494,17 +496,6 @@ nav a.active::after {
     flex-shrink: 0;         /* 横幅が狭くなっても画像が潰されないように固定 */
 }
 
-/* --- 10. スマホ対応 (768px以下) 内の修正 --- */
-@media (max-width: 768px) {
-    .step-img {
-        width: 100%;        /* スマホでは横幅いっぱい */
-        aspect-ratio: 16 / 9; /* スマホは少し横長に見せるとスッキリします */
-        height: auto;       /* 高さは比率に合わせて自動計算 */
-        margin-top: 0;
-        object-fit: cover;  /* ★スマホではトリミング(cover)を維持 */
-    }
-}
-
 /* 診療時間などの表（テーブル） */
 .schedule-wrap { overflow-x: auto; margin-bottom: 25px; } /* スマホなどで表がはみ出す時、表の中だけを横スクロールできるようにする */
 .medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.08); border-radius: 8px; overflow: hidden; } /* border-collapse: 枠線の隙間をなくす */
@@ -607,7 +598,7 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
 @media (max-width: 1150px) {
     .glass-header { padding: 15px 20px; } /* ヘッダーの余白を少し狭くする */
     .menu-toggle { display: block; } /* PCでは隠していたハンバーガーアイコンを表示する */
-    
+    .header-inner { gap: 20px; }
     nav {
         display: block !important; /* スマホ用メニューの設定を有効にする */
         position: fixed; top: 0; right: -100%; /* 初期状態は画面の「右外」に隠しておく（-100%） */
@@ -623,25 +614,10 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     nav a { font-size: 1.05rem; width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); } /* 文字を左寄せにし、下線を引く */
     .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
     .reserve-btn a { text-align: center; border-bottom: none; } /* 予約ボタンのデザイン調整 */
-    /* --- 1150px以下（メニューのスマホ化・iPad等のタブレット対応） --- */
-@media (max-width: 1150px) {
-    .glass-header { padding: 15px 20px; }
-    .menu-toggle { display: block; }
-    
-    /* ... (中略：navなどの既存のコード) ... */
-    
-    .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
-    .reserve-btn a { text-align: center; border-bottom: none; }
-
-    /* ▼▼▼ ここから追記 ▼▼▼ */
-    /* タブレット・小型PCサイズでの、すりガラスパネルの調整 */
     .hero-content { padding-left: 8%; } /* 左の余白を少しだけ減らす */
     .hero-content h2 { font-size: 2.2rem; } /* 大画面(2.8rem)とスマホ(1.4rem)の中間サイズに */
     .glass-panel { padding: 40px; } /* パネルの余白を60pxから40pxに縮小して圧迫感を軽減 */
-    /* ▲▲▲ ここまで追記 ▲▲▲ */
 }
-
-
 
 @media (max-width: 1024px) {
     .medical-grid { grid-template-columns: repeat(2, 1fr); } /* 3列だった診療カードを、画面が少し狭くなったら2列に変更する */
@@ -670,7 +646,9 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     .news-img { width: 100px; height: 70px; } /* スマホではお知らせのサムネイル画像を小さくする */
     
     .flow-step.with-img { flex-direction: column; gap: 15px; } /* 治療フローの図とテキストを縦並びに */
-    .flow-step.with-img { flex-direction: column; gap: 15px; } /* 治療フローの図とテキストを縦並びに */
+    
+    /* スマホ用ステップ画像調整 */
+    .step-img { width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 0; object-fit: cover; }
     
     /* ▼▼▼ ここから追加 ▼▼▼ */
     /* 治療ステップの見出しを、スマホ画面でも1列に綺麗に収めるための微調整 */
@@ -685,8 +663,6 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     /* ▲▲▲ ここまで追加 ▲▲▲ */
 
     .step-img-dummy { width: 100%; height: 160px; margin-top: 0; }
-    .step-img-dummy { width: 100%; height: 160px; margin-top: 0; }
-    .step-img { width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 0; }
     
     .reservation-cards { flex-direction: column; } /* 予約カード（電話/Web）を縦並びに */
     .doctor-box { flex-direction: column; padding: 20px; gap: 20px; } /* 医師紹介を縦並びにし、写真が上にくるようにする */
