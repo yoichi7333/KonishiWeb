@@ -243,7 +243,8 @@ nav a.active::after {
     border: 1px solid var(--accent); /* 1pxのミントグリーンの枠線 */
     color: var(--accent); 
     border-radius: 40px; 
-    font-family: var(--font-serif); /* フォントを明朝体に */
+    font-family: var(--font-ja); /* ★基本のフォント（ゴシック体）に統一 */
+    font-weight: 500; /* ★少し太字にして読みやすさをアップ */
     letter-spacing: 0.05em; font-size: 0.95rem; 
 }
 .service-nav a:hover { 
