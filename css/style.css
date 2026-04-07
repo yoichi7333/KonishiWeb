@@ -309,8 +309,10 @@ nav a.active::after {
     transform: scale(1.0); /* アクティブになったら、8秒かけて元の等倍(1.0)にゆっくり縮小（ズームアウト）していく */
 }
 .slide img { 
-    object-fit: cover; /* 縦横比を崩さず、画面全体を覆うように画像を綺麗に切り抜く */
-    filter: brightness(0.95); /* 画像の明るさを95%に少し落とし、上に乗る白文字を読みやすくする */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    filter: brightness(0.95); 
 }
 
 /* スライド上に乗るガラス風パネル（キャッチコピー） */
@@ -618,7 +620,25 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     nav a { font-size: 1.05rem; width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); } /* 文字を左寄せにし、下線を引く */
     .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
     .reserve-btn a { text-align: center; border-bottom: none; } /* 予約ボタンのデザイン調整 */
+    /* --- 1150px以下（メニューのスマホ化・iPad等のタブレット対応） --- */
+@media (max-width: 1150px) {
+    .glass-header { padding: 15px 20px; }
+    .menu-toggle { display: block; }
+    
+    /* ... (中略：navなどの既存のコード) ... */
+    
+    .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
+    .reserve-btn a { text-align: center; border-bottom: none; }
+
+    /* ▼▼▼ ここから追記 ▼▼▼ */
+    /* タブレット・小型PCサイズでの、すりガラスパネルの調整 */
+    .hero-content { padding-left: 8%; } /* 左の余白を少しだけ減らす */
+    .hero-content h2 { font-size: 2.2rem; } /* 大画面(2.8rem)とスマホ(1.4rem)の中間サイズに */
+    .glass-panel { padding: 40px; } /* パネルの余白を60pxから40pxに縮小して圧迫感を軽減 */
+    /* ▲▲▲ ここまで追記 ▲▲▲ */
 }
+
+
 
 @media (max-width: 1024px) {
     .medical-grid { grid-template-columns: repeat(2, 1fr); } /* 3列だった診療カードを、画面が少し狭くなったら2列に変更する */
@@ -626,9 +646,13 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
 
 /* --- 768px以下（完全スマホ表示用レイアウト変更） --- */
 @media (max-width: 768px) {
-    .hero-content { padding-left: 5%; }
-    .hero-content h2 { font-size: 1.8rem; } /* スマホではキャッチコピーの文字サイズを小さくする */
-    .glass-panel { padding: 30px; }
+    .hero-content { padding: 0 5%; } /* 左右に5%の余白を入れて、画面端にピタッとくっつくのを防ぐ */
+    .hero-content h2 { font-size: 1.4rem; margin-bottom: 8px; line-height: 1.6; } /* 見出しをスマホの画面幅に合わせたサイズに縮小 */
+    .glass-panel { 
+        padding: 20px 25px; /* 上下20px、左右25pxに余白を削ってスッキリさせる */
+        border-left-width: 4px; /* 左側のミントの線も少し細くして圧迫感を減らす */
+    }
+    .glass-panel p { font-size: 0.85rem; } /* 英語のサブタイトルも少し小さくする */
     .container { padding: 0 20px; } /* スマホでは全体の左右余白を20pxに狭くする */
     .content-section, .gyne-section { padding: 30px 20px; scroll-margin-top: 80px; }
     
