@@ -383,7 +383,7 @@ nav a.active::after {
     border-radius: 12px; /* 角丸12px */
     box-shadow: 0 4px 25px rgba(144, 200, 190, 0.06); 
     scroll-margin-top: 120px; /* ページ内リンクで飛んできた時、固定ヘッダーの下に隠れないよう、上に120pxの見えないバリア（スクロール位置調整）を張る */
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid var(--accent); /* ★枠線をミントグリーンに変更 */
 }
 /* 枠組みの中の見出し（h3） */
 .content-section h3, .gyne-section h3 { 
@@ -400,10 +400,14 @@ nav a.active::after {
 /* --- 08-1. お知らせリスト --- */
 .news-list { list-style: none; border-top: 1px solid var(--line); }
 .news-list li {
-    display: flex; align-items: flex-start; /* 横並びにし、要素の「上端」で揃える */
+    display: flex; align-items: flex-start; 
     justify-content: space-between; gap: 20px;
-    padding: 25px 15px; border-bottom: 1px solid var(--line); transition: all 0.3s ease;
+    padding: 25px 15px; 
+    border: 1px solid var(--accent); /* ★下線をやめ、ボックス全体をミントで囲む */
+    margin-bottom: 15px; /* ★ボックス同士の間に余白を設ける */
+    transition: all 0.3s ease;
     border-radius: 8px; scroll-margin-top: 100px;
+    background: rgba(255,255,255,0.5); /* ★背景を少し白くして枠を目立たせる */
 }
 .news-list li:hover { 
     background: var(--bg-light); /* マウスを乗せたら背景色を付ける */
@@ -525,13 +529,13 @@ nav a.active::after {
 /* --- 08-4. 医師・スタッフ・施設・ギャラリー --- */
 /* ご予約方法カード（電話とWeb） */
 .reservation-cards { display: flex; gap: 30px; }
-.res-card { flex: 1; background: rgba(255,255,255,0.9); border: 1px solid var(--line); padding: 40px 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); }
+.res-card { flex: 1; background: rgba(255,255,255,0.9); border: 1px solid var(--accent); padding: 40px 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); }
 .res-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(144, 200, 190, 0.2); background: #fff; border-color: transparent; }
 .res-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; }
 .res-card .tel-number { font-size: 2.2rem; font-weight: 500; margin: 15px 0; letter-spacing: 0.05em; }
 
 /* 医師紹介ボックス */
-.doctor-box { display: flex; gap: 40px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.5); }
+.doctor-box { display: flex; gap: 40px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); margin-bottom: 30px; border: 1px solid var(--accent); }
 .doc-img { width: 220px; height: 280px; background: #eee; border-radius: 8px; object-fit: cover; } /* 医師の写真は固定サイズで綺麗にトリミング */
 .doc-info { flex: 1; }
 .doc-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; }
@@ -539,11 +543,11 @@ nav a.active::after {
 
 /* スタッフ紹介（複数ボックス） */
 .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; } /* 画面幅に合わせて自動で列数を調整するGrid。最小幅は280px */
-.staff-box { padding: 30px; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); border: 1px solid rgba(255,255,255,0.5); }
+.staff-box { padding: 30px; background: rgba(255,255,255,0.9); border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.05); border: 1px solid var(--accent); }
 .staff-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
 
 /* 施設基準・アコーディオン（クリックして開閉するメニュー） */
-.facility-details { margin-top: 40px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.9); }
+.facility-details { margin-top: 40px; border: 1px solid var(--accent); border-radius: 12px; background: rgba(255,255,255,0.9); }
 .facility-summary { padding: 20px 30px; cursor: pointer; font-weight: bold; color: var(--accent); font-size: 1.1rem; list-style: none; }
 .facility-summary::-webkit-details-marker { display: none; } /* ブラウザ（特にSafari）標準の黒い三角マークを非表示にする */
 .facility-summary::marker { display: none; } /* その他のブラウザ用の三角マーク非表示 */
@@ -571,9 +575,9 @@ nav a.active::after {
 
 /* --- 08-5. アクセスマップ --- */
 .access-wrapper { display: flex; flex-direction: column; gap: 50px; }
-.map-container { width: 100%; height: 450px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
+.map-container { width: 100%; height: 450px; border-radius: 12px; overflow: hidden; border: 1px solid var(--accent); box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); }
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; } /* 情報枠を2列で表示 */
-.info-box { background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); border: 1px solid rgba(255,255,255,0.5); }
+.info-box { background: rgba(255,255,255,0.9); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); border: 1px solid var(--accent); }
 .info-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
 
 /* ===================================================
