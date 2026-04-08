@@ -177,22 +177,18 @@ nav a.active::after {
 @media (min-width: 1150px) {
     /* 画面幅が1150px以上（PCサイズ）の時だけ適用されるルール */
     .nav-indicator {
-        position: absolute; /* 親要素（nav ul）を基準に自由な位置に配置 */
-        bottom: -5px; left: 0; /* 下から-5px（はみ出す）、左から0の位置 */
-        height: calc(100% + 10px); /* 高さはメニューの100%に10px足したサイズ */
-        width: 0; /* 最初は幅ゼロ（見えない） */
-        background: linear-gradient(90deg, rgba(235,246,243,0.8) 0%, rgba(255,255,255,0) 100%); /* 背景グラデーション */
-        border-bottom: 2px solid var(--accent); /* 下に2pxのミントグリーンの線 */
-        border-radius: 4px; /* 角を4pxだけ少し丸くする */
-        /* アニメーション：すべての変化を0.4秒かけて、特殊な動き(cubic-bezier)で行う */
+        position: absolute; 
+        bottom: -5px; left: 0; 
+        height: calc(100% + 10px); 
+        width: 0; 
+        background: transparent; /* ★背景のグラデーションを透明にして消す */
+        border-bottom: 2px solid var(--accent); /* ★下のミントグリーンの線だけを残す */
+        border-radius: 4px; 
         transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        opacity: 0; /* 最初は透明（見えない） */
-        pointer-events: none; /* マウスのクリック等に反応させない（邪魔にならないように） */
-        z-index: -1; /* メニューの文字より後ろ（下）に表示する */
+        opacity: 0; 
+        pointer-events: none; 
+        z-index: -1; 
     }
-    nav a:hover { transform: none !important; } /* インジケーターが動くので、文字自体の浮き上がりはキャンセル */
-    nav a.active::after { display: none !important; } /* PCでは丸いドットも隠す */
-}
 
 /* ===================================================
    05. ボタン・共通パーツ (Buttons & UI)
