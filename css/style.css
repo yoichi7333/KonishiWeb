@@ -189,6 +189,7 @@ nav a.active::after {
         pointer-events: none; 
         z-index: -1; 
     }
+}
 
 /* ===================================================
    05. ボタン・共通パーツ (Buttons & UI)
