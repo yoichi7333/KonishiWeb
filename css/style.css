@@ -323,14 +323,20 @@ nav a.active::after {
     z-index: 10; /* 画像よりずっと上に表示 */
 }
 .glass-panel { 
-    padding: 60px; 
-    background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px); /* 半透明白＋すりガラス15px */
-    border-left: 6px solid var(--accent); /* 左側に太さ6pxのミントグリーンのアクセント線 */
-    box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); /* ぼんやりと広い範囲の影 */
+    padding: 40px 50px; /* ★上下40px、左右50pxに余白をギュッと縮小（元は60px） */
+    background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px);
+    border-left: 6px solid var(--accent); 
+    box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); 
 }
 .hero-content h2 { 
-    font-size: 2.8rem; line-height: 1.5; margin-bottom: 15px; 
-    color: var(--text); font-weight: 250; /* 文字の太さをかなり細めに設定して洗練された印象に */
+    font-size: 2.4rem; /* ★文字サイズを縮小（元は2.8rem） */
+    line-height: 1.4; /* ★行間を少し詰めて間延びを防ぐ */
+    margin-bottom: 10px; /* ★下の余白を縮小 */
+    color: var(--text); font-weight: 250; 
+}
+.glass-panel p {
+    font-size: 1rem; /* ★英語サブタイトルも大きすぎないよう指定 */
+    margin: 0;
 }
 
 /* スライダー下部の丸い点（ドット） */
@@ -645,9 +651,10 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     nav a { font-size: 1.05rem; width: 100%; text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); } /* 文字を左寄せにし、下線を引く */
     .reserve-btn { width: 100%; margin-top: 15px; padding-bottom: 20px; }
     .reserve-btn a { text-align: center; border-bottom: none; } /* 予約ボタンのデザイン調整 */
-    .hero-content { padding-left: 8%; } /* 左の余白を少しだけ減らす */
-    .hero-content h2 { font-size: 2.2rem; } /* 大画面(2.8rem)とスマホ(1.4rem)の中間サイズに */
-    .glass-panel { padding: 40px; } /* パネルの余白を60pxから40pxに縮小して圧迫感を軽減 */
+    /* タブレット・小型PCサイズでの、すりガラスパネルの調整 */
+    .hero-content { padding-left: 8%; } 
+    .hero-content h2 { font-size: 2.0rem; } /* ★さらに少し小さく */
+    .glass-panel { padding: 30px 40px; } /* ★余白もさらにスッキリと */
 }
 
 @media (max-width: 1024px) {
@@ -656,13 +663,32 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
 
 /* --- 768px以下（完全スマホ表示用レイアウト変更） --- */
 @media (max-width: 768px) {
-    .hero-content { padding: 0 5%; } /* 左右に5%の余白を入れて、画面端にピタッとくっつくのを防ぐ */
-    .hero-content h2 { font-size: 1.4rem; margin-bottom: 8px; line-height: 1.6; } /* 見出しをスマホの画面幅に合わせたサイズに縮小 */
-    .glass-panel { 
-        padding: 20px 25px; /* 上下20px、左右25pxに余白を削ってスッキリさせる */
-        border-left-width: 4px; /* 左側のミントの線も少し細くして圧迫感を減らす */
+    /* ▼ 1. メイン画像エリアの「高さ」をスマホに最適化 ▼ */
+    .hero {
+        height: 85vh; /* スマホ画面の85%の高さにする（縦長になりすぎて写真が極端に切れるのを防ぐ） */
+        min-height: 500px;
     }
-    .glass-panel p { font-size: 0.85rem; } /* 英語のサブタイトルも少し小さくする */
+
+    /* ▼ 2. 写真の表示方法（余白を消し、良い位置で切り取る） ▼ */
+    .slide img {
+        object-fit: cover; /* 上下の余白を完全に消し、画面いっぱいに敷き詰める */
+        object-position: center 30%; /* ★重要: 写真の中心より「やや上」を基準にする（人物の顔が切れにくくなる） */
+        background-color: transparent;
+    }
+
+    /* ▼ 3. すりガラスパネルの配置（写真の下半分に美しく被せる） ▼ */
+    .hero-content {
+        padding: 0 5% 80px 5%; /* 下に80pxの余白を作り、スライダーのドット（点）と被らないようにする */
+        align-items: flex-end; /* パネルを写真の下寄りの位置に配置する */
+    }
+    .glass-panel {
+        padding: 25px;
+        width: 100%;
+        border-left-width: 4px;
+        background: rgba(255, 255, 255, 0.75); /* 写真と重なっても文字が読みやすいよう、白の不透明度を少し上げる */
+    }
+    .hero-content h2 { font-size: 1.4rem; margin-bottom: 8px; line-height: 1.6; }
+    .glass-panel p { font-size: 0.85rem; }
     .container { padding: 0 20px; } /* スマホでは全体の左右余白を20pxに狭くする */
     .content-section, .gyne-section { padding: 30px 20px; scroll-margin-top: 80px; }
     
@@ -677,9 +703,9 @@ footer { background: linear-gradient(to bottom, transparent, #F0F8F6); padding: 
     .news-img { width: 100px; height: 70px; } /* スマホではお知らせのサムネイル画像を小さくする */
     
     .flow-step.with-img { flex-direction: column; gap: 15px; } /* 治療フローの図とテキストを縦並びに */
-    
+  
     /* スマホ用ステップ画像調整 */
-    .step-img { width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 0; object-fit: cover; }
+    .step-img { width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 0; object-fit: contain; }
     
     /* ▼▼▼ ここから追加 ▼▼▼ */
     /* 治療ステップの見出しを、スマホ画面でも1列に綺麗に収めるための微調整 */
