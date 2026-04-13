@@ -85,6 +85,12 @@ a {
     transition: 0.3s; /* マウスを乗せた時などの変化を、0.3秒かけて滑らかに行う */
 }
 
+em {
+    color: var(--hover-accent); /* 濃いミント色にする */
+    font-style: normal; /* デフォルトの斜体は抑える */
+    font-weight: 600; /* 少しだけ強調する */
+}
+
 /* 英語装飾テキスト用クラス（クラス = .から始まる特定の部品への命令） */
 .en, .en-title, .more, .arrow-link, time, .card-num { 
     font-family: var(--font-en); /* 英語用フォントを適用 */
