@@ -1,5 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 0. ヘッダーを動的に読み込む
+    fetch('./header.html')
+        .then(response => response.text())
+        .then(html => {
+            const headerPlaceholder = document.querySelector('header');
+            if (headerPlaceholder) {
+                headerPlaceholder.outerHTML = html;
+                // ヘッダー読み込み後、メニュー制御機能を再初期化
+                initMenuToggle();
+            }
+        })
+        .catch(error => console.error('ヘッダー読み込みエラー:', error));
+
+    // 0-2. フッターを動的に読み込む
+    fetch('./footer.html')
+        .then(response => response.text())
+        .then(html => {
+            const footerPlaceholder = document.querySelector('footer');
+            if (footerPlaceholder) {
+                footerPlaceholder.outerHTML = html;
+            }
+        })
+        .catch(error => console.error('フッター読み込みエラー:', error));
+
     // 1. スライドショー制御 (index.htmlのみ)
     const slides = document.querySelectorAll('.slide');
     if (slides.length > 0) {
@@ -31,31 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. ハンバーガーメニューの開閉制御
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('#nav-menu');
-
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('is-active');
-            navMenu.classList.toggle('is-active');
-            
-            // メニューが開いている時は背面のスクロールを禁止
-            if (navMenu.classList.contains('is-active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
-
-        // メニューのリンクをクリックしたら閉じる
-        document.querySelectorAll('#nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('is-active');
-                navMenu.classList.remove('is-active');
-                document.body.style.overflow = '';
-            });
-        });
-    }
+    initMenuToggle();
 
     // 4. PC用：追従するスライディング・インジケーター
     if (window.innerWidth > 768) {
@@ -163,3 +163,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+// ハンバーガーメニューの初期化関数（ヘッダー読み込み後に実行）
+function initMenuToggle() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('#nav-menu');
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('is-active');
+            navMenu.classList.toggle('is-active');
+            
+            // メニューが開いている時は背面のスクロールを禁止
+            if (navMenu.classList.contains('is-active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // メニューのリンクをクリックしたら閉じる
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('is-active');
+                navMenu.classList.remove('is-active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // 現在のページに対応するメニューリンクにアクティブクラスを付与
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                link.classList.add('active');
+            }
+        });
+    }
+}
