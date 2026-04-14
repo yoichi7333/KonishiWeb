@@ -475,7 +475,7 @@ nav a.active::after {
     text-decoration: none;
 }
 
-/* --- 08-2. 診療案内カード (01〜06) --- */
+/* --- 08-2. 診療案内カード --- */
 .medical-grid { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
@@ -488,24 +488,25 @@ nav a.active::after {
     border-radius: 12px; 
     border: 1px solid rgba(255,255,255,0.5) !important; 
     box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); 
-    transition: all 0.4s ease; /* ★追加: 色の変化をフワッと滑らかにする */
+    transition: all 0.4s ease; /* 色の変化をフワッと滑らかにする */
 }
-.card-num { 
-    color: var(--accent); font-size: 1.2rem; opacity: 0.4; margin-bottom: 20px; display: block; 
-    transition: all 0.4s ease; /* ★追加: 数字の変化も滑らかにする */
+.medical-card .card-content h4 {
+    color: var(--accent); 
+    font-size: 1.35rem; 
+    font-weight: 500; 
+    margin-bottom: 18px;
 }
 
 /* ▼ ホバー時（マウスを乗せた時）の反転エフェクト ▼ */
 .medical-card:hover { 
     transform: translateY(-5px); /* 少し上に動く */
     box-shadow: 0 15px 35px rgba(144, 200, 190, 0.3); /* 影をミント色で少し濃く */
-    background: var(--gradient-accent); /* ★背景をミントのグラデーションに反転 */
-    color: #fff; /* ★全体の文字色を白に反転 */
+    background: var(--gradient-accent); /* 背景をミントのグラデーションに反転 */
+    color: #fff; /* 全体の文字色を白に反転 */
     border-color: transparent !important; /* 枠線を透明にして消す */
 }
-.medical-card:hover .card-num {
-    color: #fff; /* ★左上の数字（01, 02...）も白に反転 */
-    opacity: 0.9; /* 少しだけ透明度を上げてクッキリ見せる */
+.medical-card:hover .card-content h4 {
+    color: #fff; 
 }
 
 /* --- 08-3. 治療フロー＆テーブル --- */
