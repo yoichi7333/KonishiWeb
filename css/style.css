@@ -458,8 +458,16 @@ nav a.active::after {
     white-space: nowrap;
     flex-shrink: 0; 
 }
-.news-list li:hover time, .news-list li:hover p { color: var(--hover-accent); }
-.news-list li:hover .cat { border-color: var(--hover-accent); background: var(--accent); color: #fff; } /* ホバー時、カテゴリ枠を塗りつぶし反転 */
+/* ▼ リンク（aタグ）になっている部分にマウスが乗った時だけ色を変える ▼ */
+.news-list a:hover time, 
+.news-list a:hover p { 
+    color: var(--hover-accent); 
+}
+.news-list a:hover .cat { 
+    border-color: var(--hover-accent); 
+    background: var(--accent); 
+    color: #fff; 
+} /* ホバー時、カテゴリ枠を塗りつぶし反転 */
 .news-img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; } /* お知らせ右側のサムネイル画像 */
 /* お知らせ内のテキストリンク（Instagramなど） */
 .instagram-link {
