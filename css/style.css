@@ -207,7 +207,7 @@ nav a.active::after {
     display: inline-block; /* 横並びになりつつ、幅や高さも指定できるブロックにする */
     background: var(--accent); /* 背景色：ミントグリーン */
     color: #ffffff; /* 文字色：白（HEX値） */
-    padding: 12px 25px; /* 内側余白：上下12px、左右25px */
+    padding: 10px 20px; /* 内側余白：上下10px、左右20px（詰めて統一） */
     border-radius: 40px; /* 角を40px丸める（カプセル型のボタンになる） */
     font-size: 0.85rem; 
     font-weight: bold; /* 太字 */
@@ -224,11 +224,11 @@ nav a.active::after {
 /* ページ下部などに置く共通の大きなボタン */
 .btn-web { 
     display: inline-block; 
-    padding: 15px 40px; 
+    padding: 12px 35px; /* 詰めて統一 */
     background: var(--gradient-accent); /* 背景をミントのグラデーションに */
     color: #fff; 
     border-radius: 50px; 
-    margin-top: 20px; 
+    margin-top: 15px; /* 詰めて統一 */
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(144, 200, 190, 0.3); 
 }
@@ -240,10 +240,10 @@ nav a.active::after {
 /* ページ内リンクボタン（治療内容など、白背景にミント枠線のボタン） */
 .service-nav { 
     display: flex; flex-wrap: wrap; /* 横並びにし、画面端で折り返す（wrap） */
-    justify-content: center; gap: 15px; margin-bottom: 80px; 
+    justify-content: center; gap: 12px; margin-bottom: 60px; /* 詰めて統一 */
 }
 .service-nav a { 
-    display: block; padding: 15px 30px; 
+    display: block; padding: 12px 25px; /* 詰めて統一 */
     background: rgba(255,255,255,0.8); /* 白の半透明背景 */
     border: 1px solid var(--accent); /* 1pxのミントグリーンの枠線 */
     color: var(--accent); 
@@ -293,7 +293,7 @@ nav a.active::after {
    06. トップページ専用 (Hero Slider)
 =================================================== */
 .hero { 
-    height: 100vh; /* 高さを画面（Viewport Height）の100%（ぴったりフルスクリーン）にする */
+    height: 80vh; /* 高さを画面（Viewport Height）の80%に調整 */
     position: relative; /* 子要素（スライドや文字）の絶対配置の基準にする */
     overflow: hidden; /* 枠からはみ出た画像は見えなくする */
 }
@@ -331,7 +331,7 @@ nav a.active::after {
     z-index: 10; /* 画像よりずっと上に表示 */
 }
 .glass-panel { 
-    padding: 25px 35px; /* ★余白をさらに削ってスリムに */
+    padding: 20px 30px; /* 詰めて統一 */
     background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px);
     border-left: 6px solid var(--accent); 
     box-shadow: 0 10px 40px rgba(144, 200, 190, 0.15); 
@@ -368,16 +368,16 @@ nav a.active::after {
 /* ===================================================
    07. コンテンツ・セクション共通 (Sections)
 =================================================== */
-.section { padding: 100px 0; } /* 各大きな区画（セクション）の上下に100pxの余白 */
+.section { padding: 60px 0; } /* 各大きな区画（セクション）の上下に60pxの余白（詰めて統一） */
 .container { 
     max-width: 1100px; /* 中身の最大幅を1100pxに制限する（大画面PCでも広がりすぎないように） */
     margin: 0 auto; /* 上下はゼロ、左右の余白を自動(auto)にして、要素を画面の中央に配置する */
-    padding: 0 40px; /* 画面が狭くなった時用に、左右に最低限40pxの余白を確保 */
+    padding: 0 30px; /* 画面が狭くなった時用に、左右に最低限30pxの余白を確保（詰めて統一） */
 }
 
 /* トップページのセクション間隔の微調整 */
-.about-section { padding-bottom: 60px; } /* Philosophyのすぐ下の余白を減らす */
-.news-section { padding-top: 60px; }     /* Newsのすぐ上の余白を減らす */
+.about-section { padding-bottom: 40px; } /* Philosophyのすぐ下の余白を減らす */
+.news-section { padding-top: 40px; }     /* Newsのすぐ上の余白を減らす */
 
 /* 下層ページの上部タイトル（ページヘッダー） */
 .page-header { padding: 180px 0 60px; background: transparent; text-align: center; } /* ヘッダーメニューに隠れないよう、上に180pxの余白を大きく取る */
@@ -479,22 +479,32 @@ nav a.active::after {
 .medical-grid { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
-    gap: 30px; 
+    gap: 25px; /* 詰めて統一 */
 }
 .medical-card { 
-    display: block; 
+    display: flex; /* Flexboxで高さを揃える */
+    flex-direction: column; /* 縦方向に並べる */
     background: rgba(255,255,255,0.9); 
-    padding: 40px; 
+    padding: 30px; /* 詰めて統一 */
     border-radius: 12px; 
     border: 1px solid rgba(255,255,255,0.5) !important; 
     box-shadow: 0 4px 20px rgba(144, 200, 190, 0.08); 
-    transition: all 0.4s ease; /* 色の変化をフワッと滑らかにする */
+    transition: all 0.4s ease; /* 色の変化をフワッと滑らかにする */    min-height: 180px; /* ボックスの最小高さを統一 */
+}
+.medical-card .card-content {
+    flex: 1; /* コンテンツを伸ばして高さを揃える */
+    display: flex;
+    flex-direction: column;
+}
+.medical-card .card-content p {
+    flex: 1; /* p要素を伸ばして高さを揃える */
 }
 .medical-card .card-content h4 {
     color: var(--accent); 
     font-size: 1.35rem; 
     font-weight: 500; 
-    margin-bottom: 18px;
+    margin: 0; /* 外側余白をゼロに */
+    padding-bottom: 18px; /* 内側下余白で統一 */
 }
 
 /* ▼ ホバー時（マウスを乗せた時）の反転エフェクト ▼ */
@@ -512,7 +522,7 @@ nav a.active::after {
 /* --- 08-3. 治療フロー＆テーブル --- */
 /* 治療ステップ（ステップ1、ステップ2...などの枠） */
 .flow-step { 
-    background: rgba(255,255,255,0.8); border-radius: 8px; padding: 30px; margin-bottom: 20px; 
+    background: rgba(255,255,255,0.8); border-radius: 8px; padding: 25px; margin-bottom: 15px; /* 詰めて統一 */
     border-left: 5px solid var(--accent); /* 左側に太いミント色のライン */
     box-shadow: 0 4px 15px rgba(144, 200, 190, 0.05); 
 }
@@ -526,7 +536,7 @@ nav a.active::after {
     border-radius: 20px; font-size: 0.8rem; margin-right: 15px; 
     flex-shrink: 0; /* ★追加: 画面が狭くてもSTEPバッジが潰れないようにする */
 }
-.flow-step.with-img { display: flex; gap: 30px; align-items: flex-start; }
+.flow-step.with-img { display: flex; gap: 25px; align-items: flex-start; } /* 詰めて統一 */
 .flow-step.with-img .step-text { flex: 1; }
 /* 画像を入れるためのダミー枠（破線） */
 .step-img-dummy { width: 250px; height: 180px; background-color: var(--bg-light); border: 2px dashed var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; }
@@ -543,9 +553,9 @@ nav a.active::after {
 }
 
 /* 診療時間などの表（テーブル） */
-.schedule-wrap { overflow-x: auto; margin-bottom: 25px; } /* スマホなどで表がはみ出す時、表の中だけを横スクロールできるようにする */
+.schedule-wrap { overflow-x: auto; margin-bottom: 20px; } /* 詰めて統一 */
 .medical-table { width: 100%; min-width: 600px; border-collapse: collapse; background: #fff; box-shadow: 0 4px 15px rgba(144, 200, 190, 0.08); border-radius: 8px; overflow: hidden; } /* border-collapse: 枠線の隙間をなくす */
-.medical-table th, .medical-table td { padding: 15px 10px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; }
+.medical-table th, .medical-table td { padding: 12px 8px; text-align: center; border: 1px solid var(--line); font-size: 0.95rem; } /* 詰めて統一 */
 .medical-table th { background: rgba(235, 246, 243, 0.6); color: var(--accent); font-weight: 500; } /* 見出しセル（th）の色 */
 .medical-table td.closed { color: #aaa; background-color: #fcfcfc; } /* 休診日のセル（グレーアウト） */
 
