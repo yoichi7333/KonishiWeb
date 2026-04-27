@@ -403,7 +403,10 @@ nav a.active::after {
 .content-section h3, .gyne-section h3 { 
     font-size: 1.6rem; color: var(--accent); 
     border-bottom: 1px solid var(--line); /* 下線 */
-    padding-bottom: 15px; margin-bottom: 30px; 
+    padding-bottom: 15px; margin-bottom: 30px; margin-top: 50px;
+}
+.content-section h3:first-of-type, .gyne-section h3:first-of-type {
+    margin-top: 0;
 }
 .content-section p, .gyne-section p { margin-bottom: 20px; line-height: 1.8; font-size: 0.95rem; }
 
