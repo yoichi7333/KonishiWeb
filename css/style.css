@@ -119,7 +119,53 @@ nav a.active::after { content: ''; display: block; width: 6px; height: 6px; back
         transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); opacity: 0; pointer-events: none; z-index: -1; 
     }
 }
+/* --- ドロップダウンメニュー（サブメニュー） --- */
+nav ul li.has-child {
+    position: relative; /* サブメニューの基準位置にする */
+}
+nav ul li.has-child .submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(15px); /* 最初は少し下にずらしておく */
+    background: rgba(255, 255, 255, 0.95); /* 白の半透明 */
+    backdrop-filter: blur(10px); /* すりガラス効果 */
+    border: 1px solid var(--accent); /* ミントの枠線 */
+    border-radius: var(--radius);
+    padding: 10px 0;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: var(--shadow);
+    opacity: 0; /* 最初は透明 */
+    visibility: hidden; /* 最初はクリックできないように隠す */
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
+/* ホバーした時にサブメニューを表示 */
+nav ul li.has-child:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* 定位置にフワッと上がる */
+}
+
+/* サブメニュー内のリンクデザイン */
+nav ul li.has-child .submenu li { width: 100%; }
+nav ul li.has-child .submenu a {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    color: var(--text);
+    text-align: left;
+    display: block;
+}
+nav ul li.has-child .submenu a:hover {
+    color: var(--accent);
+    background: rgba(144, 200, 190, 0.1); /* ホバー時に薄いミント背景色をつける */
+    transform: none; /* メインメニューのように浮き上がる動きは消す */
+}
+nav ul li.has-child .submenu a .en { display: none; } /* サブメニューでは英語を消す */
+nav ul li.has-child .submenu a::after { display: none !important; } /* アクティブ時のドットを消す */
 /* ===================================================
    05. ボタン・共通パーツ
 =================================================== */
@@ -336,6 +382,45 @@ footer small { background-color: var(--hover-accent); color: #fff; display: bloc
     .hero-content { padding-left: 8%; } 
     .hero-content h2 { font-size: 1.7rem; }
     .glass-panel { padding: 20px 30px; }
+
+    /* --- スマホ時のサブメニュー表示 --- */
+    nav ul li.has-child .submenu {
+        position: static !important;
+        transform: none !important; /* ★常に移動を無効化 */
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 0;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+        padding-left: 15px; 
+        margin-top: 5px;
+        border-left: 2px solid var(--line); 
+        margin-left: 10px;
+    }
+
+    /* ▼ 追加：タップした瞬間にPC用のズレが発動するのを完全に防ぐ ▼ */
+    nav ul li.has-child:hover .submenu {
+        transform: none !important;
+    }
+
+    nav ul li.has-child .submenu a {
+        padding: 10px 10px; /* ★左右に10pxの余白を設けて、左の線と文字がくっつくのを防ぐ */
+        border-bottom: 1px dashed var(--line); 
+        font-size: 0.9rem;
+    }
+    
+    /* ▼ 追加：スマホではタップ時に背景色を変えず、文字色だけをミントにする ▼ */
+    nav ul li.has-child .submenu a:hover {
+        background: transparent;
+        color: var(--hover-accent);
+    }
+
+    nav ul li.has-child .submenu li:last-child a {
+        border-bottom: none; 
+    }
 }
 
 @media (max-width: 1024px) {
